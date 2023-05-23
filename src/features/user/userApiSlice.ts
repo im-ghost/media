@@ -4,14 +4,14 @@ import type { USER } from "../../app/types";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    loginUser: builder.mutation<USER, { data: USER }>({
+    loginUser: builder.mutation<USER, USER >({
       query: (data) => ({
         url: "/users/login",
         method: "POST",
         body: data,
       }),
     }),
-    registerUser: builder.mutation<USER, { data: USER }>({
+    registerUser: builder.mutation<USER, USER >({
       query: (data) => ({
         url: "/users",
         method: "POST",
@@ -25,13 +25,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    deleteUser: builder.mutation<void, {userId:string}>({
+    deleteUser: builder.mutation<void, string>({
       query: (userId) => ({
         url: `/users/user/${userId}`,
         method: "DELETE",
       }),
     }),
-    getUserById: builder.query<USER,{userId:string}>({
+    getUserById: builder.query<USER,string>({
       query: (userId) => ({
         url: `/users/user/${userId}`,
         method: "GET",
