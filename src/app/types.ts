@@ -5,12 +5,13 @@ type USER = {
   name: String,
   phone:  String,
   email: String
-  chats: [String],
+  chats?: [String],
   bio: String,
-  followers: [String],
-  following: [String],
-  posts: [String],
-  password: String
+  followers?: [String],
+  following?: [String],
+  posts?: [String],
+  password: String,
+  password2?: String,
 }
 
 // Users ,an array of user type
