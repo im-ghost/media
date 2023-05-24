@@ -20,16 +20,18 @@ const Profile:FC = ():JSX.Element => {
   const dispatch = useAppDispatch();
   const [user,setUser] = useState<USER | null>(null)
   const userFromStore = useAppSelector(state=>state.user.userInfo)
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     if(userFromStore){
     setUser(userFromStore);
+    console.log(userFromStore)
+    console.log(user)
     }else{
       navigate("/login")
     }
   },[userFromStore])
    return(
     <div>
-     <Typography variant="h1">Profile page for {user && user.name}</Typography>
+     <Typography variant="h1">Profile page for {user.name} {user && user.name}</Typography>
     </div>
     )
 }
