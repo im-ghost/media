@@ -4,13 +4,38 @@ import {
   Box,
   Button
 } from "@mui/material"
-import { useState,useReducer,useEffect,FC,Reducer } from "react"
-import { useAppSelector,useAppDispatch } from "../app/store"
-import { useRegisterUserMutation } from "../features/user/userApiSlice";
-import { setUser as SetUser,selectUser } from "../features/user/userSlice";
-import { useNavigate} from "react-router-dom"
-import { toast } from "react-toastify";
+import {
+  useState,
+  useReducer,
+  useEffect,
+  FC,
+  Reducer,
+  ChangeEvent
+  } from "react"
+import { 
+  useAppSelector,
+  useAppDispatch 
+  
+} from "../app/store"
+import {
+  useRegisterUserMutation
+  } from "../features/user/userApiSlice";
+import {
+  setUser as SetUser,
+  selectUser 
+  
+} from "../features/user/userSlice";
+import { 
+  useNavigate
+  
+} from "react-router-dom"
+import {
+  toast 
+  
+} from "react-toastify";
 import type { USER } from "../app/types"
+
+
 const Register:FC = ():JSX.Element => {
   const [user,setUser] = useState<USER | null>(null);
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
@@ -21,24 +46,27 @@ const Register:FC = ():JSX.Element => {
     e.preventDefault();
     setState({
       type:"reset"
-      
+       
     })
     const data = {
    name:state.name,
    email:state.email,
    phone:state.phone,
    password:state.password,
-   bio:state.bio
+   bio:state.bio,
+   image:state.image
     }
     await register(data).unwrap();
   }
   useEffect(()=>{
     if(error){
-      //toast.error(error.status)
+      console.log(error)
+     toast.error(JSON.stringify(error))
     }
   },[error])
   useEffect(()=>{
-    alert("Loading")
+    console.log("loading")
+    console.log(toast)
   },[isLoading])
   useEffect(()=>{
     if(data){
@@ -46,15 +74,16 @@ const Register:FC = ():JSX.Element => {
     (async ()=>{
     await dispatch(SetUser(data))
     })()
+    navigate("/profile")
     }
   },[data])
  useEffect(()=>{
+   console.log(userInfo)
+   console.log(user)
    setUser(userInfo);
    setTimeout(()=>{
      if(user){
        navigate("/profile")
-     }else{
-      
      }
    },2000)
  },[user])
@@ -65,10 +94,11 @@ const Register:FC = ():JSX.Element => {
    password:"",
    bio:"",
    password2:"",
+   image:null
  }
  type ACTION = {
   type: string;
-  payload?: any; // Define the payload type for your actions, if needed
+  payload?: any;
 };
  const reducer = (state:USER,action:ACTION):USER =>{
    switch (action.type) {
@@ -119,6 +149,13 @@ const Register:FC = ():JSX.Element => {
        }
        //eslint-disable-next-line
      break;
+     case 'setImage':
+       return{
+         ...state,
+         image:action.payload
+       }
+       //eslint-disable-next-line
+     break;
    
      case 'reset':
        return{
@@ -133,8 +170,8 @@ const Register:FC = ():JSX.Element => {
  }
  const [state,setState] = useReducer(reducer,initialState)
    return(
-    <div>
-     <Typography variant="h1">Register page</Typography>
+    <div className="text-center shadow rounded-lg">
+     <Typography variant="h2">Register page</Typography>
      <Box 
      component="form"
      noValidate
@@ -149,7 +186,7 @@ const Register:FC = ():JSX.Element => {
      placeholder = "Full name"
      InputProps = {{
        value:state.name,
-       onChange:(e)=>{
+       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
          setState({
            type:"setName",
            payload:e.target.value
@@ -164,7 +201,7 @@ const Register:FC = ():JSX.Element => {
      InputProps = {{
        type:"tel",
        value:state.phone,
-       onChange:(e)=>{
+       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
          setState({
            type:"setTel",
            payload:e.target.value
@@ -179,7 +216,7 @@ const Register:FC = ():JSX.Element => {
      InputProps = {{
      type:"email",
        value:state.email,
-       onChange:(e)=>{
+       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
          setState({
            type:"setEmail",
            payload:e.target.value
@@ -194,7 +231,7 @@ const Register:FC = ():JSX.Element => {
      InputProps = {{
        type:"password",
        value:state.password,
-       onChange:(e)=>{
+       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
          setState({
            type:"setPassword",
            payload:e.target.value
@@ -209,7 +246,7 @@ const Register:FC = ():JSX.Element => {
      InputProps = {{
        type:"password",
        value:state.password2,
-       onChange:(e)=>{
+       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
          setState({
            type:"setPassword2",
            payload:e.target.value
@@ -223,7 +260,7 @@ const Register:FC = ():JSX.Element => {
      placeholder = "Tell us something about yourself"
      InputProps = {{
        value:state.bio,
-       onChange:(e)=>{
+       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
          setState({
            type:"setBio",
            payload:e.target.value
@@ -231,8 +268,17 @@ const Register:FC = ():JSX.Element => {
        }
      }}
      />
+ { /*  <input
+  accept="image/*"
+  style={{ display: 'none' }}
+  id="raised-button-file"
+  type="file"
+/>
+  <Button variant="raised" onClick={()=> }>
+    Upload
+  </Button>*/}
      </Box>
-     <Button onClick={create}> Create </Button>
+     <Button variant="outlined" color="primary" onClick={create}> Create </Button>
     </div>
     )
 }
