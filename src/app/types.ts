@@ -13,6 +13,7 @@ type USER = {
   password: String,
   password2?: String,
   image?: string | null,
+  _id?:string
 }
 
 // Users ,an array of user type
