@@ -12,6 +12,7 @@ type USER = {
   posts?: [String],
   password: String,
   password2?: String,
+  image?: string | null,
 }
 
 // Users ,an array of user type
