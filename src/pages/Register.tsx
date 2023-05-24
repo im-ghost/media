@@ -77,15 +77,21 @@ const Register:FC = ():JSX.Element => {
     navigate("/profile")
     }
   },[data])
+  const setIt = async (user:USER | null) =>{
+    if(user){
+    await dispatch(SetUser(user))
+    }
+  }
  useEffect(()=>{
    console.log(userInfo)
    console.log(user)
-   setUser(userInfo);
-   setTimeout(()=>{
+  
      if(user){
-       navigate("/profile")
+       setUser(user);
+       navigate("/profile");
+       setIt(user)
+      
      }
-   },2000)
  },[user])
  const initialState:USER = {
    name:"",
@@ -278,7 +284,10 @@ const Register:FC = ():JSX.Element => {
     Upload
   </Button>*/}
      </Box>
-     <Button variant="outlined" color="primary" onClick={create}> Create </Button>
+     <Button variant="outlined" color="primary" onClick={create}><Typography variant="h6"> Create </Typography></Button>
+     <div className="p-2 rounded shadow" onClick={()=>navigate("/login")}>
+     <Typography variant="h6"> Already have an account? Login</Typography>
+     </div>
     </div>
     )
 }
