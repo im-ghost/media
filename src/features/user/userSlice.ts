@@ -20,6 +20,8 @@ export const userSlice = createSlice({
     setUser: (state, action: PayloadAction<USER>) => {
     localStorage.setItem("media-user",JSON.stringify(action.payload))
       state.userInfo = action.payload;
+      console.log("saved")
+      console.log(state.userInfo)
     }
   },
   
