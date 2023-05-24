@@ -4,11 +4,11 @@ import type { USER } from "../../app/types";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    loginUser: builder.mutation<USER, USER >({
-      query: (data) => ({
+    loginUser: builder.mutation<USER, {email:string,password:string}>({
+      query: ({email, password}) => ({
         url: "/users/login",
         method: "POST",
-        body: data,
+        body: {email, password},
       }),
     }),
     registerUser: builder.mutation<USER, USER >({
