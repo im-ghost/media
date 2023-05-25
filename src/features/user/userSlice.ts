@@ -8,7 +8,7 @@ type UserState = {
 }
 const userInfoL:string | null = localStorage.getItem("media-user")
 const initialState: UserState = {
-  userInfo: userInfoL ? JSON.parse(userInfoL) : null,
+  userInfo: userInfoL ? JSON.parse(userInfoL).user : null,
   status: 'idle',
 };
 
