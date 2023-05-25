@@ -10,9 +10,8 @@ function App() {
     eruda.init()
   },[])
   return (
-    <div className="App">
+    <div>
     <ToastContainer />
-        <h1>hhhhh</h1>
         <Outlet />
     </div>
   );
