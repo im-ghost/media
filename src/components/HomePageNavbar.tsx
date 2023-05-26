@@ -93,6 +93,7 @@ const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
+    <>
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
@@ -108,7 +109,7 @@ const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem  onClick={()=> navigate("/chats")>
+      <MenuItem  onClick={()=> navigate("/chats")}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             💬
@@ -116,7 +117,7 @@ const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem  onClick={()=> navigate("/notifications")>
+      <MenuItem  onClick={()=> navigate("/notifications")}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -128,7 +129,7 @@ const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem  onClick={()=> navigate("/profile")>
+      <MenuItem  onClick={()=> navigate("/profile")}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -141,6 +142,7 @@ const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
         <p>Profile</p>
       </MenuItem>
     </Menu>
+    </>
   );
 
   
