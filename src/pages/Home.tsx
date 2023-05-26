@@ -1,11 +1,21 @@
-import {
-  Typography
-} from "@mui/material"
+
 import { Outlet} from "react-router-dom"
+import { useAppSelector,useAppDispatch } from "../app/store";
+import {
+  useNavigate,
+  useParams
+} from "react-router-dom";
+import type {
+  USER
+} from "../app/types"
+import Navbar from "../components/HomePageNavbar";
 const Home = () => {
-  return(
-    <div>
-     <Typography variant="h1">Home page</Typography>
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const userFromStore = useAppSelector(state=>state.user.userInfo)
+return(
+  <div>
+  <Navbar user={userFromStore} />
      <Outlet />
     </div>
     )
