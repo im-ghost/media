@@ -18,10 +18,9 @@ import React,{
   FC,
   useLayoutEffect
 } from "react"
-import { useAppSelector,useAppDispatch } from "../app/store";
+import { useAppSelector } from "../app/store";
 import {
-  useNavigate,
-  useParams
+  useNavigate
 } from "react-router-dom";
 import type {
   USER
@@ -70,7 +69,7 @@ function a11yProps(index: number) {
 
 const Profile:FC = ():JSX.Element => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  
   const userFromStore = useAppSelector(state=>state.user.userInfo)
   const [user,setUser] = useState<USER | null>(userFromStore)
   
@@ -83,7 +82,7 @@ const Profile:FC = ():JSX.Element => {
     }else{
       navigate("/login")
     }
-  },[userFromStore])
+  },[userFromStore,navigate])
   useEffect(()=>{
     if(userFromStore){
     setUser(userFromStore)
@@ -93,7 +92,7 @@ const Profile:FC = ():JSX.Element => {
     }
  
   console.log(user)
-  },[userFromStore])
+  },[userFromStore,navigate])
   
   const theme = useTheme();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
