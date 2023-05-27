@@ -1,8 +1,6 @@
 
-import { useAppSelector,useAppDispatch } from "../app/store";
 import {
-  useNavigate,
-  useParams
+  useNavigate
 } from "react-router-dom";
 import type {
   USER
@@ -63,7 +61,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -73,9 +70,6 @@ const Navbar:React.FC<{user:USER | null}> = ({user}):JSX.Element => {
 
   
   const menuId = 'homepage-menu-id';
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
