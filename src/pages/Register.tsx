@@ -9,7 +9,6 @@ import {
   useReducer,
   useEffect,
   FC,
-  Reducer,
   ChangeEvent
   } from "react"
 import { 
@@ -21,9 +20,7 @@ import {
   useRegisterUserMutation
   } from "../features/user/userApiSlice";
 import {
-  setUser as SetUser,
-  selectUser 
-  
+  setUser as SetUser
 } from "../features/user/userSlice";
 import { 
   useNavigate
@@ -76,7 +73,7 @@ const Register:FC = ():JSX.Element => {
     })()
     navigate("/profile")
     }
-  },[data])
+  },[data,navigate,dispatch])
   const setIt = async (user:USER | null) =>{
     if(user){
     await dispatch(SetUser(user))
@@ -92,7 +89,7 @@ const Register:FC = ():JSX.Element => {
        setIt(user)
       
      }
- },[user])
+ },[user,navigate,userInfo])
  const initialState:USER = {
    name:"",
    email:"",
