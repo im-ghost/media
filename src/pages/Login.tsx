@@ -10,7 +10,6 @@ import {
   useReducer,
   useEffect,
   FC,
-  Reducer,
   ChangeEvent
   } from "react"
 import { 
@@ -21,8 +20,7 @@ import {
   useLoginUserMutation
   } from "../features/user/userApiSlice";
 import {
-  setUser as SetUser,
-  selectUser 
+  setUser as SetUser
 } from "../features/user/userSlice";
 import { 
   useNavigate
@@ -80,7 +78,7 @@ type USERL = {
     })()
     navigate("/profile")
     }
-  },[data])
+  },[data,dispatch,navigate])
   
   const setIt = async (user:USER | null) =>{
     if(user){
@@ -97,7 +95,7 @@ type USERL = {
        navigate("/profile");
        setIt(user)
      }
- },[user])
+ },[user, navigate,userInfo])
  const initialState:USERL = {
    email:"",
    password:"",
