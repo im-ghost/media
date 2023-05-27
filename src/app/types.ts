@@ -2,16 +2,16 @@
 
 // User type
 type USER = {
-  name: String,
-  phone:  String,
-  email: String
-  chats?: [String],
-  bio: String,
-  followers?: [String],
-  following?: [String],
-  posts?: [String],
-  password: String,
-  password2?: String,
+  name: string,
+  phone:  string,
+  email: string
+  chats?: [string],
+  bio: string,
+  followers?: [string],
+  following?: [string],
+  posts?: [string],
+  password: string,
+  password2?: string,
   image?: string | null,
   _id?:string
 }
@@ -21,11 +21,12 @@ type USERS = [USER]
 
 //CHAT type
 type CHAT = {
-  name: String,
-  members: [String],
-  messages: [String],
-  bio?:String,
-  image?:String
+  name: string,
+  members: [string],
+  messages: [string],
+  bio?:string,
+  image?:string,
+  _id?:string
 }
 
 //CHATS type
@@ -33,13 +34,15 @@ type CHATS = [CHAT]
 
 //Post type
 type POST = {
-  author: [String],
-  comments: [String],
-  image: String,
-  caption: String,
-  likes:[String],
-  content:  String,
-  retweets: [String]
+  author: string,
+  comments?: [string],
+  image?: string,
+  caption?: string,
+  likes?:[string],
+  content?:  string,
+  retweets?: [string],
+  date?:Date,
+  _id?:string
 }
 
 //POSTS type
@@ -47,10 +50,10 @@ type POSTS = POST[]
 
 //Comment type
 type COMMENT = { 
-   author: String,
-  post: String,
-  content: String,
-  likes:[String]
+   author: string,
+  post: string,
+  content: string,
+  likes:[string]
 }
 
 //Comments type
@@ -58,8 +61,8 @@ type COMMENTS = [COMMENT]
 
 //Like type
 type LIKE = {
-  author: String,
-  post:String
+  author: string,
+  post:string
 }
 
 //Likes type
@@ -67,9 +70,9 @@ type LIKES = [LIKE]
 
 //Message type
 type MESSAGE = {
-  sender: String,
-  chat: String,
-  content:String,
+  sender: string,
+  chat: string,
+  content:string,
   timestamp: Date,
 }
 
