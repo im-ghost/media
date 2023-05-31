@@ -62,7 +62,7 @@ const EditUser:FC = ():JSX.Element => {
     navigate("/profile")
     }
   },[data])
-  const setIt = async (user:USER | null) =>{
+  const setIt = async (user:USER) =>{
     if(user){
     await dispatch(SetUser(user))
     }
@@ -103,8 +103,8 @@ const EditUser:FC = ():JSX.Element => {
    bio:state.bio,
    image:state.image
     }
-    const { _id } = user;
-    if(_id) { await edit({data,userId:_id}).unwrap();}
+    const { _id , token} = user;
+    if(_id && token) { await edit({data,userId:_id,token}).unwrap();}
     else{
       toast.error("Error retrieving data, refresh ")
     }
