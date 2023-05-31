@@ -43,7 +43,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST"
       }),
     }),
-    allUsers: builder.query<USER[], null>({
+    allUsers: builder.query<USER[], void>({
       query: () => ({
         url: "/users",
         method: "GET",
