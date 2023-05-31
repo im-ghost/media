@@ -10,17 +10,24 @@ export const postApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    updatePost: builder.mutation<POST, { data: POST; postId: string; userId: string }>({
-      query: ({ data, postId, userId }) => ({
+    updatePost: builder.mutation<POST, { data: POST; postId: string; userId: string;token:string }>({
+      query: ({ data, postId, userId,token }) => ({
         url: `/posts/post/${postId}/${userId}`,
         method: "PUT",
         body: data,
+        headers:{
+          authorization:token
+        }
       }),
     }),
-    deletePost: builder.mutation<void, { postId: string; userId: string }>({
-      query: ({ postId, userId }) => ({
+    deletePost: builder.mutation<void, { postId: string; userId: string;token:string  }>({
+      query: ({ postId, userId,token }) => ({
         url: `/posts/post/${postId}/${userId}`,
         method: "DELETE",
+        headers:{
+          authorization:token
+        }
+        
       }),
     }),
     getPostById: builder.query<POST, string>({
@@ -35,17 +42,23 @@ export const postApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    likePost: builder.mutation<void, string>({
-      query: (postId) => ({
+    likePost: builder.mutation<void, {postId:string;token:string }>({
+      query: ({postId,token}) => ({
         url: `/posts/post/${postId}/like`,
         method: "PUT",
+        headers:{
+          authorization:token
+        }
       }),
     }),
-    commentPost: builder.mutation<void, { data: string; postId: string }>({
-      query: ({ data, postId }) => ({
+    commentPost: builder.mutation<void, { data: string; postId: string;token:string }>({
+      query: ({ data, postId ,token}) => ({
         url: `/posts/post/${postId}/comment`,
         method: "PUT",
         body: data,
+        headers:{
+          authorization:token
+        }
       }),
     }),
   }),
