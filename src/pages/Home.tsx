@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../app/store";
 import type { USER } from "../app/types";
-import Navbar from "../components/HomePageNavbar";
+import Footer from "../components/Footer";
 import { toast } from "react-toastify";
 import Posts from "../components/posts";
 import { useAllUsersQuery } from "../features/user/userApiSlice";
@@ -32,8 +32,9 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar user={userFromStore} />
+    
       {posts.length > 0 && <Posts posts={posts} />}
+        <Footer user={userFromStore} />
       <Outlet />
     </div>
   );
