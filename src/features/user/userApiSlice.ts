@@ -18,17 +18,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    updateUser: builder.mutation<USER, { data: USER; userId: string }>({
-      query: ({ data, userId }) => ({
+    updateUser: builder.mutation<USER, { data: USER; userId: string;token:string  }>({
+      query: ({ data, userId,token }) => ({
         url: `/users/user/${userId}`,
         method: "PUT",
         body: data,
+        headers:{
+          authorization:token
+        }
       }),
     }),
-    deleteUser: builder.mutation<void, string>({
-      query: (userId) => ({
+    deleteUser: builder.mutation<void, {token:string;userId: string}>({
+      query: ({userId,token}) => ({
         url: `/users/user/${userId}`,
         method: "DELETE",
+        headers:{
+          authorization:token
+        }
       }),
     }),
     getUserById: builder.query<USER,string>({
@@ -49,10 +55,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    followUser: builder.mutation<void, {userId: string}>({
-      query: (userId) => ({
+    followUser: builder.mutation<void, {userId: string,token: string}>({
+      query: ({userId,token}) => ({
         url: `/users/user/${userId}/follow`,
         method: "POST",
+        headers:{
+          authorization:token
+        }
       }),
     }),
   }),
