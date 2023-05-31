@@ -13,7 +13,9 @@ type USER = {
   password: string,
   password2?: string,
   image?: string | null,
-  _id?:string
+  _id?:string,
+  token?:string
+  
 }
 
 // Users ,an array of user type
