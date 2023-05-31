@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import userReducer from '../features/user/userSlice';
 import apiSlice from "./api"
 import type { TypedUseSelectorHook } from 'react-redux'
+
+import { io } from "socket.io-client"
+export const socket:any = io("http://localhost:5000")
 export const store = configureStore({
   reducer: {
     user: userReducer,
