@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/store";
+import {
+  Typography
+} from "@mui/material"
+import Default from "../images/default.png"
+import Favicon from "../images/logo192.png"
 import type { USER } from "../app/types";
 import Footer from "../components/Footer";
 import { toast } from "react-toastify";
@@ -43,9 +48,14 @@ const Home = () => {
   }, [userFromStore, navigate]);
 if(userFromStore && userFromStore !== null && userFromStore.token){
   return (
-    <div>
+    <div className="bg-sky-300 text-amber-800 dark:bg-slate-900 dark:text-amber-100">
+    <div className="w-screen h-10 flex items-center text-center justify-center  p-2">
+   
+    <img src={Favicon} alt="Media" className="h-8 w-8 rounded-[50%]" />
+    <Typography variant="h3">Media</Typography>
+    </div>
       {posts.length > 0 && <Posts posts={posts}  token={userFromStore.token}/>}
-      <Footer />
+     
       <Outlet />
     </div>
   );

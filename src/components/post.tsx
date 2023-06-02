@@ -27,12 +27,12 @@ const Post = ({ post,token }: { post: { post:POST },token:string}) => {
   }, [data]);
 
   if (!data || !author) {
-    return <h1>Loading</h1>;
+    return <h1>Loading....</h1>;
   }
 
   return (
-    <Card className="w-[95vw] h-[33vh] m-2 overflow-scroll">
-      <CardHeader avatar={<img src={author.image || Default} alt={author.name} className="h-[15vh] w-auto rounded-lg"/>} title={author.name} subheader={post.post.date ? <h3>{post.post.date.toString()}</h3> : ""} />
+    <Card className="w-[95vw] h-40 m-2 overflow-scroll rounded-lg p-2">
+      <CardHeader avatar={<img src={author.image || Default} alt={author.name} className="h-8 w-auto rounded"/>} title={author.name} subheader={post.post.date ? <h3>{post.post.date.toString()}</h3> : ""} />
       {post.post.image ? (
         <>
           <CardMedia component="img" height="194" image={post.post.image || ""} alt={post.post.content || ""} />
@@ -43,7 +43,7 @@ const Post = ({ post,token }: { post: { post:POST },token:string}) => {
           </CardContent>
         </>
       ) : (
-        <Paper className="flex justify-center items-center p-2">{post.post.content || ""}</Paper>
+        <Paper className="flex justify-center items-center h-[15vh] p-2">{post.post.content || ""}</Paper>
       )}
       <CardActions disableSpacing>
         <IconButton aria-label="like">Like</IconButton>
