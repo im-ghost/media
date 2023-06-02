@@ -157,7 +157,7 @@ if(!user){
     <h1>No posts</h1>
     ) }
     {
-    user.posts && (<Box  className="w-full h-auto min-h-64 border">
+    user.posts && user.token && (<Box  className="w-full h-auto min-h-64 border">
       <AppBar position="static">
         <Tabs
           value={value}
@@ -179,7 +179,7 @@ if(!user){
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Posts posts={user.posts} />
+          <Posts posts={user.posts} token={user.token} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Videos videos={user.posts}/>
