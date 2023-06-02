@@ -37,10 +37,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }
       }),
     }),
-    getUserById: builder.query<USER,string>({
-      query: (userId) => ({
+    getUserById: builder.query<USER,{userId:string;token:string}>({
+      query: ({userId,token}) => ({
         url: `/users/user/${userId}`,
         method: "GET",
+        headers:{
+          authorization:token
+        }
       }),
     }),
     logoutUser: builder.mutation<void, void>({
@@ -49,10 +52,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST"
       }),
     }),
-    allUsers: builder.query<USER[], void>({
-      query: () => ({
+    allUsers: builder.query<{users:USER[]}, string | undefined>({
+      query: (token) => ({
         url: "/users",
-        method: "GET",
+        method: "GET", 
+        headers:{
+          authorization:token
+        }
       }),
     }),
     followUser: builder.mutation<void, {userId: string,token: string}>({
