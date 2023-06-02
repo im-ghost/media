@@ -6,18 +6,25 @@ import type { POSTS, POST } from "../app/types";
 import { toast } from "react-toastify";
 import { useGetPostByIdQuery } from "../features/post/postApiSlice";
 
-const Posts: FC<{ posts: (string | null)[] }> = ({ posts }) => {
-  const [postsObj, setPosts] = useState<POST[] | null>(null);
+const Posts: FC<{ posts: (string | null)[],token:string }> = ({ posts,token }) => {
+  const [postsObj, setPosts] = useState<{ post:POST}[] | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
   try {
-    const postIds = posts.filter((post) => post !== null) as string[]; // Filter out null values
+    let postIds = posts.filter((post) => post !== null) as string[]; // Filter out null values
+     postIds = posts.filter((post) => post !== undefined) as string[]; // Filter out undefined values
+     
     if (postIds.length > 0) {
-      const resolvedPosts: (POST| undefined) [] = await Promise.all(
+    
+      const resolvedPosts: ({ post:POST}| undefined) [] = await Promise.all(
         postIds.map(async (postId) => {
           try {
-            const { data } = await axios.get(`http://localhost:4000/api/v1/posts/post/${postId}`)
+            const { data } = await axios.get(`http://localhost:4000/api/v1/posts/post/${postId}`,{
+              headers:{
+                authorization:token
+              }
+            })
             if (data) return data;
             else {
               toast.error("No post available");
@@ -31,8 +38,9 @@ const Posts: FC<{ posts: (string | null)[] }> = ({ posts }) => {
       );
 
       // Filter out undefined values from the resolvedPosts array
-      const filteredPosts = resolvedPosts.filter((post) => post !== undefined) as POST[];
-
+      const filteredPosts = resolvedPosts.filter((post) => post !== undefined) as { post:POST}[];
+  
+ 
       setPosts(filteredPosts);
       return filteredPosts; // Return the filtered and resolved posts
     } else {
@@ -51,7 +59,7 @@ const Posts: FC<{ posts: (string | null)[] }> = ({ posts }) => {
   return (
     <Container className="w-screen">
       {postsObj !== null &&
-        postsObj.map((post: POST) => <Post post={post} key={post._id} />)}
+        postsObj.map((post:{post:POST}) => <Post post={post} token={token} key={post.post._id} />)}
     </Container>
   );
 };
