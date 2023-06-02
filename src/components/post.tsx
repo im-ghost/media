@@ -6,11 +6,13 @@ import { useGetUserByIdQuery } from "../features/user/userApiSlice";
 import { toast } from "react-toastify"
 import Default from "../images/default.png";
 
-const Post = ({ post }: { post: POST }) => {
-  const { data, error } = useGetUserByIdQuery(post.author);
+const Post = ({ post,token }: { post: { post:POST },token:string}) => {
+  const userId = post.post.author;
+  const { data, error } = useGetUserByIdQuery({userId,token});
 
   useEffect(() => {
     if (error) {
+      console.log("post comp ")
       console.log(error);
       toast.error(JSON.stringify(error))
     }
@@ -29,19 +31,19 @@ const Post = ({ post }: { post: POST }) => {
   }
 
   return (
-    <Card className="w-[95vw] h-[33vh] m-2">
-      <CardHeader avatar={<img src={author.image || Default} alt={author.name} />} title={author.name} subheader={post.date ? <h3>{post.date.toString()}</h3> : ""} />
-      {post.image ? (
+    <Card className="w-[95vw] h-[33vh] m-2 overflow-scroll">
+      <CardHeader avatar={<img src={author.image || Default} alt={author.name} className="h-[15vh] w-auto rounded-lg"/>} title={author.name} subheader={post.post.date ? <h3>{post.post.date.toString()}</h3> : ""} />
+      {post.post.image ? (
         <>
-          <CardMedia component="img" height="194" image={post.image || ""} alt={post.content || ""} />
+          <CardMedia component="img" height="194" image={post.post.image || ""} alt={post.post.content || ""} />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              {post.caption || ""}
+              {post.post.caption || ""}
             </Typography>
           </CardContent>
         </>
       ) : (
-        <Paper className="flex justify-center items-center p-2">{post.content || ""}</Paper>
+        <Paper className="flex justify-center items-center p-2">{post.post.content || ""}</Paper>
       )}
       <CardActions disableSpacing>
         <IconButton aria-label="like">Like</IconButton>
