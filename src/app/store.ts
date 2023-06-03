@@ -5,7 +5,7 @@ import apiSlice from "./api"
 import type { TypedUseSelectorHook } from 'react-redux'
 
 import { io } from "socket.io-client"
-export const socket:any = io("http://localhost:5000")
+export const socket:any = io("http://localhost:4000")
 export const store = configureStore({
   reducer: {
     user: userReducer,
