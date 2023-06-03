@@ -11,7 +11,7 @@ function App() {
     eruda.init()
   },[])
   return (
-    <div className="bg-sky-300 text-amber-800 dark:bg-slate-900 dark:text-amber-100">
+    <div className="bg m-0 p-0">
     <ToastContainer />
     <Footer />
         <Outlet />
