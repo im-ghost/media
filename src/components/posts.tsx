@@ -57,7 +57,7 @@ const Posts: FC<{ posts: (string | null)[],token:string }> = ({ posts,token }) =
   }, [posts]);
 
   return (
-    <Container className="w-screen bg-sky-300 text-amber-800 dark:bg-slate-900 dark:text-amber-100 p-2">
+    <Container className="bg w-screen">
       {postsObj !== null &&
         postsObj.map((post:{post:POST}) => <Post post={post} token={token} key={post.post._id} />)}
     </Container>
