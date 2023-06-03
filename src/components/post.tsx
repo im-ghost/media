@@ -7,6 +7,7 @@ import { toast } from "react-toastify"
 import Default from "../images/default.png";
 
 const Post = ({ post,token }: { post: { post:POST },token:string}) => {
+  
   const userId = post.post.author;
   const { data, error } = useGetUserByIdQuery({userId,token});
 
@@ -29,26 +30,29 @@ const Post = ({ post,token }: { post: { post:POST },token:string}) => {
   if (!data || !author) {
     return <h1>Loading....</h1>;
   }
-
   return (
-    <Card className="w-[95vw] h-40 m-2 overflow-scroll rounded-lg p-2">
-      <CardHeader avatar={<img src={author.image || Default} alt={author.name} className="h-8 w-auto rounded"/>} title={author.name} subheader={post.post.date ? <h3>{post.post.date.toString()}</h3> : ""} />
+    <Card raised={true} className="w-full h-44 overflow-scroll bg rounded-lg p-2">
+      <CardHeader className="bg h-8 m-0" avatar={<img src={author.image || Default} alt={author.name} className="h-8 w-auto rounded"/>} title={author.name} subheader={post.post.date ? (
+      <div>
+      <h1>{author.name}</h1>
+      <h3>{post.post.date.toString()}</h3>
+      </div>) : ""} />
       {post.post.image ? (
-        <>
-          <CardMedia component="img" height="194" image={post.post.image || ""} alt={post.post.content || ""} />
-          <CardContent>
+        <div className="bg">
+          <CardMedia component="img" height="194" image={post.post.image || ""} alt={post.post.content || ""} className="bg m-0" />
+          <CardContent  className="bg m-0">
             <Typography variant="body2" color="text.secondary">
               {post.post.caption || ""}
             </Typography>
           </CardContent>
-        </>
+        </div>
       ) : (
-        <Paper className="flex justify-center items-center h-[15vh] p-2">{post.post.content || ""}</Paper>
+        <Paper className="flex justify-center m-0 items-center bg h-28 p-2">{post.post.content || ""}</Paper>
       )}
-      <CardActions disableSpacing>
-        <IconButton aria-label="like">Like</IconButton>
-        <IconButton aria-label="comment">Comment</IconButton>
-        <IconButton aria-label="retweet">Retweet</IconButton>
+      <CardActions disableSpacing  className="bg h-4 m-0">
+        <IconButton  className="bg" aria-label="like">Like</IconButton>
+        <IconButton  className="bg" aria-label="comment">Comment</IconButton>
+        <IconButton  className="bg" aria-label="retweet">Retweet</IconButton>
       </CardActions>
     </Card>
   );
