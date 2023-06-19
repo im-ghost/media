@@ -1,14 +1,15 @@
-import React, { FC, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import { Container } from "@mui/material";
 import Post from "./post";
 import axios from "axios"
 import type { POSTS, POST } from "../app/types";
 import { toast } from "react-toastify";
 import { useGetPostByIdQuery } from "../features/post/postApiSlice";
-
-const Posts: FC<{ posts: (string | null)[],token:string }> = ({ posts,token }) => {
+import {useAppDispatch } from "../app/hooks"
+import { setPostsInStore } from "../features/post/postSlice";
+const Posts: React.FC<{ posts: (string | null)[],token:string }> = ({ posts,token }) => {
   const [postsObj, setPosts] = useState<{ post:POST}[] | null>(null);
-
+  const dispatch = useAppDispatch()
   useEffect(() => {
     const fetchPosts = async () => {
   try {
@@ -42,6 +43,7 @@ const Posts: FC<{ posts: (string | null)[],token:string }> = ({ posts,token }) =
   
  
       setPosts(filteredPosts);
+      dispatch(setPostsInStore(postsObj))
       return filteredPosts; // Return the filtered and resolved posts
     } else {
       toast.error("Couldn't get post ids");

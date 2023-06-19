@@ -23,7 +23,7 @@ const Post = ({ post,token }: { post: { post:POST },token:string}) => {
 
   useEffect(() => {
     if (data) {
-      setAuthor(data);
+      setAuthor(data.user);
     }
   }, [data]);
 
