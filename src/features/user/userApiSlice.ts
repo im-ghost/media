@@ -37,7 +37,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }
       }),
     }),
-    getUserById: builder.query<USER,{userId:string;token:string}>({
+    getUserById: builder.query<{user :USER},{userId:string;token:string}>({
       query: ({userId,token}) => ({
         url: `/users/user/${userId}`,
         method: "GET",
