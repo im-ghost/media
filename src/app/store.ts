@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from "react-redux"
 import userReducer from '../features/user/userSlice';
+import postReducer from '../features/post/postSlice';
 import apiSlice from "./api"
 import type { TypedUseSelectorHook } from 'react-redux'
 
@@ -9,6 +10,7 @@ export const socket:any = io("http://localhost:4000")
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    post: postReducer,
     [apiSlice.reducerPath]:apiSlice.reducer
   },
   middleware:(getDefaultMiddleware)=> getDefaultMiddleware().concat(apiSlice.middleware)
