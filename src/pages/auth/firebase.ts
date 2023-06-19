@@ -51,4 +51,4 @@ signInWithPopup(auth, provider)
   });
 }
 export const emailLink = () => {}
-export const phone = () => {}
+export const phone = () => {} 
