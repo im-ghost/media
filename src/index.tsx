@@ -17,7 +17,7 @@ import {
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
-
+import "./app/firebase.ts"
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 const router = createBrowserRouter(
