@@ -22,10 +22,7 @@ useEffect(()=>{
   toast.info("Welcome to media")
 },[])
   useEffect(() => {
-   
-   
     if (userFromStore?.token) {
-    
       if (data) {
         const fetchedPosts: string[] = data.users.reduce((acc: string[], user: USER) => {
           if (user.posts) {
@@ -54,7 +51,7 @@ if(userFromStore && userFromStore !== null && userFromStore.token){
     <div className="bg p-0 m-0">
     <div className="w-screen h-10 flex items-center justify-center m-0">
    
-    <img src={Favicon} alt="Media" className="h-8 w-8 p-0 m-0 rounded-[50%]" />
+    <img src={Favicon} alt="Media" className="h-8 w-8 p-0 m-0 rounded-[50%] animate-bounce" />
     <Typography variant="h3" className="text-bold">Media</Typography>
     </div>
       {posts.length > 0 && <Posts posts={posts}  token={userFromStore.token}/>}
