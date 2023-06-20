@@ -3,20 +3,55 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import * as React from "react";
-const signInWithGoogle = () =>{}
-const signInWithTwitter = () =>{}
+import {
+  google,
+  phone,
+  verifyPhone,
+  twitter,
+  emailLink
+} from "../pages/auth/firebase";
+import { useNavigate } from "react-routet-dom";
 const PhoneNumberInput = () => {
+  const navigate= useNavigate()
   const [num,setNum]= React.useState<number | string>("");
   const [isButtonDisabled,setButton] = React.useState<Boolean>(false)
-  
-const sendCode = (num:any) =>{
+  const [code,setCode]= React.useState<number | string>("");
+const sendCode = async (num:any) =>{
   setButton(true)
+ 
+  await phone(num)
+   setCodeInput(true)
   setTimeout(()=>{
     setButton(false)
   },10000)
 }
+const verify = (code:any) =>{
+  setButton(true)
+  const res = verifyPhone(code)
+  if(typeof res === "string") navigate("/register2")
+  else toast.error(JSON.stringigy(res))
+  setTimeout(()=>{
+    setButton(false)
+  },10000)
+}
+if(codeInput){
   return(
     <Box>
+    <div id="recaptcha-container"></div>
+    <TextField 
+    label = "Code"
+    placeholder = "Input the OTP sent"
+    InputProps= {{
+      value:code,
+      onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setCode(e.target.value)
+    }}/>
+    <Button onClick={()=>verify(code)} disabled={isButtonDisabled}> Verify </Button>
+     </Box>
+    )
+}
+  return(
+    <Box>
+    <div id="recaptcha-container"></div>
     <TextField 
     label = "phone number "
     placeholder = "Input Phone number"
@@ -24,16 +59,18 @@ const sendCode = (num:any) =>{
       value:num,
       onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setNum(e.target.value)
     }}/>
-    <Button onClick={()=>sendCode(num)} disabled={isButtonDisabled}> Send Code </Button>
+    <Button onClick={()=>sendCode(num)} > Send Code </Button>
      </Box>
     )
 }
+
 const EmailInput = () => {
   const [email,setEmail]= React.useState<string>("");
   const [isButtonDisabled,setButton] = React.useState<Boolean>(false)
   
 const sendLink = (email:string) =>{
   setButton(true)
+  emailLink(email)
   setTimeout(()=>{
     setButton(false)
   },10000)
@@ -56,10 +93,10 @@ const RegButtons:React.FC = ():JSX.Element =>{
   const [email,setEmail] = useState(false)
   return(
     <Box className="">
-     <Button className="" variant="contained" onClick={()=>signInWithGoogle}>
+     <Button className="" variant="contained" onClick={()=>google()}>
       <Typography variant="h4">Sign In With Google</Typography>
      </Button>
-     <Button className="" variant="contained" onClick={()=>signInWithTwitter}>
+     <Button className="" variant="contained" onClick={()=>twitter()}>
       <Typography variant="h4">Sign In With Twitter</Typography>
      </Button>
      <Button className="" variant="contained" onClick={()=>{
