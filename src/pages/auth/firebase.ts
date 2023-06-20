@@ -2,10 +2,77 @@ import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
-  TwitterAuthPrivider
+  TwitterAuthPrivider,
+  RecaptchaVerifier,
+  signInWithPhoneNumber
 } from "firebase/auth";
 
 const auth = getAuth();
+export const emailLink = (email:string) =>{
+  const actionCodeSettings = {
+ 
+  url: 'http://localhost:3000/register2',
+  // This must be true.
+  handleCodeInApp: true,
+  iOS: {
+    bundleId: 'com.example.ios'
+  },
+  android: {
+    packageName: 'com.example.android',
+    installApp: true,
+    minimumVersion: '12'
+  },
+  dynamicLinkDomain: 'example.page.link'
+};
+  sendSignInLinkToEmail(auth, email, actionCodeSettings)
+  .then(() => {
+   
+    window.localStorage.setItem('emailForSignIn', email);
+   return "sent"
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    return error
+  });
+  
+}
+export const verifyPhone = (number:number,code:string | number,confirmationResult:any) =>{
+confirmationResult.confirm(code).then((result) => {
+ 
+  const user = result.user;
+  if(user){
+    return number
+  }
+}).catch((error) => {
+  return error
+});
+
+}
+export const phone = (phoneNumber:number) => {
+  
+   recaptchaVerifier.render()
+const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+  'size': 'normal',
+  'callback': (response) => {
+   solved()
+  },
+  'expired-callback': () => {
+    recaptchaVerifier.render()
+  }
+}, auth);
+const solved = () =>{
+  
+const appVerifier = recaptchaVerifier;
+signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      return confirmationResult;
+    }).catch((error) => {
+      return error
+    });
+}
+
+}
 export const google = () => {
 const provider = new GoogleAuthProvider();
 signInWithPopup(auth, provider)
@@ -50,5 +117,3 @@ signInWithPopup(auth, provider)
     throw new Error("An error Occured")
   });
 }
-export const emailLink = () => {}
-export const phone = () => {} 
