@@ -80,6 +80,8 @@ type USERL = {
     }
   },[data,dispatch,navigate])
   
+ useEffect(()=>{
+   
   const setIt = async (user:USER | null) =>{
     if(user){
       console.log(user)
@@ -87,7 +89,6 @@ type USERL = {
     console.log("dispatched ")
     }
   }
- useEffect(()=>{
    console.log(userInfo)
    console.log(user)
      if(user){
@@ -95,7 +96,7 @@ type USERL = {
        navigate("/profile");
        setIt(user)
      }
- },[user, navigate,userInfo])
+ },[user, navigate,userInfo,dispatch])
  const initialState:USERL = {
    email:"",
    password:"",

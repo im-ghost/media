@@ -14,30 +14,37 @@ import {
 import { 
   useAppSelector,
   useAppDispatch 
-} from "../app/store"
+} from "../../app/store"
 import {
   useRegisterUserMutation
-  } from "../features/user/userApiSlice";
+  } from "../../features/user/userApiSlice";
 import {
   setUser as SetUser
-} from "../features/user/userSlice";
+} from "../../features/user/userSlice";
 import { 
   useNavigate
 } from "react-router-dom"
 import {
   toast 
 } from "react-toastify";
-import type { USER } from "../app/types";
+import type { USER } from "../../app/types";
 import {
   initialState,
   reducer
 } from "./reducer"
 const Register:FC = ():JSX.Element => {
   const [user,setUser] = useState<USER | null>(null);
+  const [emailLink,setEmailLink] = useState<Boolean>(false)
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [register,{isLoading,error,data}] = useRegisterUserMutation();
+useEffect(()=>{
+  const email:string | null | undefined = localStorage.getItem("emailForSignIn");
+  if((email !== null) && (email !== undefined)){
+    setEmailLink(true)
+  }
+},[])
   const create = async (e:any) =>{
     e.preventDefault();
     setState({type:"reset"})

@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState} from '../../app/store';
 
-import type { POSTS } from "../../app/types"
+import type { POST } from "../../app/types"
 type PostState = {
-  posts: POSTS | null
+  posts: { post : POST}[] | null
   status: 'idle' | 'loading' | 'failed';
 }
-const userInfoL:string | null = localStorage.getItem("media-user")
 const initialState: PostState = {
   posts : null,
   status: 'idle',
@@ -17,7 +16,7 @@ export const postSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    setPostsInStore: (state, action: PayloadAction<POSTS>) => {
+    setPostsInStore: (state, action: PayloadAction<{ post : POST}[]>) => {
   
       state.posts = action.payload;
       console.log("saved")

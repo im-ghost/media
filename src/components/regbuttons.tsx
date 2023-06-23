@@ -10,16 +10,22 @@ import {
   twitter,
   emailLink
 } from "../pages/auth/firebase";
-import { useNavigate } from "react-routet-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  toast
+} from "react-toastify"
 const PhoneNumberInput = () => {
   const navigate= useNavigate()
   const [num,setNum]= React.useState<number | string>("");
-  const [isButtonDisabled,setButton] = React.useState<Boolean>(false)
+  const [result,setResult]= React.useState<any>();
+  const [codeInput,setCodeInput] = React.useState<boolean >(false)
+  const [isButtonDisabled,setButton] = React.useState<boolean >(false)
   const [code,setCode]= React.useState<number | string>("");
 const sendCode = async (num:any) =>{
   setButton(true)
  
-  await phone(num)
+ const confirmationResult = await phone(num)
+ setResult(confirmationResult)
    setCodeInput(true)
   setTimeout(()=>{
     setButton(false)
@@ -27,9 +33,9 @@ const sendCode = async (num:any) =>{
 }
 const verify = (code:any) =>{
   setButton(true)
-  const res = verifyPhone(code)
+  const res = verifyPhone(num,code,result)
   if(typeof res === "string") navigate("/register2")
-  else toast.error(JSON.stringigy(res))
+  else toast.error(JSON.stringify(res))
   setTimeout(()=>{
     setButton(false)
   },10000)
@@ -66,7 +72,7 @@ if(codeInput){
 
 const EmailInput = () => {
   const [email,setEmail]= React.useState<string>("");
-  const [isButtonDisabled,setButton] = React.useState<Boolean>(false)
+  const [isButtonDisabled,setButton] = React.useState<boolean >(false)
   
 const sendLink = (email:string) =>{
   setButton(true)
@@ -81,7 +87,7 @@ const sendLink = (email:string) =>{
     label = "Email Addres"
     placeholder = "culestfrosh@gmail.com"
     InputProps= {{
-      value:num,
+      value:email,
       onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setEmail(e.target.value)
     }}/>
     <Button onClick={()=>sendLink(email)} disabled={isButtonDisabled}> Send Code </Button>
@@ -89,8 +95,8 @@ const sendLink = (email:string) =>{
     )
 }
 const RegButtons:React.FC = ():JSX.Element =>{ 
-  const [phone,setPhone] = useState(false)
-  const [email,setEmail] = useState(false)
+  const [phone,setPhone] = React.useState(false)
+  const [email,setEmail] = React.useState(false)
   return(
     <Box className="">
      <Button className="" variant="contained" onClick={()=>google()}>

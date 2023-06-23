@@ -4,29 +4,58 @@ import {
 } from "react-router-dom";
 import { selectPosts } from "../features/post/postSlice";
 import { useAppSelector } from "../app/hooks";
+
+import Default from "../images/default.png";
+
 import {
   Box,
   Card,
   CardHeader,
   CardActions,
   CardContent,
-  InputField
+  TextField,
+  Paper,
+  IconButton,
+  Typography,
+  CardMedia,
+  Container
 } from "@mui/material";
 import {
   useRef,
-  useState} from "react"
-export const Post = () =>{
+  useState,
+  useEffect,
+  ChangeEvent
+} from "react";
+import { useGetUserByIdQuery} from "../features/user/userApiSlice";
+import type { USER } from "../app/types"
+export default function Post(){
   const [comment,setCommet] = useState<string>("")
   const navigate = useNavigate()
-  comst posts = useAppSelector(state=>state.post.posts)
+  const posts = useAppSelector(state=>state.post.posts)
+  const user = useAppSelector(state=>state.user.userInfo);
   const { id } = useParams()
-  const post = posts.find(post => post._id === id as string)
+  const post = posts?.find(post => post?.post?._id === id as string) || null;
+  const userId = post?.post?.author as string;
+  const [author, setAuthor] = useState<USER | null>(null);
+  const token= user?.token as string
+  const { data, error } = useGetUserByIdQuery({userId ,token});
+  
+  useEffect(() => {
+    if (data) {
+      setAuthor(data.user);
+    }
+  }, [data]);
   const inputRef = useRef()
   if(!post){
     return (<h1> Post not found</h1>)
     navigate("/")
   }
+  
+  if (!data || !author) {
+    return <h1>Loading....</h1>;
+  }
   return(
+    <Container>
     <Card className="w-full h-screen overflow-scroll bg rounded-lg p-2">
       <CardHeader className="bg h-18 m-0" avatar={<img src={author.image || Default} alt={author.name} className="h-12 w-auto rounded"/>} title={author.name} subheader={post.post.date ? (
       <div>
@@ -47,13 +76,14 @@ export const Post = () =>{
       )}
       <CardActions disableSpacing  className="bg h-8 m-0">
         <IconButton  className="bg" aria-label="like">Like</IconButton>
-        <IconButton  className="bg" aria-label="comment" onClick={()=>inputRef.current.click()}>Comment</IconButton>
+        <IconButton  className="bg" aria-label="comment" onClick={()=>inputRef?.current?.click()}>Comment</IconButton>
         <IconButton  className="bg" aria-label="retweet">Retweet</IconButton>
       </CardActions>
     </Card>
-    <InputField InputProps={{
+    <TextField InputProps={{
       value:comment,
-      onChange:(e)=> setCommet(e.target.value)
+      onChange:(e:ChangeEvent<HTMLInputElement>)=> setCommet(e.target.value)
     }}/>
+    </Container>
     )
 }

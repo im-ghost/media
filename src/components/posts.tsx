@@ -2,9 +2,8 @@ import React, {  useState, useEffect } from "react";
 import { Container } from "@mui/material";
 import Post from "./post";
 import axios from "axios"
-import type { POSTS, POST } from "../app/types";
+import type { POST } from "../app/types";
 import { toast } from "react-toastify";
-import { useGetPostByIdQuery } from "../features/post/postApiSlice";
 import {useAppDispatch } from "../app/hooks"
 import { setPostsInStore } from "../features/post/postSlice";
 const Posts: React.FC<{ posts: (string | null)[],token:string }> = ({ posts,token }) => {
@@ -43,7 +42,8 @@ const Posts: React.FC<{ posts: (string | null)[],token:string }> = ({ posts,toke
   
  
       setPosts(filteredPosts);
-      dispatch(setPostsInStore(postsObj))
+     
+      dispatch(setPostsInStore(filteredPosts))
       return filteredPosts; // Return the filtered and resolved posts
     } else {
       toast.error("Couldn't get post ids");
@@ -56,7 +56,7 @@ const Posts: React.FC<{ posts: (string | null)[],token:string }> = ({ posts,toke
     if (posts) {
       fetchPosts();
     }
-  }, [posts]);
+  }, [posts,dispatch,token]);
 
   return (
     <Container className="bg w-screen">

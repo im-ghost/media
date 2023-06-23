@@ -92,7 +92,7 @@ const Profile:FC = ():JSX.Element => {
     }
  
   console.log(user)
-  },[userFromStore,navigate])
+  },[userFromStore,navigate,user])
   
   const theme = useTheme();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

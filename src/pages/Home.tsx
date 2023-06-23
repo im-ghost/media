@@ -4,10 +4,8 @@ import { useAppSelector } from "../app/store";
 import {
   Typography
 } from "@mui/material"
-import Default from "../images/default.png"
 import Favicon from "../images/logo192.png"
 import type { USER } from "../app/types";
-import Footer from "../components/Footer";
 import { toast } from "react-toastify";
 import Posts from "../components/posts";
 import { useAllUsersQuery } from "../features/user/userApiSlice";
