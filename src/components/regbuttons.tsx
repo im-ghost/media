@@ -35,7 +35,10 @@ const verify = (code:any) =>{
   setButton(true)
   const res = verifyPhone(num,code,result)
   if(typeof res === "string") navigate("/register2")
-  else toast.error(JSON.stringify(res))
+  else {
+    toast.error(JSON.stringify(res));
+    setCodeInput(false)
+  }
   setTimeout(()=>{
     setButton(false)
   },10000)
@@ -44,6 +47,7 @@ if(codeInput){
   return(
     <Box>
     <div id="recaptcha-container"></div>
+   
     <TextField 
     label = "Code"
     placeholder = "Input the OTP sent"
@@ -74,9 +78,9 @@ const EmailInput = () => {
   const [email,setEmail]= React.useState<string>("");
   const [isButtonDisabled,setButton] = React.useState<boolean >(false)
   
-const sendLink = (email:string) =>{
+const sendLink = async (email:string) =>{
   setButton(true)
-  emailLink(email)
+  await emailLink(email)
   setTimeout(()=>{
     setButton(false)
   },10000)
@@ -90,7 +94,7 @@ const sendLink = (email:string) =>{
       value:email,
       onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setEmail(e.target.value)
     }}/>
-    <Button onClick={()=>sendLink(email)} disabled={isButtonDisabled}> Send Code </Button>
+    <Button onClick={()=>sendLink(email)} disabled={isButtonDisabled}> Send Link </Button>
      </Box>
     )
 }
@@ -107,13 +111,15 @@ const RegButtons:React.FC = ():JSX.Element =>{
      </Button>
      <Button className="" variant="contained" onClick={()=>{
        setPhone(true)
+       setEmail(false)
      }}>
       <Typography variant="h4">Sign In With Phone Number</Typography>
      </Button>
      <Button className="" variant="contained" onClick={()=>{
        setEmail(true)
+       setPhone(false)
      }}>
-      <Typography variant="h4">Sign In With Emailr</Typography>
+      <Typography variant="h4">Sign In With Email Link</Typography>
      </Button>
      {
        phone && ( <PhoneNumberInput />)
