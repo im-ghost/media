@@ -32,7 +32,7 @@ import {
   initialState,
   reducer
 } from "./reducer"
-const Register:FC = ():JSX.Element => {
+const Register2:FC = ():JSX.Element => {
   const [user,setUser] = useState<USER | null>(null);
   const [emailLink,setEmailLink] = useState<Boolean>(false)
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
@@ -200,4 +200,4 @@ useEffect(()=>{
 }
 
 
-export default Register;
+export default Register2;

@@ -13,42 +13,36 @@ import {
 const auth = getAuth();
 export const emailLink = (email:string) =>{
   const actionCodeSettings = {
- 
   url: 'http://localhost:3000/register2',
-  // This must be true.
-  handleCodeInApp: true,
-  iOS: {
-    bundleId: 'com.example.ios'
-  },
-  android: {
-    packageName: 'com.example.android',
-    installApp: true,
-    minimumVersion: '12'
-  },
-  dynamicLinkDomain: 'example.page.link'
+  handleCodeInApp: true
 };
+
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
   .then(() => {
-   
     window.localStorage.setItem('emailForSignIn', email);
+    console.log(actionCodeSettings)
    return "sent"
   })
   .catch((error:any) => {
     
-    
-    return error
+    console.log(error)
+    toast.error(JSON.stringify(error))
+    throw new Error(error)
   });
   
 }
 export const verifyPhone = (number:any,code:string | number,confirmationResult:any) =>{
 confirmationResult.confirm(code).then((result:any) => {
- 
+ console.log(result)
   const user:any = result.user;
   if(user){
     return number
   }
 }).catch((error:any) => {
-  return error
+  
+    console.log(error)
+    toast.error(JSON.stringify(error))
+    throw new Error(error)
 });
 
 }
@@ -70,9 +64,13 @@ const appVerifier = recaptchaVerifier;
 const num = phoneNumber.toString()
 signInWithPhoneNumber(auth, num, appVerifier)
     .then((confirmationResult:any) => {
+      console.log(confirmationResult)
       return confirmationResult;
     }).catch((error: any) => {
-      return error
+        
+    console.log(error)
+    toast.error(JSON.stringify(error))
+    throw new Error(error)
     });
 }
 
@@ -103,7 +101,10 @@ signInWithPopup(auth, provider)
     
     // The email of the user's account used.
 
-    toast.error("An error Occured")
+      
+    console.log(error)
+    toast.error(JSON.stringify(error))
+    throw new Error(error)
   });
 }
 export const twitter = () => {
@@ -124,6 +125,9 @@ signInWithPopup(auth, provider)
     }
   }).catch((error: any) => {
   
-    toast.error("An error Occured")
+      
+    console.log(error)
+    toast.error(JSON.stringify(error))
+    throw new Error(error)
   });
 }

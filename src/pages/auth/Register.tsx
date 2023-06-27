@@ -1,5 +1,13 @@
-export default function Register(){
-  return(
-    <h1>Register page</h1>
+import Reg1 from "../../components/reg1"
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+const Register:React.FC = ():JSX.Element => {
+  return (
+    <div className="text-center shadow rounded-lg">
+    <Typography variant="h2">Register page</Typography>
+    <Reg1 />
+    </div>
     )
 }
+
+export default Register;
