@@ -1,4 +1,6 @@
 import React from 'react';
+import "./app/firebase.ts"
+import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
@@ -6,7 +8,8 @@ import App from './App';
 import Home from "./pages/Home"
 import Logout from "./pages/Logout"
 import Login from "./pages/Login"
-import Register from "./pages/Register"
+import Register from "./pages/auth/Register"
+import Register2 from "./pages/auth/Register2"
 import Profile from "./pages/Profile"
 import {
   createBrowserRouter,
@@ -14,10 +17,8 @@ import {
   RouterProvider,
   createRoutesFromElements
 } from "react-router-dom"
-import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
-import "./app/firebase.ts"
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 const router = createBrowserRouter(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
      <Route path="/login" element={<Login/>}/>
      <Route path="/logout" element={<Logout/>}/>
      <Route path="/register" element={<Register/>}/>
+     <Route path="/register2" element={<Register2/>}/>
      <Route path="/profile" element={<Profile/>}/>
     </Route>
     )
