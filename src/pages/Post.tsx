@@ -45,7 +45,7 @@ export default function Post(){
       setAuthor(data.user);
     }
   }, [data]);
-  const inputRef = useRef()
+  const inputRef = useRef<HTMLInputElement>()
   if(!post){
     return (<h1> Post not found</h1>)
     navigate("/")
@@ -76,7 +76,7 @@ export default function Post(){
       )}
       <CardActions disableSpacing  className="bg h-8 m-0">
         <IconButton  className="bg" aria-label="like">Like</IconButton>
-        <IconButton  className="bg" aria-label="comment" onClick={()=>inputRef?.current?.click()}>Comment</IconButton>
+        <IconButton  className="bg" aria-label="comment" onClick={()=>inputRef?.current?.focus()}>Comment</IconButton>
         <IconButton  className="bg" aria-label="retweet">Retweet</IconButton>
       </CardActions>
     </Card>
