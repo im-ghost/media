@@ -34,17 +34,15 @@ import {
 } from "./reducer"
 const Register2:FC = ():JSX.Element => {
   const [user,setUser] = useState<USER | null>(null);
-  const [emailLink,setEmailLink] = useState<Boolean>(false)
+  const [emailAuth,setEmailAuth] = useState<Boolean>(false);
+  const [emailAuthData,setEmailAuthData] = useState<string>("");
+  const [phoneAuth,setPhoneAuth] = useState<Boolean>(false);
+  const [phoneAuthData,setPhoneAuthData] = useState<string | number>();
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
+  const userSign:any | null = useAppSelector(state=>state.user.userSign)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [register,{isLoading,error,data}] = useRegisterUserMutation();
-useEffect(()=>{
-  const email:string | null | undefined = localStorage.getItem("emailForSignIn");
-  if((email !== null) && (email !== undefined)){
-    setEmailLink(true)
-  }
-},[])
   const create = async (e:any) =>{
     e.preventDefault();
     setState({type:"reset"})
@@ -73,12 +71,13 @@ useEffect(()=>{
     navigate("/profile")
     }
   },[data,navigate,dispatch])
+ useEffect(()=>{
+   
   const setIt = async (user:USER | null) =>{
     if(user){
     await dispatch(SetUser(user))
     }
   }
- useEffect(()=>{
    console.log(userInfo)
    console.log(user)
      if(user){
@@ -87,9 +86,39 @@ useEffect(()=>{
        setIt(user)
      }
  },[user,navigate,userInfo])
+ useEffect(()=>{
+   if(userSign !== null || userSign !== undefined){
+   if(userSign && userSign.num !== undefined){
+     setPhoneAuth(true)
+     setPhoneAuthData(userSign.num)
+     setState({
+       type:"setTel",
+       payload:userSign.num
+      
+     })
+   }else if(userSign && userSign.email !== undefined){
+     setEmailAuth(true)
+     setEmailAuthData(userSign.email)
+       setState({
+       type:"setEmail",
+       payload:userSign.email
+     })
+   }
+   if(userSign && userSign.displayName!== undefined && userSign.photoUrl !== undefined){
+      setState({
+       type:"setName",
+       payload:userSign.displayName
+     })
+      setState({
+       type:"setImage",
+       payload:userSign.photoUrl
+     })
+   }
+   }
+ },[userSign])
  const [state,setState] = useReducer(reducer,initialState)
    return(
-    <div className="text-center shadow rounded-lg">
+    <div className="text-center shadow rounded-lg bg">
      <Typography variant="h2">Complete your registration</Typography>
      <Box 
      component="form"
@@ -114,7 +143,7 @@ useEffect(()=>{
      }}
      />
   { 
-  !emailLink ? 
+  emailAuth &&
   ( <TextField 
      id="tel"
      label="Telephone"
@@ -129,8 +158,8 @@ useEffect(()=>{
          })
        }
      }}
-     />) : 
-    ( <TextField 
+     />) }
+   { phoneAuth &&  ( <TextField 
      id="email"
      label="Email Address"
      placeholder = "medi@medi.com"

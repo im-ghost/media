@@ -3,7 +3,7 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 const Register:React.FC = ():JSX.Element => {
   return (
-    <div className="text-center shadow rounded-lg">
+    <div className="text-center shadow rounded-lg bg">
     <Typography variant="h2">Register page</Typography>
     <Reg1 />
     </div>

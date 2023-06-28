@@ -11,6 +11,19 @@ import {
   toast
 } from "react-toastify"
 const auth = getAuth();
+var _window:{
+  confirmationResult:any,
+  verified:Boolean,
+  email:string,
+  photoUrl:string,
+  displayName:string
+} = {
+  confirmationResult: undefined,
+  verified:false,
+  email:"",
+  photoUrl:"",
+  displayName:"",
+}
 export const emailLink = (email:string) =>{
   const actionCodeSettings = {
   url: 'http://localhost:3000/register2',
@@ -20,7 +33,7 @@ export const emailLink = (email:string) =>{
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
   .then(() => {
     window.localStorage.setItem('emailForSignIn', email);
-    console.log(actionCodeSettings)
+   
    return "sent"
   })
   .catch((error:any) => {
@@ -31,30 +44,28 @@ export const emailLink = (email:string) =>{
   });
   
 }
-export const verifyPhone = (number:any,code:string | number,confirmationResult:any) =>{
-confirmationResult.confirm(code).then((result:any) => {
- console.log(result)
-  const user:any = result.user;
-  if(user){
-    return number
-  }
+export const verifyPhone = async (number:any,code:string | number,confirmationResult:any) =>{
+await _window.confirmationResult.confirm(code).then((result:any) => {
+    _window.verified = true;
 }).catch((error:any) => {
   
     console.log(error)
     toast.error(JSON.stringify(error))
     throw new Error(error)
 });
-
+if(_window.verified){
+  return number
+}
 }
 export const phone = (phoneNumber:number) => {
   
 const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
   'size': 'normal',
   'callback': (response:any) => {
-   solved()
+      return solved()
   },
   'expired-callback': () => {
-    recaptchaVerifier.render()
+  //  recaptchaVerifier.render()
   }
 }, auth);
    recaptchaVerifier.render()
@@ -64,7 +75,8 @@ const appVerifier = recaptchaVerifier;
 const num = phoneNumber.toString()
 signInWithPhoneNumber(auth, num, appVerifier)
     .then((confirmationResult:any) => {
-      console.log(confirmationResult)
+     _window.confirmationResult= confirmationResult;
+     
       return confirmationResult;
     }).catch((error: any) => {
         
@@ -75,9 +87,9 @@ signInWithPhoneNumber(auth, num, appVerifier)
 }
 
 }
-export const google = () => {
+export const google = async (navigate:any) => {
 const provider = new GoogleAuthProvider();
-signInWithPopup(auth, provider)
+await signInWithPopup(auth, provider)
   .then((result) => {
     const credential:any = GoogleAuthProvider.credentialFromResult(result);
     if(credential){
@@ -87,8 +99,12 @@ signInWithPopup(auth, provider)
     
     if(user){ 
       user.token = token;
-      return user
-      
+     console.log(user)
+      _window.email = user.email
+      _window.photoUrl = user.photoURL
+      _window.displayName = user.displayName
+      console.log(_window)
+      navigate("/register2")
     }else{
     toast.error("An error Occured")
     }
@@ -106,10 +122,15 @@ signInWithPopup(auth, provider)
     toast.error(JSON.stringify(error))
     throw new Error(error)
   });
+  return {
+    email:_window.email,
+    photoUrl:_window.photoUrl,
+    displayName:_window.displayName
+  }
 }
-export const twitter = () => {
+export const twitter = async (navigate:any) => {
 const provider = new TwitterAuthProvider();
-signInWithPopup(auth, provider)
+await signInWithPopup(auth, provider)
   .then((result:any) => {
     const credential: any = GoogleAuthProvider.credentialFromResult(result);
     if(credential){
@@ -117,7 +138,13 @@ signInWithPopup(auth, provider)
     const user:any = result.user;
     if(user) {
       user.token = token;
-      return user
+         console.log(user)
+      _window.email = user.email
+      _window.photoUrl = user.photoURL
+      _window.displayName = user.displayName
+      console.log(_window)
+     
+      navigate("/register2")
     }else{
     toast.error("An error Occured")}
     }else{
@@ -130,4 +157,9 @@ signInWithPopup(auth, provider)
     toast.error(JSON.stringify(error))
     throw new Error(error)
   });
+    return {
+    email:_window.email,
+    photoUrl:_window.photoUrl,
+    displayName:_window.displayName
+  }
 }
