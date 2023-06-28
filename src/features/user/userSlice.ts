@@ -3,13 +3,15 @@ import { RootState} from '../../app/store';
 
 import type { USER } from "../../app/types"
 type UserState = {
-  userInfo: null | USER
+  userSign: any;
+  userInfo: null | USER;
   status: 'idle' | 'loading' | 'failed';
 }
 const userInfoL:string | null = localStorage.getItem("media-user")
 const initialState: UserState = {
   userInfo: userInfoL ? JSON.parse(userInfoL).user : null,
   status: 'idle',
+  userSign: null
 };
 
 export const userSlice = createSlice({
@@ -22,14 +24,21 @@ export const userSlice = createSlice({
       state.userInfo = action.payload;
       console.log("saved")
       console.log(state.userInfo)
+    },
+    setUserSign: (state, action: PayloadAction<any>) => {
+  
+      state.userSign = action.payload;
+      console.log("saved")
+      console.log(state.userSign)
     }
   },
   
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser,setUserSign } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.userInfo;
+export const selectUserSign = (state: RootState) => state.user.userSign;
 
 
 export default userSlice.reducer;
