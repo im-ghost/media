@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom"
 const Reg1:React.FC = ():JSX.Element => {
   const navigate = useNavigate();
    return(
-    <div className="">
+    <div className="bg">
       <RegButtons />
-     <div className="p-2 rounded shadow" onClick={()=>navigate("/login")}>
+     <div className="m-2 p-2 rounded shadow" onClick={()=>navigate("/login")}>
      <Typography variant="h6"> Already have an account? Login</Typography>
      </div>
     </div>
