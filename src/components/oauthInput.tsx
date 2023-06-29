@@ -1,6 +1,4 @@
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
+import axios from "axios"
 import Box from "@mui/material/Box";
 import * as React from "react";
 import {
@@ -9,35 +7,46 @@ import {
 } from "../pages/auth/firebase";
 import { useNavigate } from "react-router-dom";
 import {
-  toast
-} from "react-toastify"
-
-import { setUserSign } from "../features/user/userSlice"
+  FaGoogle,
+  FaTwitter,
+  } from 'react-icons/fa';
+import { setUserSign,setUser } from "../features/user/userSlice"
 import { useAppDispatch } from "../app/hooks"
-const AuthProviders:React.FC = ():JSX.Element =>{
+const AuthProviders:React.FC<{
+  isLogin:Boolean
+}> = ({ isLogin }):JSX.Element =>{
   const navigate = useNavigate()
   const dispatch = useAppDispatch();
   const _google = async (navigate:any) =>{
-    const res = await google(navigate);
-   await dispatch(setUserSign(res))
-   
+    const res = await google(navigate,isLogin);
+    if(isLogin){
+    const user = await axios.post("http://localhost:4000/api/v1/users/ologin",{
+      body:res.email
+    })
+  
+   await dispatch(setUser(user.data))
+   navigate("/")
+    }
+     await dispatch(setUserSign(res))
   }
   const _twitter = async (navigate:any) =>{
-    const res = await twitter(navigate);
+    const res = await twitter(navigate,isLogin);
+    if(isLogin){
+    const user = await axios.post("http://localhost:4000/api/v1/users/ologin",{
+      body:res.email
+    })
+    await dispatch(setUser(user.data))
+    navigate("/")
+  }
    await dispatch(setUserSign(res))
-    
   }
   return(
-    <Box className="bg m-2 p-2">
-       <div className="p-2 m-2">
-     <Button className="bg p-2 my-2" variant="contained" onClick={()=>_google(navigate)}>
-      <Typography variant="h6">Sign In With Google</Typography>
-     </Button>
+    <Box className="bg m-2 p-2 flex justify-center h-16 w-full align-center">
+       <div className="m-2 shadow-3xl border border-xl h-10 w-10 p-2  flex justify-center align-center text-center rounded-lg">
+     <FaGoogle className="text-xl text-bold" onClick={()=>_google(navigate)} />
      </div>
-        <div className="p-2 m-2">
-     <Button className="bg p-2 my-2" variant="contained" onClick={()=>_twitter(navigate)}>
-      <Typography variant="h6">Sign In With Twitter</Typography>
-     </Button>
+        <div className="m-2 shadow-3xl border border-xl h-10 w-10 p-2 rounded-lg flex justify-center align-center text-center">
+    <FaTwitter className="text-xl text-bold" onClick={()=>_twitter(navigate)}/>
         </div>
      </Box>
     )
