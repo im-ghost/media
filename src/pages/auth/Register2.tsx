@@ -32,17 +32,21 @@ import {
   initialState,
   reducer
 } from "./reducer"
+
+  import { Password } from "../../components/passwordInput"
+  import { Email } from "../../components/emailComponent"
+  
+import { useStyles } from "./Login"
 const Register2:FC = ():JSX.Element => {
+  const classes = useStyles()
   const [user,setUser] = useState<USER | null>(null);
   const [emailAuth,setEmailAuth] = useState<Boolean>(false);
-  const [emailAuthData,setEmailAuthData] = useState<string>("");
   const [phoneAuth,setPhoneAuth] = useState<Boolean>(false);
-  const [phoneAuthData,setPhoneAuthData] = useState<string | number>();
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
   const userSign:any | null = useAppSelector(state=>state.user.userSign)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const [register,{isLoading,error,data}] = useRegisterUserMutation();
+  const [register,{error,data}] = useRegisterUserMutation();
   const create = async (e:any) =>{
     e.preventDefault();
     setState({type:"reset"})
@@ -85,12 +89,12 @@ const Register2:FC = ():JSX.Element => {
        navigate("/profile");
        setIt(user)
      }
- },[user,navigate,userInfo])
+ },[user,navigate,userInfo, dispatch])
  useEffect(()=>{
    if(userSign !== null || userSign !== undefined){
    if(userSign && userSign.num !== undefined){
      setPhoneAuth(true)
-     setPhoneAuthData(userSign.num)
+    
      setState({
        type:"setTel",
        payload:userSign.num
@@ -98,16 +102,20 @@ const Register2:FC = ():JSX.Element => {
      })
    }else if(userSign && userSign.email !== undefined){
      setEmailAuth(true)
-     setEmailAuthData(userSign.email)
+     
        setState({
        type:"setEmail",
        payload:userSign.email
      })
    }
-   if(userSign && userSign.displayName!== undefined && userSign.photoUrl !== undefined){
+   if(userSign && userSign.displayName!== undefined && userSign.photoUrl !== undefined && userSign.uid){
       setState({
        type:"setName",
        payload:userSign.displayName
+     })
+     setState({
+       type:"setPassword",
+       payload:userSign.uid
      })
       setState({
        type:"setImage",
@@ -118,17 +126,18 @@ const Register2:FC = ():JSX.Element => {
  },[userSign])
  const [state,setState] = useReducer(reducer,initialState)
    return(
-    <div className="text-center shadow rounded-lg bg">
+    <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center dark:text-amber-200 text-amber-800 bg-sky-300 dark:bg-slate-900 items-center p-0">
+      <div  className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800">
      <Typography variant="h2">Complete your registration</Typography>
      <Box 
      component="form"
      noValidate
      autoComplete="on"
      sx={{
-       '& .MuiTextField-root': { m: 1, width: '80vw' },
+       '& .MuiTextField-root': { m: 1, width: '70vw' },
      }}
      >
-     <TextField 
+     { state.name && state.name.length < 2 && (<TextField 
      id="name"
      label="Name"
      placeholder = "Full name"
@@ -141,7 +150,7 @@ const Register2:FC = ():JSX.Element => {
          })
        }
      }}
-     />
+     />) }
   { 
   emailAuth &&
   ( <TextField 
@@ -159,52 +168,12 @@ const Register2:FC = ():JSX.Element => {
        }
      }}
      />) }
-   { phoneAuth &&  ( <TextField 
-     id="email"
-     label="Email Address"
-     placeholder = "medi@medi.com"
-     InputProps = {{
-     type:"email",
-       value:state.email,
-       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
-         setState({
-           type:"setEmail",
-           payload:e.target.value
-         })
-       }
-     }}
-     />)
+   { phoneAuth &&  ( 
+ <Email value={state.email} onChange={setState} />)
   }
-     <TextField 
-     id="password"
-     label="Password"
-     placeholder = "Your password"
-     InputProps = {{
-       type:"password",
-       value:state.password,
-       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
-         setState({
-           type:"setPassword",
-           payload:e.target.value
-         })
-       }
-     }}
-     />
-     <TextField 
-     id="password"
-     label="Password"
-     placeholder = "Comfirm Your password"
-     InputProps = {{
-       type:"password",
-       value:state.password2,
-       onChange:(e:ChangeEvent<HTMLInputElement>)=>{
-         setState({
-           type:"setPassword2",
-           payload:e.target.value
-         })
-       }
-     }}
-     />
+   
+{ state.password === null && ( <Password value={state.password} onChange={setState} />
+  )}
      <TextField 
      id="bio"
      label="Bio"
@@ -220,9 +189,10 @@ const Register2:FC = ():JSX.Element => {
      }}
      />
      </Box>
-     <Button variant="outlined" color="primary" onClick={create}><Typography variant="h6"> Create </Typography></Button>
+     <Button variant="outlined" classes={{ root: classes.button }} onClick={create}><Typography variant="h6"> Create </Typography></Button>
      <div className="p-2 rounded shadow" onClick={()=>navigate("/login")}>
      <Typography variant="h6"> Already have an account? Login</Typography>
+     </div>
      </div>
     </div>
     )
