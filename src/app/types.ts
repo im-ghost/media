@@ -2,15 +2,15 @@
 
 // User type
 type USER = {
-  name: string,
-  phone:  string,
-  email: string
+  name?: string,
+  phone?:  string,
+  email: string | null,
   chats?: [string],
-  bio: string,
+  bio?: string,
   followers?: [string],
   following?: [string],
   posts?: [string],
-  password: string,
+  password?: string | null,
   password2?: string,
   image?: string | null,
   _id?:string,
