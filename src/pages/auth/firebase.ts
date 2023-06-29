@@ -87,7 +87,7 @@ signInWithPhoneNumber(auth, num, appVerifier)
 }
 
 }
-export const google = async (navigate:any) => {
+export const google = async (navigate:any,isLogin:Boolean) => {
 const provider = new GoogleAuthProvider();
 await signInWithPopup(auth, provider)
   .then((result) => {
@@ -104,7 +104,12 @@ await signInWithPopup(auth, provider)
       _window.photoUrl = user.photoURL
       _window.displayName = user.displayName
       console.log(_window)
-      navigate("/register2")
+      if(isLogin){
+       
+       
+      }else{
+     navigate("/register2")
+      }
     }else{
     toast.error("An error Occured")
     }
@@ -128,7 +133,7 @@ await signInWithPopup(auth, provider)
     displayName:_window.displayName
   }
 }
-export const twitter = async (navigate:any) => {
+export const twitter = async (navigate:any,isLogin:Boolean) => {
 const provider = new TwitterAuthProvider();
 await signInWithPopup(auth, provider)
   .then((result:any) => {
@@ -144,7 +149,11 @@ await signInWithPopup(auth, provider)
       _window.displayName = user.displayName
       console.log(_window)
      
-      navigate("/register2")
+      if(isLogin){
+       
+      }else{
+     navigate("/register2")
+      }
     }else{
     toast.error("An error Occured")}
     }else{
