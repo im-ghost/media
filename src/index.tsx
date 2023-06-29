@@ -7,7 +7,7 @@ import { store } from './app/store';
 import App from './App';
 import Home from "./pages/Home"
 import Logout from "./pages/Logout"
-import Login from "./pages/Login"
+import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
 import Register2 from "./pages/auth/Register2"
 import Profile from "./pages/Profile"
