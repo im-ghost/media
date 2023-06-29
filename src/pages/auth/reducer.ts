@@ -6,9 +6,8 @@ import type { USER } from "../../app/types"
    name:"",
    email:"",
    phone:"",
-   password:"",
+   password:null,
    bio:"",
-   password2:"",
    image:null
  }
  type ACTION = {
