@@ -35,16 +35,8 @@ import type { USER } from "../../app/types"
 import AuthProviders from "../../components/oauthInput"
 
 import { reducer,initialState } from "./loginReducer"
-import { makeStyles } from '@mui/styles';
-
-export const useStyles = makeStyles({
-  button: {
-    '@apply text-center shadow-4xl rounded-[8px]  p-2 w-[15vw] h-[6vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800 flex flex-col justify-evenly items-center': {},
-  },
-});
-
 const Login:FC = ():JSX.Element => {
- const classes = useStyles();
+
  
   const [user,setUser] = useState<USER | null>(null);
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
@@ -93,7 +85,7 @@ const Login:FC = ():JSX.Element => {
  const [state,setState] = useReducer(reducer,initialState)
    return(
      <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center dark:text-amber-200 text-amber-800 bg-sky-300 dark:bg-slate-900 items-center p-0">
-    <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800 flex flex-col justify-evenly items-center">
+    <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-40% to-emerald-500 to-100%  dark:from-blue-700 dark:from-20% dark:via-emarald-700 dark:via-30% dark:to-ryan-700 dark:to-100% dark:text-amber-500 text-amber-800  flex flex-col justify-evenly items-center  backdrop-blur-3xl [backdrop-filter: blur(30px)]">
     <IconButton>
         <FaUserCircle className="text-4xl text-bold dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800" />
       </IconButton>
@@ -110,7 +102,7 @@ const Login:FC = ():JSX.Element => {
  <Email value={state.email} onChange={setState} />
  <Password value={state.password} onChange={setState} />
  </Box>
-     <Button variant="contained"  className="" classes={{ root: classes.button }} onClick={create}><Typography variant="body1">  
+     <Button variant="contained"  className="text-center shadow-4xl rounded-[8px]  p-2 w-[40vw] h-[6vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800 flex flex-col justify-evenly items-center"  onClick={create}><Typography variant="body1">  
   Login </Typography></Button>
   <AuthProviders isLogin={true}/>
      <div className="rounded " onClick={()=>navigate("/register")}>

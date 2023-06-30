@@ -20,7 +20,7 @@ const AuthProviders:React.FC<{
   const _google = async (navigate:any) =>{
     const res = await google(navigate,isLogin);
     if(isLogin){
-    const user = await axios.post("http://localhost:4000/api/v1/users/ologin",{
+    const user = await axios.post("https://media-app-api-a06z.onrender.com/api/v1/users/ologin",{
       body:res.email
     })
   
@@ -42,10 +42,10 @@ const AuthProviders:React.FC<{
   }
   return(
     <Box className="bg m-2 p-2 flex justify-center h-16 w-full align-center">
-       <div className="m-2 shadow-3xl border border-xl h-10 w-10 p-2  flex justify-center align-center text-center rounded-lg">
+       <div className=" shadow-3xl border border-xl h-10 w-10 p-2  flex justify-center align-center text-center rounded-lg mx-2">
      <FaGoogle className="text-xl text-bold" onClick={()=>_google(navigate)} />
      </div>
-        <div className="m-2 shadow-3xl border border-xl h-10 w-10 p-2 rounded-lg flex justify-center align-center text-center">
+        <div className="shadow-3xl border border-xl h-10 w-10 p-2 rounded-lg flex justify-center align-center text-center mx-2">
     <FaTwitter className="text-xl text-bold" onClick={()=>_twitter(navigate)}/>
         </div>
      </Box>

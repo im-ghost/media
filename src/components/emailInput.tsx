@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button"
+
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -24,7 +24,7 @@ const sendLink = async (email:string) =>{
 }
 if(isDone){
   return(
-    <Box className="bg">
+    <Box className="bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-500 text-amber-800 rounded-lg">
      <Typography variant="h6"> A confirmation link has been sent to your email,click on the link to continue</Typography>
     </Box>
     )
@@ -32,14 +32,14 @@ if(isDone){
   return(
     <Box className="bg m-2">
     <TextField 
-      className="m-2"
+      className="m-2 bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
     label = "Email Address"
     placeholder = "culestfrosh@gmail.com"
     InputProps= {{
       value:email,
       onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setEmail(e.target.value)
     }}/>
-    <Button onClick={()=>sendLink(email)} disabled={isButtonDisabled}> Send Link </Button>
+    <button onClick={()=>sendLink(email)} disabled={isButtonDisabled} className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg p-2"> Send Link </button>
      </Box>
     )
 }

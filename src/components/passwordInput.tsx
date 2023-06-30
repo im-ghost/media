@@ -7,7 +7,7 @@ import {
   FC,
   ChangeEvent
   } from "react"
-import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
+import { RiEyeFill, RiEyeOffFill,RiLock2Line } from 'react-icons/ri';
 export const Password:FC<{
   value:string | null,
   onChange:any
@@ -22,12 +22,17 @@ export const Password:FC<{
         <TextField 
      id="password"
      label="Password"
-      className="dark:text-amber-900 text-amber-400 bg-sky-900 dark:bg-slate-600 rounded-lg"
+      className="bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-500 text-amber-800 rounded-lg"
      placeholder = "Your password" 
      type={passwordVisible ? 'text' : 'password'}
      InputProps = {{
          type:passwordVisible ? 'text' : 'password',
        value:value,
+        startAdornment: (
+            <InputAdornment position="end">
+             <RiLock2Line/>
+            </InputAdornment>
+          ),
         endAdornment: (
             <InputAdornment position="end">
               {passwordVisible ? (

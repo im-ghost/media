@@ -1,8 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.bg-image {
-  background-image: url('./images/bg1s.jpeg');
-  background-size: cover;
-  background-position: center;
-}
+.glass{
+      backdrop-filter: blur(10px);
+    }
+ 

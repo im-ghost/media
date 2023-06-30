@@ -35,10 +35,9 @@ import {
 
   import { Password } from "../../components/passwordInput"
   import { Email } from "../../components/emailComponent"
-  
-import { useStyles } from "./Login"
+ 
 const Register2:FC = ():JSX.Element => {
-  const classes = useStyles()
+  
   const [user,setUser] = useState<USER | null>(null);
   const [emailAuth,setEmailAuth] = useState<Boolean>(false);
   const [phoneAuth,setPhoneAuth] = useState<Boolean>(false);
@@ -189,7 +188,7 @@ const Register2:FC = ():JSX.Element => {
      }}
      />
      </Box>
-     <Button variant="outlined" classes={{ root: classes.button }} onClick={create}><Typography variant="h6"> Create </Typography></Button>
+     <Button variant="outlined" className="text-center shadow-4xl rounded-[8px]  p-2 w-[40vw] h-[6vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800 flex flex-col justify-evenly items-center" onClick={create}><Typography variant="h6"> Create </Typography></Button>
      <div className="p-2 rounded shadow" onClick={()=>navigate("/login")}>
      <Typography variant="h6"> Already have an account? Login</Typography>
      </div>

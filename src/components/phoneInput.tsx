@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button"
+
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -51,7 +51,7 @@ const verify = async (code:any) =>{
 }
 if(codeInput){
   return(
-    <Box className="bg m-2">
+    <Box className="bg m-2  bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg">
     <div id="recaptcha-container"></div>
    <Typography variant="h6">
    A code has been sent to {num} , input the code below to continue with your registration 
@@ -59,27 +59,28 @@ if(codeInput){
    
     <TextField 
     label = "Code"
-    className="m-2"
+    className="m-2  bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
     placeholder = "Input the OTP sent"
     InputProps= {{
       value:code,
       onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setCode(e.target.value)
     }}/>
-    <Button onClick={()=>verify(code)} disabled={isButtonDisabled}> Verify </Button>
+    <button className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg" onClick={()=>verify(code)} disabled={isButtonDisabled}> Verify </button>
      </Box>
     )
 }
   return(
-    <Box className="bg">
+    <Box className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg">
     <div id="recaptcha-container"></div>
     <TextField 
     label = "phone number "
+    className="  bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
     placeholder = "Input Phone number"
     InputProps= {{
       value:num,
       onChange:(e:React.ChangeEvent<HTMLInputElement>)=> setNum(e.target.value)
     }}/>
-    <Button onClick={()=>sendCode(num)} > Send Code </Button>
+    <button className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg" onClick={()=>sendCode(num)} > Send Code </button>
      </Box>
     )
 }
