@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
 import Home from "./pages/Home"
+import Post from "./pages/Post"
+import CreatePost from "./pages/CreatePost"
 import Logout from "./pages/Logout"
 import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
@@ -30,6 +32,8 @@ const router = createBrowserRouter(
      <Route path="/register" element={<Register/>}/>
      <Route path="/register2" element={<Register2/>}/>
      <Route path="/profile" element={<Profile/>}/>
+     <Route path="/createpost" element={<CreatePost/>}/>
+     <Route path="/posts/:id" element={<Post />}/>
     </Route>
     )
   )
@@ -48,4 +52,4 @@ serviceWorkerRegistration.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(console.log);
