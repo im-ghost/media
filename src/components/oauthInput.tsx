@@ -32,7 +32,7 @@ const AuthProviders:React.FC<{
   const _twitter = async (navigate:any) =>{
     const res = await twitter(navigate,isLogin);
     if(isLogin){
-    const user = await axios.post("http://localhost:4000/api/v1/users/ologin",{
+    const user = await axios.post("https://media-app-api-a06z.onrender.com /api/v1/users/ologin",{
       body:res.email
     })
     await dispatch(setUser(user.data))
