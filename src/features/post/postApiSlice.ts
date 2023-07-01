@@ -44,16 +44,26 @@ export const postApiSlice = apiSlice.injectEndpoints({
     }),
     likePost: builder.mutation<void, {postId:string;token:string }>({
       query: ({postId,token}) => ({
-        url: `/posts/post/${postId}/like`,
+        url: `/posts/post/like/${postId}/`,
         method: "PUT",
         headers:{
           authorization:token
         }
       }),
     }),
-    commentPost: builder.mutation<void, { data: string; postId: string;token:string }>({
+    commentOnPost: builder.mutation<void, { data: string; postId: string;token:string }>({
       query: ({ data, postId ,token}) => ({
-        url: `/posts/post/${postId}/comment`,
+        url: `/posts/post/comment/${postId}/`,
+        method: "PUT",
+        body: data,
+        headers:{
+          authorization:token
+        }
+      }),
+    }),
+    retweetPost: builder.mutation<void, { postId: string;token:string }>({
+      query: ({ postId ,token}) => ({
+        url: `/posts/post/retweet/${postId}/`,
         method: "PUT",
         body: data,
         headers:{
@@ -66,7 +76,8 @@ export const postApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useLikePostMutation,
-  useCommentPostMutation,
+  useRetweetPostMutation,
+  useCommentOnPostMutation,
   useCreatePostMutation,
   useDeletePostMutation,
   useUpdatePostMutation,
