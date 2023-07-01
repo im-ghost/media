@@ -1,17 +1,44 @@
 
 import {
-  useNavigate
+  useNavigate,
+  useLocation
 } from "react-router-dom";
+import { RiHome2Fill, RiSearchLine, RiMessage2Line, RiAccountCircleFill } from 'react-icons/ri';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
     
 
 
 const Footer:React.FC = ():JSX.Element => {
   const navigate = useNavigate();
+   const location = useLocation();
+   location.pathname.includes
+  const routes = [
+    {
+    name:"home",
+    icon:JSX.createElement(RiHome2Fill)
+  },
+    {
+    name:"notifications",
+    icon:JSX.createElement(RiNotification)
+  },
+    {
+    name:"search",
+    icon:JSX.createElement(RiSearchLine)
+  },
+    {
+    name:"messages",
+    icon:JSX.createElement(RiMessage2Line)
+  },
+    {
+    name:"profile",
+    icon:JSX.createElement(RiAccountCircleFill)
+  },
+  ]
   const [value,setValue] = React.useState(0)
 
   const ref = React.useRef<HTMLDivElement>(null);
@@ -31,13 +58,12 @@ const Footer:React.FC = ():JSX.Element => {
           }}
           className="flex w-full h-8 justify-evenly items-center"
         >
-          <BottomNavigationAction label="Notifications" onClick={()=> navigate("/notifications")} icon={<h1>🔔</h1>} />
-          <BottomNavigationAction label="Messages" onClick={()=> navigate("/messages")} icon={<h1>🗨️</h1>} />
-          <BottomNavigationAction label="Home" onClick={()=> navigate("/")} icon={<h1>🏠</h1>} />
-          <BottomNavigationAction label="Search" onClick={()=> navigate("/search")} icon={<h1>🔍</h1>} />
-          <BottomNavigationAction label="profile" onClick={()=> navigate("/profile")} icon={<h1>👤</h1>} />
-        
-        </BottomNavigation>
+        { routes.map(route => (
+          <BottomNavigationAction label={route.name} className={location.pathname.includes(route.name) ? "bg-green-900" :""} onClick={()=> navigate(`/${route.name}`)} icon={<IconButton>
+          {route.icon}
+          </IconButton>} />))
+        }
+         </BottomNavigation>
       </Paper>
     </Box>
     )
