@@ -37,10 +37,10 @@ import {
   import { Email } from "../../components/emailComponent"
  
 const Register2:FC = ():JSX.Element => {
-  
+  const [passwordSet,setPasswordSet] = useState<boolean>(false);
   const [user,setUser] = useState<USER | null>(null);
-  const [emailAuth,setEmailAuth] = useState<Boolean>(false);
-  const [phoneAuth,setPhoneAuth] = useState<Boolean>(false);
+  const [emailAuth,setEmailAuth] = useState<boolean>(false);
+  const [phoneAuth,setPhoneAuth] = useState<boolean>(false);
   const userInfo:USER | null = useAppSelector(state=>state.user.userInfo)
   const userSign:any | null = useAppSelector(state=>state.user.userSign)
   const navigate = useNavigate()
@@ -57,6 +57,7 @@ const Register2:FC = ():JSX.Element => {
    bio:state.bio,
    image:state.image
     }
+    console.log(data)
     await register(data).unwrap();
   }
   useEffect(()=>{
@@ -108,6 +109,8 @@ const Register2:FC = ():JSX.Element => {
      })
    }
    if(userSign && userSign.displayName!== undefined && userSign.photoUrl !== undefined && userSign.uid){
+     setPasswordSet(true)
+     console.log(passwordSet)
       setState({
        type:"setName",
        payload:userSign.displayName
@@ -115,7 +118,8 @@ const Register2:FC = ():JSX.Element => {
      setState({
        type:"setPassword",
        payload:userSign.uid
-     })
+     });
+     
       setState({
        type:"setImage",
        payload:userSign.photoUrl
@@ -171,7 +175,7 @@ const Register2:FC = ():JSX.Element => {
  <Email value={state.email} onChange={setState} />)
   }
    
-{ state.password === null && ( <Password value={state.password} onChange={setState} />
+{ passwordSet ? "" : ( <Password value={state.password} onChange={setState} />
   )}
      <TextField 
      id="bio"

@@ -6,10 +6,10 @@ import {
   useState,
   FC,
   ChangeEvent
-  } from "react"
-import { RiEyeFill, RiEyeOffFill,RiLock2Line } from 'react-icons/ri';
+  } from "react"/*
+import { RiEyeFill, RiEyeOffFill,RiLock2Line } from 'react-icons/ri';*/
 export const Password:FC<{
-  value:string | null,
+  value:string | null | undefined,
   onChange:any
 }> = ({value,onChange}) => {
    const [passwordVisible, setPasswordVisible] = useState(false);
@@ -27,19 +27,19 @@ export const Password:FC<{
      type={passwordVisible ? 'text' : 'password'}
      InputProps = {{
          type:passwordVisible ? 'text' : 'password',
-       value:value,
+       value:value || "",
         startAdornment: (
             <InputAdornment position="end">
-             <RiLock2Line/>
+           a
             </InputAdornment>
           ),
         endAdornment: (
             <InputAdornment position="end">
-              {passwordVisible ? (
+           {/*   {passwordVisible ? (
                 <RiEyeOffFill onClick={togglePasswordVisibility} />
               ) : (
                 <RiEyeFill onClick={togglePasswordVisibility} />
-              )}
+              )}*/} E
             </InputAdornment>
           ),
        onChange:(e:ChangeEvent<HTMLInputElement>)=>{

@@ -3,7 +3,7 @@ import {
   useNavigate,
   useLocation
 } from "react-router-dom";
-import { RiHome2Fill, RiSearchLine, RiMessage2Line, RiAccountCircleFill } from 'react-icons/ri';
+import { RiHome2Fill, RiSearchLine, RiMessage2Line, RiAccountCircleFill,RiNotificationFill } from 'react-icons/ri';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -16,29 +16,7 @@ import IconButton from '@mui/material/IconButton';
 const Footer:React.FC = ():JSX.Element => {
   const navigate = useNavigate();
    const location = useLocation();
-   location.pathname.includes
-  const routes = [
-    {
-    name:"home",
-    icon:JSX.createElement(RiHome2Fill)
-  },
-    {
-    name:"notifications",
-    icon:JSX.createElement(RiNotification)
-  },
-    {
-    name:"search",
-    icon:JSX.createElement(RiSearchLine)
-  },
-    {
-    name:"messages",
-    icon:JSX.createElement(RiMessage2Line)
-  },
-    {
-    name:"profile",
-    icon:JSX.createElement(RiAccountCircleFill)
-  },
-  ]
+  
   const [value,setValue] = React.useState(0)
 
   const ref = React.useRef<HTMLDivElement>(null);
@@ -46,7 +24,6 @@ const Footer:React.FC = ():JSX.Element => {
     (ref.current as HTMLDivElement).ownerDocument.body.scrollTop = 0;
   
   }, [value]);
-  
   return (
          <Box sx={{ pb: 7 }} ref={ref} >
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} className="flex w-screen ">
@@ -58,11 +35,33 @@ const Footer:React.FC = ():JSX.Element => {
           }}
           className="flex w-full h-8 justify-evenly items-center"
         >
-        { routes.map(route => (
-          <BottomNavigationAction label={route.name} className={location.pathname.includes(route.name) ? "bg-green-900" :""} onClick={()=> navigate(`/${route.name}`)} icon={<IconButton>
-          {route.icon}
-          </IconButton>} />))
-        }
+      
+          <BottomNavigationAction
+          label="home"
+          className={location.pathname.includes("home") ? "bg-green-900" :""} 
+          onClick={()=> navigate(`/home`)} 
+          icon={<IconButton> <RiHome2Fill />  </IconButton>} />
+          <BottomNavigationAction
+          label="search"
+          className={location.pathname.includes("search") ? "bg-green-900" :""} 
+          onClick={()=> navigate(`/search`)} 
+          icon={<IconButton> <RiSearchLine />  </IconButton>} />
+          <BottomNavigationAction
+          label="notifications"
+          className={location.pathname.includes("notifications") ? "bg-green-900" :""} 
+          onClick={()=> navigate(`/notifications`)} 
+          icon={<IconButton> <RiNotificationFill />  </IconButton>} />
+          <BottomNavigationAction
+          label="messages"
+          className={location.pathname.includes("messages") ? "bg-green-900" :""} 
+          onClick={()=> navigate(`/messages`)} 
+          icon={<IconButton> <RiMessage2Line />  </IconButton>} />
+          <BottomNavigationAction
+          label="profile"
+          className={location.pathname.includes("profile") ? "bg-green-900" :""} 
+          onClick={()=> navigate(`/profile`)} 
+          icon={<IconButton> <RiAccountCircleFill />  </IconButton>} />
+       
          </BottomNavigation>
       </Paper>
     </Box>

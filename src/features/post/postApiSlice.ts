@@ -65,7 +65,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       query: ({ postId ,token}) => ({
         url: `/posts/post/retweet/${postId}/`,
         method: "PUT",
-        body: data,
+        body:postId,
         headers:{
           authorization:token
         }

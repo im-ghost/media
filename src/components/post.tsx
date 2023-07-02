@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardMedia, CardContent, CardActions, Typography, Paper, IconButton } from "@mui/material";
-
+import { useNavigate } from "react-router-dom"
 import type { USER, POST } from "../app/types";
 import { useGetUserByIdQuery } from "../features/user/userApiSlice";
 import {
@@ -10,8 +10,9 @@ import {
 } from "../features/post/postApiSlice";
 import { toast } from "react-toastify"
 import Default from "../images/default.png";
-import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
-const Post:React.FC = ({ post,token }: { post: { post:POST },token:string}):JSX.Element => {
+//import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
+const Post:React.FC<{ post: { post:POST },token:string}> = ({ post,token }: { post: { post:POST },token:string}):JSX.Element => {
+  const navigate = useNavigate()
   const [author, setAuthor] = useState<USER | null>(null);
   const [like] = useLikePostMutation();
   const [comment] = useCommentOnPostMutation();
@@ -21,7 +22,7 @@ const Post:React.FC = ({ post,token }: { post: { post:POST },token:string}):JSX.
 const retweetPost = async () => {
   try {
    const res = await retweet({
-     postId:post.post._id,
+     postId:post.post._id as string,
      token:token});
      setRetweeted(true)
   } catch (e) {
@@ -29,19 +30,21 @@ const retweetPost = async () => {
   }
 }
 const commentOnPost = async () =>{
+  if(post.post._id){
  navigate(`posts/${post.post._id}`)
+  }
 }
 const likePost = async () =>{
   try {
    const res = await like({
-     postId:post.post.id,
+     postId:post.post._id as string,
      token:token});
      setLiked(true)
   } catch (e) {
     toast.error(JSON.stringify(e))
   }
 }
-  const userId = post.post.author;
+  const userId = post.post.author as string;
   const { data, error } = useGetUserByIdQuery({userId,token});
   useEffect(() => {
     if (error) {
@@ -79,13 +82,13 @@ const likePost = async () =>{
       )}
       <CardActions disableSpacing  className="overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-40% to-emerald-500 to-100%  dark:from-blue-700 dark:from-20% dark:via-emarald-700 dark:via-30% dark:to-ryan-700 dark:to-100% dark:text-amber-500 text-amber-800  flex flex-col justify-evenly items-center h-4 m-0">
         <IconButton  className="bg" aria-label="like">
-         <IoThumbsUp onClick={likePost} className={liked ? "bg-red-900" : ""}/>
+       {/*  <IoThumbsUp onClick={likePost} className={liked ? "bg-red-900" : ""}/>*/} b
         </IconButton>
         <IconButton  className="bg" aria-label="comment">
-         <IoChatbox onClick={commentOnPost}/>
+      {/*   <IoChatbox onClick={commentOnPost}/>*/} A
         </IconButton>
         <IconButton  className="bg" aria-label="retweet">
-         <IoRepeat className={retweet ? "bg-red-900" : ""} onClick={retweetPost}/>
+         {/*<IoRepeat className={retweeted ? "bg-red-900" : ""} onClick={retweetPost}/>*/} R
         </IconButton>
       </CardActions>
     </Card>

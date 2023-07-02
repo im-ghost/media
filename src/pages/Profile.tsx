@@ -28,8 +28,7 @@ import type {
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import Default from "../images/default.png"
-import Images from "../components/images"
-import Videos from "../components/videos"
+
 import Posts from "../components/posts"
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -182,10 +181,10 @@ if(!user){
           <Posts posts={user.posts} token={user.token} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Videos videos={user.posts}/>
+        videos 
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Images images={user.posts}/>
+        images
         </TabPanel>
       </SwipeableViews>
     </Box>)}

@@ -6,10 +6,10 @@ import {
   FC,
   ChangeEvent
   } from "react"
-  
+  /*
 import {
   FaEnvelope,
-  } from 'react-icons/fa';
+  } from 'react-icons/fa';*/
 export const Email:FC<{
   value:string | null,
   onChange:any
@@ -25,7 +25,7 @@ export const Email:FC<{
        value:value,
          startAdornment: (
             <InputAdornment position="start">
-              <FaEnvelope />
+             E
             </InputAdornment>
           ),
        onChange:(e:ChangeEvent<HTMLInputElement>)=>{

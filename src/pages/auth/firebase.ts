@@ -16,13 +16,15 @@ var _window:{
   verified:Boolean,
   email:string,
   photoUrl:string,
-  displayName:string
+  displayName:string,
+  uid:string
 } = {
   confirmationResult: undefined,
   verified:false,
   email:"",
   photoUrl:"",
   displayName:"",
+  uid:""
 }
 export const emailLink = (email:string) =>{
   const actionCodeSettings = {
@@ -99,11 +101,12 @@ await signInWithPopup(auth, provider)
     
     if(user){ 
       user.token = token;
-     console.log(user)
+     
       _window.email = user.email
       _window.photoUrl = user.photoURL
       _window.displayName = user.displayName
-      console.log(_window)
+      _window.uid = user.uid
+      
       if(isLogin){
        
        
@@ -130,7 +133,8 @@ await signInWithPopup(auth, provider)
   return {
     email:_window.email,
     photoUrl:_window.photoUrl,
-    displayName:_window.displayName
+    displayName:_window.displayName,
+    uid:_window.uid
   }
 }
 export const twitter = async (navigate:any,isLogin:Boolean) => {
@@ -143,11 +147,12 @@ await signInWithPopup(auth, provider)
     const user:any = result.user;
     if(user) {
       user.token = token;
-         console.log(user)
+         
       _window.email = user.email
       _window.photoUrl = user.photoURL
       _window.displayName = user.displayName
-      console.log(_window)
+       _window.uid = user.uid
+      
      
       if(isLogin){
        
@@ -169,6 +174,7 @@ await signInWithPopup(auth, provider)
     return {
     email:_window.email,
     photoUrl:_window.photoUrl,
-    displayName:_window.displayName
+    displayName:_window.displayName,
+    uid:_window.uid
   }
 }

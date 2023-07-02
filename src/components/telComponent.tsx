@@ -9,10 +9,10 @@ import {
   FC,
   ChangeEvent
   } from "react"
-  
+  /*
 import {
   FaPhone,
-  FaUserCircle  } from 'react-icons/fa';
+   } from 'react-icons/fa';*/
 export const Phone:FC<{
   value:string,
   onChange:any
@@ -28,7 +28,7 @@ export const Phone:FC<{
        value: value,
          startAdornment: (
             <InputAdornment position="start">
-              <FaPhone />
+              p
             </InputAdornment>
           ),
        onChange:(e:ChangeEvent<HTMLInputElement>)=>{
