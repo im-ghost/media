@@ -1,0 +1,56 @@
+import { useParams, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
+import Default from "../images/default.png";
+import { Card, CardHeader, CardActions, CardContent, TextField, Paper, IconButton, Typography, CardMedia, Container } from "@mui/material";
+import { useRef, useState, useEffect } from "react";
+import { useGetUserByIdQuery } from "../features/user/userApiSlice";
+export default function Post() {
+    const [comment, setCommet] = useState("");
+    const navigate = useNavigate();
+    const posts = useAppSelector(state => state.post.posts);
+    const user = useAppSelector(state => state.user.userInfo);
+    const { id } = useParams();
+    const post = posts?.find(post => post?.post?._id === id) || null;
+    const userId = post?.post?.author;
+    const [author, setAuthor] = useState(null);
+    const token = user?.token;
+    const { data, error } = useGetUserByIdQuery({ userId, token });
+    useEffect(() => {
+        if (data) {
+            setAuthor(data.user);
+        }
+    }, [data]);
+    const inputRef = useRef();
+    if (!post) {
+        return (<h1> Post not found</h1>);
+        navigate("/");
+    }
+    if (!data || !author) {
+        return <h1>Loading....</h1>;
+    }
+    return (<Container>
+    <Card className="w-full h-screen overflow-scroll bg rounded-lg p-2">
+      <CardHeader className="bg h-18 m-0" avatar={<img src={author.image || Default} alt={author.name} className="h-12 w-auto rounded"/>} title={author.name} subheader={post.post.date ? (<div>
+      <h1>{author.name}</h1>
+      <h3>{post.post.date.toString()}</h3>
+      </div>) : ""}/>
+      {post.post.image ? (<div className="bg">
+          <CardMedia component="img" height="194" image={post.post.image || ""} alt={post.post.content || ""} className="bg m-0"/>
+          <CardContent className="bg m-0">
+            <Typography variant="body2" color="text.secondary">
+              {post.post.caption || ""}
+            </Typography>
+          </CardContent>
+        </div>) : (<Paper className="flex justify-center m-0 items-center bg h-38 p-2">{post.post.content || ""}</Paper>)}
+      <CardActions disableSpacing className="bg h-8 m-0">
+        <IconButton className="bg" aria-label="like">Like</IconButton>
+        <IconButton className="bg" aria-label="comment" onClick={() => inputRef?.current?.focus()}>Comment</IconButton>
+        <IconButton className="bg" aria-label="retweet">Retweet</IconButton>
+      </CardActions>
+    </Card>
+    <TextField InputProps={{
+            value: comment,
+            onChange: (e) => setCommet(e.target.value)
+        }}/>
+    </Container>);
+}
