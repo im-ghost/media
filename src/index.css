@@ -1,7 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-.glass{
-      backdrop-filter: blur(10px);
-    }
- 
