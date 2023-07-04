@@ -1,7 +1,5 @@
 module.exports = {
-  plugins: [
-    require('tailwindcss'),
-    require('autoprefixer'),
-    // Add other PostCSS plugins if needed
-  ],
+  // Add you postcss configuration here
+  // Learn more about it at https://github.com/webpack-contrib/postcss-loader#config-files
+  plugins: ['autoprefixer', 'postcss-preset-env', require('tailwindcss')],
 };

@@ -2,8 +2,8 @@ import React from 'react';
 import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from 'app/store';
-import App from './App';/*
+import { store } from './app/store';
+import App from './App'; /*
 import Home from 'pages/Home';
 import Post from 'pages/Post';
 import CreatePost from 'pages/CreatePost';
@@ -12,11 +12,7 @@ import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import Register2 from 'pages/auth/Register2';
 import Profile from 'pages/Profile';*/
-import {
-  BrowserRouter,
-  Route,
-  Routes
-} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
 import 'tailwindcss/tailwind.css';
@@ -79,10 +75,13 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
-  <Routes>
-      <Route path="/" element={<App />} />
-      </Routes>
-   </BrowserRouter>
+    <Routes>
+      <Route
+        path="/"
+        element={<App />}
+      />
+    </Routes>
+  </BrowserRouter>
 );
 serviceWorkerRegistration.register();
 reportWebVitals(console.log);
