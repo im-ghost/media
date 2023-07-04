@@ -1,6 +1,6 @@
 import { Typography, Box, Button, IconButton } from '@mui/material';
-import { useState, useReducer, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/store';
+import React,{ useState, useReducer, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import { useLoginUserMutation } from '../../features/user/userApiSlice';
 import { Password } from '../../components/passwordInput';
@@ -8,13 +8,14 @@ import { Email } from '../../components/emailComponent';
 import { setUser as SetUser } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import AuthProviders from '../../components/oauthInput';
+//:import AuthProviders from '../../components/oauthInput';
 import { reducer, initialState } from './loginReducer';
 const Login = () => {
   const [user, setUser] = useState(null);
-  const userInfo = useAppSelector((state) => state.user.userInfo);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
+  
   const [login, { error, data }] = useLoginUserMutation();
   const create = async (e) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const Login = () => {
       email: state.email,
       password: state.password,
     };
+    console.log("create");
     await login(data).unwrap();
   };
   useEffect(() => {
@@ -75,7 +77,7 @@ const Login = () => {
             '& .MuiTextField-root': { m: 1, width: '69vw' },
           }}
         >
-          <Email
+         <Email
             value={state.email}
             onChange={setState}
           />
@@ -91,7 +93,7 @@ const Login = () => {
         >
           <Typography variant="body1">Login </Typography>
         </Button>
-        <AuthProviders isLogin={true} />
+      {/*  <AuthProviders isLogin={true} /> */}
         <div
           className="rounded "
           onClick={() => navigate('/register')}

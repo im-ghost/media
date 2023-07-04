@@ -7,9 +7,8 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
 const swSrc = path.resolve(__dirname, `src/service-worker`);
-const ErudaWebpackPlugin = require("eruda-webpack-plugin")
+const ErudaWebpackPlugin = require('eruda-webpack-plugin');
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
   mode: isProduction ? 'production' : 'development',
@@ -32,12 +31,12 @@ module.exports = {
         test: /\.worker\.js$/,
         loader: 'worker-loader',
       },
-       {
+      {
         test: /\.css$/i,
         use: [
-          "style-loader",
+          'style-loader',
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               // Run `postcss-loader` on each CSS `@import` and CSS modules/ICSS imports, do not forget that `sass-loader` compile non CSS `@import`'s into a single file
               // If you need run `sass-loader` and `postcss-loader` on each CSS `@import` please set it to `2`
@@ -45,12 +44,12 @@ module.exports = {
             },
           },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               postcssOptions: {
                 plugins: [
                   [
-                    "postcss-preset-env",
+                    'postcss-preset-env',
                     {
                       // Options
                     },
@@ -90,24 +89,29 @@ module.exports = {
       PUBLIC_URL: '', // Set your public URL here if needed
     }),
     new ESLintPlugin(),
-    new WorkboxPlugin.GenerateSW({
-      swDest: 'service-worker.js',
-      clientsClaim: true,
-      skipWaiting: true,
-    }),
-    new ErudaWebpackPlugin()
+    new ErudaWebpackPlugin(),
   ],
   optimization: {
     minimize: isProduction,
     minimizer: [new TerserWebpackPlugin()],
   },
- devServer: {
-        open: true,
-        host: 'localhost',
-        liveReload: true,
-        compress: true,
-        port: 3000,
-        historyApiFallback: true,
-        hot: true,
+  devServer: {
+    open: true,
+    host: 'localhost',
+    liveReload: true,
+    compress: true,
+    port: 3000,
+    historyApiFallback: true,
+    hot: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: true,
+        runtimeErrors: true,
+      },
+      logging: 'error',
+      reconnect: true,
+      progress: true,
     },
+  },
 };

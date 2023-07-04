@@ -14,8 +14,7 @@ function App() {
     eruda.init();
   }, []);
   return (
-    <div className="dark flex h-screen w-screen justify-center bg m-0 p-0">
-      <h1> App </h1>
+    <div className="dark">
       <ToastContainer />
       <Outlet />
       {!shouldHideFooter && <Footer />}

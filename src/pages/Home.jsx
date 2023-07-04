@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../app/store';
+import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 import Favicon from '../images/logo192.png';
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
 import { useAllUsersQuery } from '../features/user/userApiSlice';
 const Home = () => {
-  const userFromStore = useAppSelector((state) => state.user.userInfo);
+  const userFromStore = useSelector((state) => state.user.userInfo);
+  const [data,setData] = useState({});
+  const [error,setError] = useState({})
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-  const { data, error } = useAllUsersQuery(userFromStore?.token);
+  useEffect(() => {
+    if (!userFromStore || !userFromStore.token) {
+      navigate('/login');
+    }else{
+      const { data:dataF, error:errorF } = useAllUsersQuery(userFromStore.token);
+      setData(dataF)
+      setError(errorF)
+    }
+  }, [userFromStore, navigate]);
+  
   useEffect(() => {
     toast.info('Welcome to media');
   }, []);
@@ -31,11 +42,6 @@ const Home = () => {
       }
     }
   }, [data, error, userFromStore]);
-  useEffect(() => {
-    if (!userFromStore || !userFromStore.token) {
-      navigate('/login');
-    }
-  }, [userFromStore, navigate]);
   if (userFromStore && userFromStore !== null && userFromStore.token) {
     return (
       <div className="bg p-0 m-0">

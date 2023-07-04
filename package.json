@@ -2,6 +2,7 @@
   "name": "media",
   "version": "1.0.0",
   "private": true,
+  "description": "My webpack project",
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
@@ -34,6 +35,7 @@
     "react-swipeable-views": "^0.14.0",
     "react-toastify": "^9.1.3",
     "react-tooltip": "^5.13.1",
+    "redux": "^4.2.1",
     "resolve": "^1.22.2",
     "socket.io-client": "^4.6.2",
     "sw-precache-webpack-plugin": "^1.0.0",
@@ -49,7 +51,7 @@
   },
   "scripts": {
     "dev": "yarn prettier && clear && yarn webpack",
-    "webpack": "webpack serve --config webpack.config.js --mode development",
+    "webpack": "webpack serve",
     "prettier": "prettier --write ./",
     "prettier:check": "prettier --check .",
     "start": "react-scripts start",
@@ -58,8 +60,7 @@
     "eject": "react-scripts eject",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "watch": "webpack --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -95,6 +96,5 @@
     "webpack-dev-server": "^4.15.1",
     "webpack-manifest-plugin": "^5.0.0",
     "worker-loader": "^3.0.8"
-  },
-  "description": "My webpack project"
+  }
 }

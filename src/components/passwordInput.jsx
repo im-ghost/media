@@ -1,6 +1,6 @@
 import { TextField, InputAdornment } from '@mui/material';
-import { useState } from 'react'; /*
-import { RiEyeFill, RiEyeOffFill,RiLock2Line } from 'react-icons/ri';*/
+import React,{ useState } from 'react'; 
+import { RiEyeFill, RiEyeOffFill,RiLock2Line } from 'react-icons/ri';
 export const Password = ({ value, onChange }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -16,15 +16,15 @@ export const Password = ({ value, onChange }) => {
       InputProps={{
         type: passwordVisible ? 'text' : 'password',
         value: value || '',
-        startAdornment: <InputAdornment position="end">a</InputAdornment>,
+        startAdornment: <InputAdornment position="end"><RiLock2Line /></InputAdornment>,
         endAdornment: (
           <InputAdornment position="end">
-            {/*   {passwordVisible ? (
+              {passwordVisible ? (
                      <RiEyeOffFill onClick={togglePasswordVisibility} />
                    ) : (
                      <RiEyeFill onClick={togglePasswordVisibility} />
-                   )}*/}{' '}
-            E
+                   )}}{' '}
+            
           </InputAdornment>
         ),
         onChange: (e) => {
