@@ -10,6 +10,9 @@ import {
   IconButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/user/userSlice"
 import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import {
   useLikePostMutation,
@@ -18,8 +21,9 @@ import {
 } from '../features/post/postApiSlice';
 import { toast } from 'react-toastify';
 import Default from '../images/default.png';
-//import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
+import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
 const Post = ({ post, token }) => {
+  const user = useSelector(selectUser)
   const navigate = useNavigate();
   const [author, setAuthor] = useState(null);
   const [like] = useLikePostMutation();
@@ -27,6 +31,15 @@ const Post = ({ post, token }) => {
   const [retweet] = useRetweetPostMutation();
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
+  useEffect(()=>{
+    const likes = post.post.likes;
+    console.log(likes);
+    console.log(user._id)
+    if(likes.includes(user._id)){
+      console.log(true);
+      setLiked(true)
+    }
+  },[user])
   const retweetPost = async () => {
     try {
       const res = await retweet({
@@ -34,6 +47,7 @@ const Post = ({ post, token }) => {
         token: token,
       });
       setRetweeted(true);
+      posts.posts.retweet.push(user._id)
     } catch (e) {
       toast.error(JSON.stringify(e));
     }
@@ -50,9 +64,11 @@ const Post = ({ post, token }) => {
         token: token,
       });
       setLiked(true);
+      post.post.likes.push(user._id)
     } catch (e) {
       toast.error(JSON.stringify(e));
     }
+    
   };
   const userId = post.post.author;
   const { data, error } = useGetUserByIdQuery({ userId, token });
@@ -73,32 +89,25 @@ const Post = ({ post, token }) => {
   return (
     <Card
       raised={true}
-      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[18px]  ounded-lg bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-40% to-emerald-500 to-100%  dark:from-blue-700 dark:from-20% dark:via-emarald-700 dark:via-30% dark:to-ryan-700 dark:to-100% dark:text-amber-500 text-amber-800  flex flex-col justify-evenly items-center"
+      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
     >
-      <CardHeader
-        className="overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[18px]  ounded-lg bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-40% to-emerald-500 to-100%  dark:from-blue-700 dark:from-20% dark:via-emarald-700 dark:via-30% dark:to-ryan-700 dark:to-100% dark:text-amber-500 text-amber-800  flex flex-col justify-evenly items-center"
-        avatar={
+      <div className="flex justify-between align-center">
           <img
             src={author.image || Default}
             alt={author.name}
-            className="h-8 w-auto rounded"
+            className="h-8 w-auto rounded-[50%] mx-4"
           />
-        }
-        title={author.name}
-        subheader={
-          post.post.date ? (
-            <div>
-              <Typography variant="h5">{author.name}</Typography>
-              <Typography variant="body2">
+        
+        <Typography variant="body1">{author.name}</Typography>
+        </div>
+        {
+          post.post.date && ( <Typography variant="body2">
                 {post.post.date.toString()}
               </Typography>
-            </div>
-          ) : (
-            ''
           )
         }
-      />
-      {post.post.image ? (
+      
+      {post.post.image && post.post.image !== null ? (
         <div className="bg">
           <CardMedia
             component="img"
@@ -117,33 +126,33 @@ const Post = ({ post, token }) => {
           </CardContent>
         </div>
       ) : (
-        <Paper className="flex justify-center m-0 items-center bg h-28 p-2">
+        <Paper className="flex justify-center m-0 items-center bg h-28 p-2 w-[80%]">
           {post.post.content || ''}
         </Paper>
       )}
       <CardActions
         disableSpacing
-        className="overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-40% to-emerald-500 to-100%  dark:from-blue-700 dark:from-20% dark:via-emarald-700 dark:via-30% dark:to-ryan-700 dark:to-100% dark:text-amber-500 text-amber-800  flex flex-col justify-evenly items-center h-4 m-0"
+        className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0"
       >
         <IconButton
           className="bg"
           aria-label="like"
         >
-          {/*  <IoThumbsUp onClick={likePost} className={liked ? "bg-red-900" : ""}/>*/}{' '}
-          b
+            <IoThumbsUp onClick={likePost} className={liked ? "text-red-900" : ""}/>{post.post.likes.length}{' '}
+          
         </IconButton>
         <IconButton
           className="bg"
           aria-label="comment"
         >
-          {/*   <IoChatbox onClick={commentOnPost}/>*/} A
+            <IoChatbox onClick={commentOnPost}/>{post.post.comments.length}
         </IconButton>
         <IconButton
           className="bg"
           aria-label="retweet"
         >
-          {/*<IoRepeat className={retweeted ? "bg-red-900" : ""} onClick={retweetPost}/>*/}{' '}
-          R
+          <IoRepeat className={retweeted ? "text-red-900" : ""} onClick={retweetPost}/>{' '}
+          
         </IconButton>
       </CardActions>
     </Card>
