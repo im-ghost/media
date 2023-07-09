@@ -1,11 +1,11 @@
 import {
   getAuth,
-  signInWithPopup,
   GoogleAuthProvider,
   TwitterAuthProvider,
   RecaptchaVerifier,
   signInWithPhoneNumber,
   sendSignInLinkToEmail,
+  signInWithPopup,
 } from 'firebase/auth';
 import { toast } from 'react-toastify';
 
@@ -141,6 +141,7 @@ export const google = async (navigate, isLogin) => {
       toast.error(JSON.stringify(error));
       throw new Error(error);
     });
+  console.log(dWindow);
   return {
     email: dWindow.email,
     photoUrl: dWindow.photoUrl,
