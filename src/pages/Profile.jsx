@@ -12,12 +12,12 @@ import {
   Tab,
   AppBar,
 } from '@mui/material';
+import { Helmet } from "react-helmet"
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useAppSelector } from '../app/store';
 import { useNavigate } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
-import Default from '../images/default.png';
 import Posts from '../components/posts';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -79,6 +79,19 @@ const Profile = () => {
     );
   }
   return (
+    <>
+    <Helmet>
+    <title> {user.name} </title>
+    
+    <meta
+      name="description"
+      content={user.bio}
+    />
+    <meta
+      property="og:image"
+      content={ user.image ? user.image : require("../images/default.png")}
+    />
+    </Helmet>
     <Container className="w-screen h-screen py-2 rounded flex items-center justify-center">
       {user && (
         <div className="w-[98vw] h-[98vh] p-2 rounded flex items-center justify-center">
@@ -86,7 +99,8 @@ const Profile = () => {
             <Container className="w-[100vw] h-[100vh]">
               <Card className="w-full">
                 <CardMedia
-                  image={user.image ? user.image : Default}
+                  image={user.image ? user.image : require("../images/default.png")}
+                  className="h-0 pt-[56.25%] mt-[30]"
                   sx={{
                     height: 0,
                     paddingTop: '56.25%',
@@ -214,6 +228,7 @@ const Profile = () => {
         </div>
       )}
     </Container>
+    </>
   );
 };
 export default Profile;
