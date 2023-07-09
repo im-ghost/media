@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from '@mui/material';
+import { Container,Typography } from '@mui/material';
 import Post from './post';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -43,8 +43,6 @@ const Posts = ({ posts, token }) => {
           setPosts(filteredPosts);
           dispatch(setPostsInStore(filteredPosts));
           return filteredPosts; // Return the filtered and resolved posts
-        } else {
-          toast.error("Couldn't get post ids");
         }
       } catch (error) {
         toast.error(JSON.stringify(error));
@@ -54,8 +52,11 @@ const Posts = ({ posts, token }) => {
       fetchPosts();
     }
   }, [posts, dispatch, token]);
+  if(posts.length < 1){
+    return ( <Typography variant="body2"> This user doesn't have any post</Typography> )
+  }
   return (
-    <Container className="bg w-screen">
+   <Container className="bg w-screen">
       {postsObj !== null &&
         postsObj.map((post) => (
           <Post
@@ -65,6 +66,6 @@ const Posts = ({ posts, token }) => {
           />
         ))}
     </Container>
-  );
+  ) 
 };
 export default Posts;
