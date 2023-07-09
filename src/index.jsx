@@ -1,4 +1,4 @@
-import "./app/firebase.js"
+import './app/firebase.js';
 import React from 'react';
 import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
@@ -51,31 +51,31 @@ root.render(
               path="/login"
               element={<Login />}
             />
-             
-      <Route
-        path="/logout"
-        element={<Logout />}
-      />
-      <Route
-        path="/register"
-        element={<Register />}
-      />
-      <Route
-        path="/register2"
-        element={<Register2 />}
-      />
-      <Route
-        path="/profile"
-        element={<Profile />}
-      />
-      <Route
-        path="/createpost"
-        element={<CreatePost />}
-      />
-      <Route
-        path="/posts/:id"
-        element={<Post />}
-      />
+
+            <Route
+              path="/logout"
+              element={<Logout />}
+            />
+            <Route
+              path="/register"
+              element={<Register />}
+            />
+            <Route
+              path="/register2"
+              element={<Register2 />}
+            />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/createpost"
+              element={<CreatePost />}
+            />
+            <Route
+              path="/posts/:id"
+              element={<Post />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
