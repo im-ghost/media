@@ -1,8 +1,6 @@
 import { TextField, InputAdornment } from '@mui/material';
-import * as React from "react"
-import {
-FaEnvelope,
-} from 'react-icons/fa';
+import * as React from 'react';
+import { FaEnvelope } from 'react-icons/fa';
 export const Email = ({ value, onChange }) => {
   return (
     <TextField
@@ -13,7 +11,11 @@ export const Email = ({ value, onChange }) => {
       InputProps={{
         type: 'email',
         value: value,
-        startAdornment: <InputAdornment position="start"><FaEnvelope /></InputAdornment>,
+        startAdornment: (
+          <InputAdornment position="start">
+            <FaEnvelope />
+          </InputAdornment>
+        ),
         onChange: (e) => {
           onChange({
             type: 'setEmail',
