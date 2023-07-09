@@ -1,5 +1,5 @@
 import { Typography, TextField, Box, Button } from '@mui/material';
-import { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/store';
 import { useRegisterUserMutation } from '../../features/user/userApiSlice';
 import { setUser as SetUser } from '../../features/user/userSlice';
@@ -42,7 +42,7 @@ const Register2 = () => {
     if (data) {
       console.log(data);
       (async () => {
-        await dispatch(SetUser(data));
+        await dispatch(SetUser(data.user));
       })();
       navigate('/profile');
     }
@@ -50,7 +50,7 @@ const Register2 = () => {
   useEffect(() => {
     const setIt = async (user) => {
       if (user) {
-        await dispatch(SetUser(user));
+        await dispatch(SetUser(user.user));
       }
     };
     console.log(userInfo);

@@ -83,4 +83,4 @@ root.render(
   </React.StrictMode>
 );
 serviceWorkerRegistration.register();
-reportWebVitals(console.log);
+reportWebVitals();
