@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const userInfoL = localStorage.getItem('media-user');
 const initialState = {
-  userInfo: userInfoL ? JSON.parse(userInfoL).user : null,
+  userInfo: userInfoL ? JSON.parse(userInfoL) : null,
   status: 'idle',
   userSign: null,
 };
