@@ -3,10 +3,15 @@ import apiSlice from '../../app/api';
 export const postApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createPost: builder.mutation({
-      query: (data) => ({
+      query: ({
+        data, token,
+      }) => ({
         url: '/posts',
         method: 'POST',
         body: data,
+        headers: {
+          authorization: token,
+        },
       }),
     }),
     updatePost: builder.mutation({
