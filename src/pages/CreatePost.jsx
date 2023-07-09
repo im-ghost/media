@@ -1,7 +1,7 @@
 import { Typography, Box, Button, TextField } from '@mui/material';
 import * as React from 'react';
 
-import { useSelector } from "react-redux"
+import { useSelector } from 'react-redux';
 import { useCreatePostMutation } from '../features/post/postApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -18,7 +18,7 @@ const CreatePost = () => {
       author: user._id,
     };
     const token = user.token;
-    await createPost({data,token:token}).unwrap();
+    await createPost({ data, token: token }).unwrap();
   };
   React.useEffect(() => {
     if (error) {
