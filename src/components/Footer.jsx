@@ -40,8 +40,8 @@ const Footer = () => {
         >
           <BottomNavigationAction
             label="home"
-            className={location.pathname.includes('home') ? 'bg-green-900' : ''}
-            onClick={() => navigate(`/home`)}
+            className={location.pathname.includes('/') ? 'bg-green-900' : ''}
+            onClick={() => navigate(`/`)}
             icon={
               <IconButton>
                 {' '}
