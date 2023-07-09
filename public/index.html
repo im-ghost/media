@@ -2,110 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link
-      rel="icon"
-      href="%PUBLIC_URL%/favicon.ico"
+    <meta
+      property="og:url"
+      content="https://media.netlify.app"
     />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
-    <meta
-      name="theme-color"
-      content="#000000"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="%PUBLIC_URL%/logo192.png"
-    />
 
-    <link
-      rel="manifest"
-      href="%PUBLIC_URL%/manifest.json"
-    />
     <meta
       name="description"
-      content="A social media app built with React"
-    />
-    <meta
-      name="keywords"
-      content="social media, app, React"
+      content="Media App app built with React"
     />
     <meta
       name="author"
       content="Adetonwa Richard"
     />
 
-    <!-- Open Graph (OG) meta tags for social media -->
+    <!-- Open Graph (OG) meta tags for WhatsApp and other platforms -->
     <meta
       property="og:title"
-      content=" Media App"
+      content="Media App"
     />
     <meta
       property="og:description"
-      content="Check out my new social media app built with React!"
+      content="Media App. A software Engineer who builds scalable and highly efficient APIs!"
     />
     <meta
       property="og:image"
-      content="%PUBLIC_URL%/logo192.png"
-    />
-    <meta
-      property="og:url"
-      content="http://localhost:3000/"
+      content="https://richardadetonwa.netlify.app/pic.jpg"
     />
 
     <!-- Twitter meta tags -->
     <meta
       name="twitter:card"
-      content="My social media app "
+      content="summary_large_image"
     />
     <meta
       name="twitter:title"
-      content=" Media App"
+      content="Media App"
     />
     <meta
       name="twitter:description"
-      content="Check out my new social media app built with React!"
+      content="A social media application "
     />
     <meta
       name="twitter:image"
-      content="%PUBLIC_URL%/logo192.png"
+      content="https://richardadetonwa.netlify.app/pic.jpg"
     />
 
     <!-- Additional meta tags -->
     <meta
-      name="apple-mobile-web-app-title"
-      content="Social App"
-    />
-    <meta
       name="theme-color"
       content="#ffffff"
     />
-    <meta
-      name="format-detection"
-      content="telephone=no"
-    />
-    <meta
-      name="google"
-      content="notranslate"
-    />
-    <meta
-      http-equiv="X-UA-Compatible"
-      content="IE=edge"
-    />
-    <meta
-      http-equiv="Cache-Control"
-      content="must-revalidate"
-    />
-    <meta
-      http-equiv="Pragma"
-      content="no-cache"
-    />
-    <meta
-      http-equiv="Expires"
-      content="10000000"
-    />
-
     <meta
       property="article:author"
       content="Adetonwa Richard"
@@ -125,20 +77,20 @@
     />
     <meta
       itemprop="description"
-      content="Check out my new social media app built with React!"
+      content="Media App. A software Engineer who builds scalable and highly efficient APIs!"
     />
     <meta
       itemprop="image"
-      content="%PUBLIC_URL%/logo192.png"
+      content="https://richardadetonwa.netlify.app/pic.jpg"
     />
 
     <meta
       name="application-name"
-      content="Social App"
+      content="Media App"
     />
     <meta
       name="msapplication-tooltip"
-      content="My Social Media App"
+      content="My Media App"
     />
     <meta
       name="msapplication-starturl"
@@ -150,68 +102,44 @@
     />
     <meta
       name="msapplication-TileImage"
-      content="/logo192.png"
-    />
-
-    <meta
-      property="fb:app_id"
-      content=""
-    />
-    <meta
-      property="fb:admins"
-      content=""
-    />
-    <meta
-      property="fb:pages"
-      content=""
+      content="/icon-192x192.png"
     />
 
     <meta
       property="al:ios:app_name"
-      content="Social App"
-    />
-    <meta
-      property="al:ios:app_store_id"
-      content=""
-    />
-    <meta
-      property="al:ios:url"
-      content=""
+      content="Media App"
     />
     <meta
       property="al:android:app_name"
       content="Media App"
     />
-    <meta
-      property="al:android:package"
-      content=""
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
     />
-    <meta
-      property="al:android:url"
-      content=""
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="manifest"
+      href="/manifest.json"
     />
 
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <title>Media App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('service-worker.js')
-            .then((registration) => {
-              console.log('Service Worker registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.error(
-                'Service Worker registration failed: ',
-                registrationError
-              );
-            });
-        });
-      }
+      eruda.init();
     </script>
   </body>
 </html>
