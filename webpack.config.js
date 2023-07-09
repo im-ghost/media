@@ -8,7 +8,6 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const swSrc = path.resolve(__dirname, `src/service-worker`);
-const ErudaWebpackPlugin = require('eruda-webpack-plugin');
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
   mode: isProduction ? 'production' : 'development',
@@ -89,7 +88,6 @@ module.exports = {
       PUBLIC_URL: '', // Set your public URL here if needed
     }),
     new ESLintPlugin(),
-    new ErudaWebpackPlugin(),
   ],
   optimization: {
     minimize: isProduction,
