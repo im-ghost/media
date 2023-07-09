@@ -1,19 +1,20 @@
 import { Typography, Box, Button, TextField } from '@mui/material';
 import * as React from 'react';
-import { useAppSelector } from '../app/store';
+
+import { useSelector } from "react-redux"
 import { useCreatePostMutation } from '../features/post/postApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const CreatePost = () => {
   const [user, setUser] = React.useState(null);
   const [text, setText] = React.useState('');
-  const userInfo = useAppSelector((state) => state.user.userInfo);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
   const [createPost, { error, data }] = useCreatePostMutation();
   const create = async (e) => {
     e.preventDefault();
     const data = {
-      cotent: text,
+      content: text,
       author: user._id,
     };
     const token = user.token;

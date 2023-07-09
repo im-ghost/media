@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Helmet } from "react-helmet"
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { useAppSelector } from '../app/store';
+import { useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -45,7 +45,7 @@ function a11yProps(index) {
 }
 const Profile = () => {
   const navigate = useNavigate();
-  const userFromStore = useAppSelector((state) => state.user.userInfo);
+  const userFromStore = useSelector((state) => state.user.userInfo);
   const [user, setUser] = useState(userFromStore);
   const [value, setValue] = useState(0);
   useLayoutEffect(() => {
