@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container,Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Post from './post';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -52,11 +52,13 @@ const Posts = ({ posts, token }) => {
       fetchPosts();
     }
   }, [posts, dispatch, token]);
-  if(posts.length < 1){
-    return ( <Typography variant="body2"> This user doesn't have any post</Typography> )
+  if (posts.length < 1) {
+    return (
+      <Typography variant="body2"> This user doesn't have any post</Typography>
+    );
   }
   return (
-   <Container className="bg w-screen">
+    <Container className="bg w-screen">
       {postsObj !== null &&
         postsObj.map((post) => (
           <Post
@@ -66,6 +68,6 @@ const Posts = ({ posts, token }) => {
           />
         ))}
     </Container>
-  ) 
+  );
 };
 export default Posts;
