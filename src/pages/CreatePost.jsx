@@ -14,9 +14,10 @@ const CreatePost = () => {
     e.preventDefault();
     const data = {
       cotent: text,
-      author: user?._id,
+      author: user._id,
     };
-    await createPost(data).unwrap();
+    const token = user.token;
+    await createPost({data,token:token}).unwrap();
   };
   React.useEffect(() => {
     if (error) {
@@ -26,7 +27,7 @@ const CreatePost = () => {
   }, [error]);
   React.useEffect(() => {
     if (data) {
-      navigate('/posts');
+      navigate('/');
     }
   }, [data, navigate]);
   React.useEffect(() => {
