@@ -4,7 +4,7 @@ export const initialState = {
   phone: '',
   password: null,
   bio: '',
-  image: null,
+  image: '',
 };
 export const reducer = (state, action) => {
   switch (action.type) {
