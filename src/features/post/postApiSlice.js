@@ -60,6 +60,17 @@ export const postApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    unlikePost: builder.mutation({
+      query: ({
+        postId, token,
+      }) => ({
+        url: `/posts/post/unlike/${postId}/`,
+        method: 'PUT',
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
     commentOnPost: builder.mutation({
       query: ({
         data, postId, token,
@@ -84,11 +95,25 @@ export const postApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    unretweetPost: builder.mutation({
+      query: ({
+        postId, token,
+      }) => ({
+        url: `/posts/post/unretweet/${postId}/`,
+        method: 'PUT',
+        body: postId,
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
   }),
 });
 export const {
   useLikePostMutation,
+  useUnlikePostMutation,
   useRetweetPostMutation,
+  useUnretweetPostMutation,
   useCommentOnPostMutation,
   useCreatePostMutation,
   useDeletePostMutation,
