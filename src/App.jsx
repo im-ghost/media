@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import eruda from 'eruda';
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,9 +9,6 @@ function App() {
   const shouldHideFooter = hideFooterRoutes.some((route) =>
     location.pathname.includes(route)
   );
-  useEffect(() => {
-    eruda.init();
-  }, []);
   return (
     <div className="dark">
       <ToastContainer />
