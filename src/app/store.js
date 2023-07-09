@@ -6,6 +6,10 @@ import postReducer from '../features/post/postSlice';
 import apiSlice from './api';
 
 export const socket = io('http://localhost:4000');
+socket.emit('test', 'Adetonwa Richard');
+socket.on('tested', (response) => {
+  console.log(response);
+});
 export const store = configureStore({
   reducer: {
     user: userReducer,
