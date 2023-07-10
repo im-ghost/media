@@ -36,12 +36,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getUserById: builder.query({
-      query: ({ userId, token }) => ({
+      query: (userId) => ({
         url: `/users/user/${userId}`,
         method: 'GET',
-        headers: {
-          authorization: token,
-        },
       }),
     }),
     logoutUser: builder.mutation({
