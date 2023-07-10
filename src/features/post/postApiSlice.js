@@ -26,11 +26,34 @@ export const postApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    updateComment: builder.mutation({
+      query: ({
+        content, commentId, token,
+      }) => ({
+        url: `/posts/post/${commentId}`,
+        method: 'PUT',
+        body: content,
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
     deletePost: builder.mutation({
       query: ({
         postId, userId, token,
       }) => ({
         url: `/posts/post/${postId}/${userId}`,
+        method: 'DELETE',
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
+    deleteComment: builder.mutation({
+      query: ({
+        commentId, token,
+      }) => ({
+        url: `/posts/comment/${commentId}`,
         method: 'DELETE',
         headers: {
           authorization: token,
@@ -43,81 +66,27 @@ export const postApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getCommentById: builder.query({
+      query: (commentId) => ({
+        url: `/posts/comments/${commentId}`,
+        method: 'GET',
+      }),
+    }),
     allPosts: builder.query({
       query: () => ({
         url: '/posts',
         method: 'GET',
       }),
     }),
-    likePost: builder.mutation({
-      query: ({
-        postId, token,
-      }) => ({
-        url: `/posts/post/like/${postId}/`,
-        method: 'PUT',
-        headers: {
-          authorization: token,
-        },
-      }),
-    }),
-    unlikePost: builder.mutation({
-      query: ({
-        postId, token,
-      }) => ({
-        url: `/posts/post/unlike/${postId}/`,
-        method: 'PUT',
-        headers: {
-          authorization: token,
-        },
-      }),
-    }),
-    commentOnPost: builder.mutation({
-      query: ({
-        data, postId, token,
-      }) => ({
-        url: `/posts/post/comment/${postId}/`,
-        method: 'PUT',
-        body: data,
-        headers: {
-          authorization: token,
-        },
-      }),
-    }),
-    retweetPost: builder.mutation({
-      query: ({
-        postId, token,
-      }) => ({
-        url: `/posts/post/retweet/${postId}/`,
-        method: 'PUT',
-        body: postId,
-        headers: {
-          authorization: token,
-        },
-      }),
-    }),
-    unretweetPost: builder.mutation({
-      query: ({
-        postId, token,
-      }) => ({
-        url: `/posts/post/unretweet/${postId}/`,
-        method: 'PUT',
-        body: postId,
-        headers: {
-          authorization: token,
-        },
-      }),
-    }),
   }),
 });
 export const {
-  useLikePostMutation,
-  useUnlikePostMutation,
-  useRetweetPostMutation,
-  useUnretweetPostMutation,
-  useCommentOnPostMutation,
   useCreatePostMutation,
   useDeletePostMutation,
+  useDeleteCommentMutation,
   useUpdatePostMutation,
+  useUpdateCommentMutation,
   useGetPostByIdQuery,
   useAllPostsQuery,
+  useGetCommentByIdQuery,
 } = postApiSlice;
