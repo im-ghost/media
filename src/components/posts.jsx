@@ -41,7 +41,7 @@ const Posts = ({ posts, token }) => {
             (post) => post !== undefined
           );
           setPosts(filteredPosts);
-          dispatch(setPostsInStore(filteredPosts));
+
           return filteredPosts; // Return the filtered and resolved posts
         }
       } catch (error) {
