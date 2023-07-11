@@ -7,7 +7,7 @@ import React,{
   useEffect
 } from "react"
 export default function Helper({authorId}){
-  const [author,setAuthor] = useState()
+  const [author,setAuthor] = useState(null)
   const {data,error} = useGetUserByIdQuery(authorId);
   useEffect(()=>{
     if(data){
@@ -21,16 +21,17 @@ export default function Helper({authorId}){
   if(author){
   return(
     <div
-        className="flex justify-evenly align-center"
+        className="flex w-3/4 items-center"
         onClick={() => navigate(`/users/${author._id}`)}
       >
         <img
           src={author.image}
           alt={author.name}
-          className="h-8 w-auto rounded-[50%] mx-4"
+          className="h-6 w-auto rounded-[50%] mr-2"
         />
 
-        <Typography variant="h6">{author.name}</Typography>
+        <Typography variant="body2" className="flex-grow-2 whitespace-nowrap">{author.name}</Typography>
+          
       </div>
     )
   }
