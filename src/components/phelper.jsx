@@ -2,7 +2,9 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Default from '../images/default.png';
-import Comments from "./comments"
+import { MdEdit } from 'react-icons/md';
+import { FaTrash } from 'react-icons/fa';
+import Comments from './comments';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import {
@@ -21,6 +23,10 @@ import {
 import { useDispatch } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import { useGetUserByIdQuery } from '../features/user/userApiSlice';
+import {
+  useDeletePostMutation,
+  useUpdatePostMutation,
+} from '../features/post/postApiSlice';
 import { selectUser } from '../features/user/userSlice';
 import { socket } from '../app/store';
 import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
@@ -30,11 +36,22 @@ const Helper = ({ post }) => {
   const inputRef = useRef();
   const [dPost, setPost] = useState(post.post);
   const [comment, setComment] = useState('');
+
+  const [update, { data: updateData, error: updateError }] =
+    useUpdatePostMutation();
+  const [del, { data: delData, error: delError }] = useDeletePostMutation();
+  const [editValue, setEditValue] = React.useState('');
+  const [show, setShow] = React.useState(false);
   const user = useSelector(selectUser);
   const [author, setAuthor] = useState(null);
 
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
+  useEffect(()=>{
+    if(dPost){
+      setEditValue(dPost.content)
+    }
+  },[dPost])
   useEffect(() => {
     if (dPost && user._id) {
       socket.on(`likedpost-${dPost._id}`, (post) => {
@@ -113,6 +130,45 @@ const Helper = ({ post }) => {
       }
     }
   };
+
+  const edit = () => {
+    setShow(true);
+  };
+  const saveEdit = async () => {
+    setShow(false)
+    const post = await update({
+      postId: dPost._id,
+      userId: user._id,
+      token: user.token,
+      data: {
+        ...dPost,
+        content: editValue,
+      },
+    });
+  };
+  const deletePost = async () => {
+    await del({
+      token: user.token,
+      postId: dPost._id,
+      userId: user._id,
+    });
+  };
+  useEffect(() => {
+    if (updateData) {
+      setPost(updateData.post);
+    }
+    if (updateError) {
+      toast.error(JSON.stringify(updateError));
+    }
+  }, [updateData, updateError]);
+  useEffect(() => {
+    if (delData) {
+      setPost();
+    }
+    if (delError) {
+      toast.error(JSON.stringify(delError));
+    }
+  }, [delData, delError]);
   const userId = dPost.author;
   const { data, error } = useGetUserByIdQuery(userId);
   useEffect(() => {
@@ -132,13 +188,31 @@ const Helper = ({ post }) => {
   if (!author) {
     return <h1>Loading....</h1>;
   }
+  if (!dPost) {
+    return;
+  }
+  if (show) {
+    return (
+      <div className="flex">
+        <TextField
+          InputProps={{
+            value: editValue,
+            onChange: (e) => {
+              setEditValue(e.target.value);
+            },
+          }}
+        />
+        <Button onClick={saveEdit}> Save</Button>
+      </div>
+    );
+  }
   return (
     <Container>
       <Helmet>
         <title>
           {' '}
           {dPost.content
-            ? `${dPost.content.substring(0, 10)}...`
+            ? `${dPost.content.substring(0, 15)}...`
             : dPost.caption}
         </title>
       </Helmet>
@@ -146,14 +220,26 @@ const Helper = ({ post }) => {
         raised={true}
         className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
       >
-        <div className="flex justify-between align-center">
+       
+        <div className="flex">
           <img
             src={author.image || Default}
             alt={author.name}
-            className="h-8 w-auto rounded-[50%] mx-4"
+            className="h-6 w-auto rounded-[50%]"
           />
 
-          <Typography variant="body1">{author.name}</Typography>
+          <Typography variant="body2" className="flex-grow-2 whitespace-nowrap">{author.name}</Typography>
+           {author._id.toString() === user._id.toString() && (
+           <div className="flex">
+            <IconButton onClick={edit}>
+              {' '}
+              <MdEdit className="text-sm"/>
+            </IconButton>
+            <IconButton onClick={deletePost}>
+              <FaTrash className="text-sm"/>
+            </IconButton>
+            </div>
+        )}
         </div>
         {dPost.date && (
           <Typography variant="body2">{dPost.date.toString()}</Typography>
@@ -216,9 +302,13 @@ const Helper = ({ post }) => {
         </CardActions>
       </Card>
       <Container>
-       <Comments comments={dPost.comments} token={user.token} user={user}/>
+        <Comments
+          comments={dPost.comments}
+          token={user.token}
+          user={user}
+        />
       </Container>
-      <Container className="fixed bottom-[3em] flex">
+      <Container className="fixed bottom-[3em] flex z-[1000000000000000000] mt-8">
         <TextField
           InputProps={{
             value: comment,
