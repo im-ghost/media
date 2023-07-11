@@ -30,7 +30,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       query: ({
         content, commentId, token,
       }) => ({
-        url: `/posts/post/${commentId}`,
+        url: `/posts/comments/${commentId}`,
         method: 'PUT',
         body: content,
         headers: {
@@ -53,7 +53,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       query: ({
         commentId, token,
       }) => ({
-        url: `/posts/comment/${commentId}`,
+        url: `/posts/comments/${commentId}`,
         method: 'DELETE',
         headers: {
           authorization: token,
