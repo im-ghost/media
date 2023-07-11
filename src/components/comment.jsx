@@ -21,10 +21,10 @@ const Comment = ({ comment, token, user }) => {
   React.useEffect(() => {
     if (data) {
       setComment(data.comment);
-      setEditValue(data.content);
+      setEditValue(data.comment.content);
     }
     if (error) {
-      toast.error(JSON.stringify(error));
+      toast.error(error.data.error);
     }
   }, [data, error]);
   const [update, { error: editError, data: editData }] =
@@ -41,14 +41,19 @@ const Comment = ({ comment, token, user }) => {
     setShow(true);
   };
   const saveEdit = async () => {
+    setShow(false)
     const commentId = com._id;
+   
     await update({
+      content: {
+        content:editValue
+      },
       commentId: commentId,
       token: token,
-      content: editValue,
     });
   };
   const likeComment = () => {
+    console.log(com);
     if (com.likes.includes(user._id)) {
       socket.emit('unlikecomment', {
         userId: user._id,
@@ -63,7 +68,9 @@ const Comment = ({ comment, token, user }) => {
   };
   React.useEffect(() => {
     if (com) {
+      console.log(com._id);
       socket.on(`likedcomment-${com._id}`, (comment) => {
+        console.log("liked");
         setLiked(true);
         setComment(comment);
       });
@@ -75,7 +82,7 @@ const Comment = ({ comment, token, user }) => {
         toast.error('An error occured');
       });
     }
-  }, []);
+  }, [com]);
   React.useEffect(() => {
     if (com) {
       const likes = com.likes;
@@ -83,13 +90,13 @@ const Comment = ({ comment, token, user }) => {
         setLiked(true);
       }
     }
-  }, [user]);
+  }, [com]);
   React.useEffect(() => {
     if (editError) {
       toast.error("Couldn't update comment ");
     }
     if (editData) {
-      setComment(editData);
+      setComment(editData.comment);
     }
   }, [editError, editData]);
   React.useEffect(() => {
@@ -102,7 +109,7 @@ const Comment = ({ comment, token, user }) => {
   }, [delError, delData]);
   if (com) {
     return (
-      <Card className="">
+      <Card className="m-2 p-2 w-[80vw]">
         {show ? (
           <div className="flex">
             <TextField
@@ -116,19 +123,21 @@ const Comment = ({ comment, token, user }) => {
             <Button onClick={saveEdit}> Save</Button>
           </div>
         ) : (
-          <div className="relative">
+          <div className="relative w-full">
+          <div className="flex w-full">
+            <Helper authorId={com.author.toString()} userId={user._id.toString()}/>
             {com.author.toString() === user._id.toString() && (
-              <div className="">
+              <div className="flex">
                 <IconButton onClick={edit}>
                   {' '}
-                  <MdEdit />
+                  <MdEdit className="text-sm"/>
                 </IconButton>
                 <IconButton onClick={deleteComment}>
-                  <FaTrash />
+                  <FaTrash className="text-sm"/>
                 </IconButton>
               </div>
             )}
-            <Helper authorId={com.author.toString()} />
+            </div>
             <Typography variant="body1">{com.content}</Typography>
             <IconButton
               className="bg"
