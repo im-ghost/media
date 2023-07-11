@@ -16,7 +16,10 @@ import { FaTrash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, setUser } from '../features/user/userSlice';
 import { useGetUserByIdQuery } from '../features/user/userApiSlice';
-import {} from "../features/post/postApiSlice"
+import {
+  useDeletePostMutation,
+  useUpdatePostMutation,
+} from '../features/post/postApiSlice';
 import { toast } from 'react-toastify';
 import Default from '../images/default.png';
 
@@ -30,14 +33,18 @@ const Post = ({ post, token }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [author, setAuthor] = useState(null);
-  
+  const [update, { data: updateData, error: updateError }] =
+    useUpdatePostMutation();
+  const [del, { data: delData, error: delError }] = useDeletePostMutation();
   const [editValue, setEditValue] = React.useState('');
   const [show, setShow] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
-  useEffect(()=>{
-    setEditValue(dPost.content)
-  },[dPost])
+  useEffect(() => {
+    if(dPost){
+    setEditValue(dPost.content);
+    }
+  }, [dPost]);
   useEffect(() => {
     socket.on(`likedpost-${dPost._id}`, (post) => {
       setLiked(true);
@@ -102,11 +109,44 @@ const Post = ({ post, token }) => {
     }
   };
   const userId = dPost.author;
-  const edit = () =>{
-    setShow(true)
-  }
-  const saveEdit = () =>{}
-  const deletePost = () =>{}
+  const edit = () => {
+    setShow(true);
+  };
+  const saveEdit = async () => {
+    setShow(false)
+    const post = await update({
+      postId: dPost._id,
+      userId: user._id,
+      token: user.token,
+      data: {
+        ...dPost,
+        content: editValue,
+      },
+    });
+  };
+  const deletePost = async () => {
+    await del({
+      token: user.token,
+      postId: dPost._id,
+      userId: user._id,
+    });
+  };
+  useEffect(() => {
+    if (updateData) {
+      setPost(updateData.post);
+    }
+    if (updateError) {
+      toast.error(JSON.stringify(updateError));
+    }
+  }, [updateData, updateError]);
+  useEffect(() => {
+    if (delData) {
+      setPost();
+    }
+    if (delError) {
+      toast.error(JSON.stringify(delError));
+    }
+  }, [delData, delError]);
   const { data, error } = useGetUserByIdQuery(userId);
   useEffect(() => {
     if (error) {
@@ -121,46 +161,55 @@ const Post = ({ post, token }) => {
   if (!data || !author) {
     return <h1>Loading....</h1>;
   }
+  if (!dPost) {
+    return;
+  }
+  if (show) {
+    <Card
+      raised={true}
+      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
+    >
+      <div className="flex">
+        <TextField
+          InputProps={{
+            value: editValue,
+            onChange: (e) => {
+              setEditValue(e.target.value);
+            },
+          }}
+        />
+        <Button onClick={saveEdit}> Save</Button>
+      </div>
+    </Card>;
+  }
   return (
     <Card
       raised={true}
       className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
     >
-      {show ? (
-          <div className="flex">
-            <TextField
-              InputProps={{
-                value: editValue,
-                onChange: (e) => {
-                  setEditValue(e.target.value);
-                },
-              }}
-            />
-            <Button onClick={saveEdit}> Save</Button>
-          </div>
-        ) : (
-     {author._id.toString() === user._id.toString() && (
-              <div className="">
-                <IconButton onClick={edit}>
-                  {' '}
-                  <MdEdit />
-                </IconButton>
-                <IconButton onClick={deletePost}>
-                  <FaTrash />
-                </IconButton>
-              </div>
-            )}
+    
       <div
-        className="flex justify-between align-center"
+        className="flex items-center"
         onClick={() => navigate(`/users/${author._id}`)}
       >
         <img
           src={author.image || Default}
           alt={author.name}
-          className="h-8 w-auto rounded-[50%] mx-4"
+          className="h-6 w-auto rounded-[50%] mr-2"
         />
 
-        <Typography variant="body1">{author.name}</Typography>
+        <Typography variant="body2" className="flex-grow-2 whitespace-nowrap">{author.name}</Typography>
+          {author._id.toString() === user._id.toString() && (
+        <div className="flex items-top">
+          <IconButton onClick={edit}>
+            {' '}
+            <MdEdit className="text-sm"/>
+          </IconButton>
+          <IconButton onClick={deletePost}>
+            <FaTrash className="text-sm"/>
+          </IconButton>
+        </div>
+      )}
       </div>
       {dPost.date && (
         <Typography variant="body2">{dPost.date.toString()}</Typography>
@@ -227,7 +276,6 @@ const Post = ({ post, token }) => {
           {dPost.retweets.length}{' '}
         </IconButton>
       </CardActions>
-      )}
     </Card>
   );
 };
