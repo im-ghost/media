@@ -3,28 +3,28 @@ import { Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
 import { useAllUsersQuery } from '../features/user/userApiSlice';
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setPostsInStore } from '../features/post/postSlice';
 const Helper = ({ userFromStore, token }) => {
   const [data, setData] = useState({});
   const [error, setError] = useState({});
   const [posts, setPosts] = useState([]);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data: dataF, error: errorF } = useAllUsersQuery(token);
   useEffect(() => {
     if (dataF || errorF) {
       setData(dataF);
       setError(errorF);
-      console.log('f' + dataF);
-      console.log('d' + data);
     }
     if (errorF) {
-      navigate('/');
+      navigate('/login');
     }
   }, [dataF, errorF]);
   useEffect(() => {
     if (data) {
       if (data.users) {
-        console.log(data);
         const fetchedPosts = data.users.reduce((acc, user) => {
           if (user.posts) {
             acc.push(...user.posts);
@@ -33,6 +33,7 @@ const Helper = ({ userFromStore, token }) => {
         }, []);
         if (fetchedPosts.length > 0) {
           setPosts(fetchedPosts);
+          dispatch(setPostsInStore(fetchedPosts));
         }
       } else {
         toast.error(JSON.stringify(error));
