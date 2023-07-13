@@ -41,8 +41,8 @@ const Post = ({ post, token }) => {
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
   useEffect(() => {
-    if(dPost){
-    setEditValue(dPost.content);
+    if (dPost) {
+      setEditValue(dPost.content);
     }
   }, [dPost]);
   useEffect(() => {
@@ -113,7 +113,7 @@ const Post = ({ post, token }) => {
     setShow(true);
   };
   const saveEdit = async () => {
-    setShow(false)
+    setShow(false);
     const post = await update({
       postId: dPost._id,
       userId: user._id,
@@ -187,7 +187,6 @@ const Post = ({ post, token }) => {
       raised={true}
       className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
     >
-    
       <div
         className="flex items-center"
         onClick={() => navigate(`/users/${author._id}`)}
@@ -198,18 +197,23 @@ const Post = ({ post, token }) => {
           className="h-6 w-auto rounded-[50%] mr-2"
         />
 
-        <Typography variant="body2" className="flex-grow-2 whitespace-nowrap">{author.name}</Typography>
-          {author._id.toString() === user._id.toString() && (
-        <div className="flex items-top">
-          <IconButton onClick={edit}>
-            {' '}
-            <MdEdit className="text-sm"/>
-          </IconButton>
-          <IconButton onClick={deletePost}>
-            <FaTrash className="text-sm"/>
-          </IconButton>
-        </div>
-      )}
+        <Typography
+          variant="body2"
+          className="flex-grow-2 whitespace-nowrap"
+        >
+          {author.name}
+        </Typography>
+        {author._id.toString() === user._id.toString() && (
+          <div className="flex items-top">
+            <IconButton onClick={edit}>
+              {' '}
+              <MdEdit className="text-sm" />
+            </IconButton>
+            <IconButton onClick={deletePost}>
+              <FaTrash className="text-sm" />
+            </IconButton>
+          </div>
+        )}
       </div>
       {dPost.date && (
         <Typography variant="body2">{dPost.date.toString()}</Typography>
