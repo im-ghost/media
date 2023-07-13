@@ -3,12 +3,20 @@ import { Container, Typography } from '@mui/material';
 import Post from './post';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useAppDispatch } from '../app/hooks';
-import { setPostsInStore } from '../features/post/postSlice';
+import { useSelector,useDispatch } from "react-redux"
+import { 
+  setPostsInStore,
+  setPostsObjInStore,
+  selectPostsObj
+} from '../features/post/postSlice';
 const Posts = ({ posts, token }) => {
   const [postsObj, setPosts] = useState(null);
-  const dispatch = useAppDispatch();
+  const postsFromStore = useSelector(selectPostsObj)
+  const dispatch = useDispatch();
   useEffect(() => {
+    if(postsFromStore){
+      setPosts(postsFromStore)
+    }else{
     const fetchPosts = async () => {
       try {
         let postIds = posts.filter((post) => post !== null); // Filter out null values
@@ -41,7 +49,7 @@ const Posts = ({ posts, token }) => {
             (post) => post !== undefined
           );
           setPosts(filteredPosts);
-
+          dispatch(setPostsObjInStore(filteredPosts))
           return filteredPosts; // Return the filtered and resolved posts
         }
       } catch (error) {
@@ -50,6 +58,7 @@ const Posts = ({ posts, token }) => {
     };
     if (posts) {
       fetchPosts();
+    }
     }
   }, [posts, dispatch, token]);
   if (posts.length < 1) {
