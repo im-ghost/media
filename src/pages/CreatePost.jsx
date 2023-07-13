@@ -1,17 +1,15 @@
 import { Typography, Box, Button, TextField } from '@mui/material';
 import * as React from 'react';
 
-import { useSelector,useDispatch } from "react-redux"
-import { 
-  updatePosts
-} from '../features/post/postSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { updatePosts } from '../features/post/postSlice';
 import { useCreatePostMutation } from '../features/post/postApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const CreatePost = () => {
   const [user, setUser] = React.useState(null);
   const [text, setText] = React.useState('');
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
   const [createPost, { error, data }] = useCreatePostMutation();
@@ -32,7 +30,7 @@ const CreatePost = () => {
   }, [error]);
   React.useEffect(() => {
     if (data) {
-      dispatch(updatePosts(data.post))
+      dispatch(updatePosts(data.post));
       navigate('/');
     }
   }, [data, navigate]);
