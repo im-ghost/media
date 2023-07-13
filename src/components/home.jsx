@@ -29,6 +29,7 @@ const Helper = ({ userFromStore, token }) => {
           if (user.posts) {
             acc.push(...user.posts);
           }
+          console.log(acc);
           return acc;
         }, []);
         if (fetchedPosts.length > 0) {
