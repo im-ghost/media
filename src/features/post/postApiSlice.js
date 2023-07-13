@@ -3,9 +3,7 @@ import apiSlice from '../../app/api';
 export const postApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createPost: builder.mutation({
-      query: ({
-        data, token,
-      }) => ({
+      query: ({ data, token }) => ({
         url: '/posts',
         method: 'POST',
         body: data,
@@ -27,9 +25,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     updateComment: builder.mutation({
-      query: ({
-        content, commentId, token,
-      }) => ({
+      query: ({ content, commentId, token }) => ({
         url: `/posts/comments/${commentId}`,
         method: 'PUT',
         body: content,
@@ -39,9 +35,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deletePost: builder.mutation({
-      query: ({
-        postId, userId, token,
-      }) => ({
+      query: ({ postId, userId, token }) => ({
         url: `/posts/post/${postId}/${userId}`,
         method: 'DELETE',
         headers: {
@@ -50,9 +44,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deleteComment: builder.mutation({
-      query: ({
-        commentId, token,
-      }) => ({
+      query: ({ commentId, token }) => ({
         url: `/posts/comments/${commentId}`,
         method: 'DELETE',
         headers: {
