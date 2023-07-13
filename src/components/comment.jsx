@@ -1,4 +1,4 @@
-import { Card, Typography, IconButton,TextField,Button} from '@mui/material';
+import { Card, Typography, IconButton, TextField, Button } from '@mui/material';
 import React from 'react';
 import { socket } from '../app/store';
 import { IoThumbsUp } from 'react-icons/io5';
@@ -41,12 +41,12 @@ const Comment = ({ comment, token, user }) => {
     setShow(true);
   };
   const saveEdit = async () => {
-    setShow(false)
+    setShow(false);
     const commentId = com._id;
-   
+
     await update({
       content: {
-        content:editValue
+        content: editValue,
       },
       commentId: commentId,
       token: token,
@@ -70,7 +70,7 @@ const Comment = ({ comment, token, user }) => {
     if (com) {
       console.log(com._id);
       socket.on(`likedcomment-${com._id}`, (comment) => {
-        console.log("liked");
+        console.log('liked');
         setLiked(true);
         setComment(comment);
       });
@@ -124,19 +124,22 @@ const Comment = ({ comment, token, user }) => {
           </div>
         ) : (
           <div className="relative w-full">
-          <div className="flex w-full">
-            <Helper authorId={com.author.toString()} userId={user._id.toString()}/>
-            {com.author.toString() === user._id.toString() && (
-              <div className="flex">
-                <IconButton onClick={edit}>
-                  {' '}
-                  <MdEdit className="text-sm"/>
-                </IconButton>
-                <IconButton onClick={deleteComment}>
-                  <FaTrash className="text-sm"/>
-                </IconButton>
-              </div>
-            )}
+            <div className="flex w-full">
+              <Helper
+                authorId={com.author.toString()}
+                userId={user._id.toString()}
+              />
+              {com.author.toString() === user._id.toString() && (
+                <div className="flex">
+                  <IconButton onClick={edit}>
+                    {' '}
+                    <MdEdit className="text-sm" />
+                  </IconButton>
+                  <IconButton onClick={deleteComment}>
+                    <FaTrash className="text-sm" />
+                  </IconButton>
+                </div>
+              )}
             </div>
             <Typography variant="body1">{com.content}</Typography>
             <IconButton
