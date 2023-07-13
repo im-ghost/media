@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/auth/Login';
 import Post from './pages/Post';
 import User from './pages/User';
+import Search from './pages/Search';
 import Follow from './pages/Follow';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
@@ -65,6 +66,11 @@ root.render(
             <Route
               path="/register"
               element={<Register />}
+            />
+
+            <Route
+              path="/search"
+              element={<Search />}
             />
             <Route
               path="/register2"
