@@ -47,11 +47,11 @@ const Helper = ({ post }) => {
 
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
-  useEffect(()=>{
-    if(dPost){
-      setEditValue(dPost.content)
+  useEffect(() => {
+    if (dPost) {
+      setEditValue(dPost.content);
     }
-  },[dPost])
+  }, [dPost]);
   useEffect(() => {
     if (dPost && user._id) {
       socket.on(`likedpost-${dPost._id}`, (post) => {
@@ -135,7 +135,7 @@ const Helper = ({ post }) => {
     setShow(true);
   };
   const saveEdit = async () => {
-    setShow(false)
+    setShow(false);
     const post = await update({
       postId: dPost._id,
       userId: user._id,
@@ -220,7 +220,6 @@ const Helper = ({ post }) => {
         raised={true}
         className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
       >
-       
         <div className="flex">
           <img
             src={author.image || Default}
@@ -228,18 +227,23 @@ const Helper = ({ post }) => {
             className="h-6 w-auto rounded-[50%]"
           />
 
-          <Typography variant="body2" className="flex-grow-2 whitespace-nowrap">{author.name}</Typography>
-           {author._id.toString() === user._id.toString() && (
-           <div className="flex">
-            <IconButton onClick={edit}>
-              {' '}
-              <MdEdit className="text-sm"/>
-            </IconButton>
-            <IconButton onClick={deletePost}>
-              <FaTrash className="text-sm"/>
-            </IconButton>
+          <Typography
+            variant="body2"
+            className="flex-grow-2 whitespace-nowrap"
+          >
+            {author.name}
+          </Typography>
+          {author._id.toString() === user._id.toString() && (
+            <div className="flex">
+              <IconButton onClick={edit}>
+                {' '}
+                <MdEdit className="text-sm" />
+              </IconButton>
+              <IconButton onClick={deletePost}>
+                <FaTrash className="text-sm" />
+              </IconButton>
             </div>
-        )}
+          )}
         </div>
         {dPost.date && (
           <Typography variant="body2">{dPost.date.toString()}</Typography>
