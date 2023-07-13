@@ -1,4 +1,4 @@
-# Exclude a specific directory
+src/feature
 src/app
 src/features
 src/reportWebVitals.js
