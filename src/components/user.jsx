@@ -64,13 +64,13 @@ const User = ({ userId }) => {
   const followUser = async () => {
     setDisable(true);
     if (user.following.includes(me._id)) {
-     await unfollow({
+      await unfollow({
         userId: user._id,
         token: me.token,
       });
       // setFollowing(true)
     } else {
-       await follow({
+      await follow({
         userId: user._id,
         token: me.token,
       });
@@ -81,26 +81,27 @@ const User = ({ userId }) => {
     return <Loader />;
   }
   if (user) {
-    return(
-    <Paper className="flex justify-evenly">
-      <Box
-        className="flex flex-grow-2"
-        onClick={() => navigate(`/users/${user._id}`)}
-      >
-        <img
-          src={user.image}
-          alt={user.name}
-          className="h-6 w-auto"
-        />
-        <Typography variant="body1">{user.name}</Typography>
-      </Box>
-      <Button
-        disable={disable}
-        onClick={followUser}
-      >
-        {userFollowing ? 'Unfollow' : 'Follow'}
-      </Button>
-    </Paper>);
+    return (
+      <Paper className="flex justify-evenly">
+        <Box
+          className="flex flex-grow-2"
+          onClick={() => navigate(`/users/${user._id}`)}
+        >
+          <img
+            src={user.image}
+            alt={user.name}
+            className="h-6 w-auto"
+          />
+          <Typography variant="body1">{user.name}</Typography>
+        </Box>
+        <Button
+          disable={disable}
+          onClick={followUser}
+        >
+          {userFollowing ? 'Unfollow' : 'Follow'}
+        </Button>
+      </Paper>
+    );
   }
   return;
 };
