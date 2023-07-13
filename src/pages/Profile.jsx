@@ -21,7 +21,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
-function TabPanel(props) {
+export function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
     <div
@@ -39,7 +39,7 @@ function TabPanel(props) {
     </div>
   );
 }
-function a11yProps(index) {
+export function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
