@@ -16,9 +16,10 @@ import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import { Helmet } from 'react-helmet';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
+import { toast } from 'react-toastify';
 import Posts from '../components/posts';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,9 +48,9 @@ function a11yProps(index) {
 const Profile = () => {
   const navigate = useNavigate();
   const userFromStore = useSelector((state) => state.user.userInfo);
-  useEffect(()=>{
-    if(!userFromStore) navigate("/login")
-  },[userFromStore])
+  useEffect(() => {
+    if (!userFromStore) navigate('/login');
+  }, [userFromStore]);
   const [user, setUser] = useState();
   const [value, setValue] = useState(0);
 
@@ -60,7 +61,7 @@ const Profile = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  
+
   const { data, error } = useGetUserByIdQuery(userFromStore._id);
   useEffect(() => {
     if (data) {
@@ -144,15 +145,37 @@ const Profile = () => {
               <Typography variant="body2">{user.posts.length}</Typography>
             </Box>
             <Box className="flex flex-col flex-wrap items-center justify-center">
-              <Typography variant="h6">Followers</Typography>
+              <Link
+                to={`/follow`}
+                state={{
+                  data: {
+                    following: user.following,
+                    followers: user.followers,
+                  },
+                }}
+              >
+                <Typography variant="h6">Followers</Typography>
 
-              <Typography variant="body2">{user.followers.length}</Typography>
+                <Typography variant="body2">{user.followers.length}</Typography>
+              </Link>
             </Box>
             <Box className="flex flex-col flex-wrap items-center justify-center">
-              <Typography variant="h6">Following</Typography>
-              {user.following && (
-                <Typography variant="body2">{user.following.length}</Typography>
-              )}
+              <Link
+                to={`/follow`}
+                state={{
+                  data: {
+                    following: user.following,
+                    followers: user.followers,
+                  },
+                }}
+              >
+                <Typography variant="h6">Following</Typography>
+                {user.following && (
+                  <Typography variant="body2">
+                    {user.following.length}
+                  </Typography>
+                )}
+              </Link>
             </Box>
           </Paper>
           <Box className="w-full h-auto min-h-64 border">
