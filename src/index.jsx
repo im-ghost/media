@@ -8,6 +8,7 @@ import App from './App';
 import Home from './pages/Home';
 import Login from './pages/auth/Login';
 import Post from './pages/Post';
+import User from './pages/User';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 import Register from './pages/auth/Register';
@@ -75,6 +76,10 @@ root.render(
             <Route
               path="/posts/:id"
               element={<Post />}
+            />
+            <Route
+              path="/users/:id"
+              element={<User />}
             />
           </Route>
         </Routes>
