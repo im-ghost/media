@@ -16,7 +16,7 @@ import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import { Helmet } from 'react-helmet';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 
@@ -123,12 +123,36 @@ const User = () => {
                 <Typography variant="body2">{user.posts.length}</Typography>
               </Box>
               <Box className="flex flex-col flex-wrap items-center justify-center">
-                <Typography variant="h6">Followers</Typography>
-                <Typography variant="body2">{user.followers.length}</Typography>
+                <Link
+                  to={`/follow`}
+                  state={{
+                    data: {
+                      following: user.following,
+                      followers: user.followers,
+                    },
+                  }}
+                >
+                  <Typography variant="h6">Followers</Typography>
+                  <Typography variant="body2">
+                    {user.followers.length}
+                  </Typography>
+                </Link>
               </Box>
               <Box className="flex flex-col flex-wrap items-center justify-center">
-                <Typography variant="h6">Following</Typography>
-                <Typography variant="body2">{user.following.length}</Typography>
+                <Link
+                  to={`/follow`}
+                  state={{
+                    data: {
+                      following: user.following,
+                      followers: user.followers,
+                    },
+                  }}
+                >
+                  <Typography variant="h6">Following</Typography>
+                  <Typography variant="body2">
+                    {user.following.length}
+                  </Typography>
+                </Link>
               </Box>
             </Paper>
             <Box className="w-full h-auto min-h-64 border">
