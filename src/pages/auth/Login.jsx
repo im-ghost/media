@@ -39,7 +39,7 @@ const Login = () => {
   useEffect(() => {
     if (data) {
       (async () => {
-        await dispatch(SetUser(data));
+        await dispatch(SetUser(data.user));
       })();
       navigate('/profile');
     }
