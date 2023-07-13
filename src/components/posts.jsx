@@ -17,6 +17,14 @@ const Posts = ({ posts, token }) => {
     if (postsFromStore) {
       console.log('str', postsFromStore);
       setPosts(postsFromStore);
+    } else if (typeof posts[0] === 'object') {
+      const dPosts = [];
+      posts.map((post) => {
+        dPosts.push({
+          post: post,
+        });
+      });
+      setPosts(dPosts);
     } else {
       const fetchPosts = async () => {
         try {
