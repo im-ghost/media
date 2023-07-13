@@ -65,10 +65,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    unfollowUser: builder.mutation({
+      query: ({ userId, token }) => ({
+        url: `/users/user/${userId}/unfollow`,
+        method: 'POST',
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
   }),
 });
 export const {
   useFollowUserMutation,
+  useUnfollowUserMutation,
   useLogoutUserMutation,
   useRegisterUserMutation,
   useLoginUserMutation,
