@@ -42,21 +42,37 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getNotification: builder.query({
-      query: ({userId,token}) => ({
+      query: ({
+        userId, token,
+      }) => ({
         url: `/users/user/${userId}/notifications`,
         method: 'GET',
-        headers:{
-          authorization: token
-        }
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
+    createNotification: builder.query({
+      query: ({
+        userId, token, content,
+      }) => ({
+        url: `/users/user/${userId}/notifications`,
+        method: 'POST',
+        headers: {
+          authorization: token,
+        },
+        body: content,
       }),
     }),
     delNotification: builder.query({
-      query: ({userId,token, notificationId}) => ({
-        url: `/users/user/${userId}/notifications/notificationId`,
+      query: ({
+        userId, token, notificationId,
+      }) => ({
+        url: `/users/user/${userId}/notifications/${notificationId}`,
         method: 'DELETE',
-        headers:{
-          authorization: token
-        }
+        headers: {
+          authorization: token,
+        },
       }),
     }),
     logoutUser: builder.mutation({
@@ -105,5 +121,6 @@ export const {
   useGetUserByIdQuery,
   useGetNotificationQuery,
   useAllUsersQuery,
-  useDelNotificationMutation
+  useDelNotificationMutation,
+  useCreateNotificationMutation,
 } = userApiSlice;
