@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import * as React from 'react';
 import { emailLink } from '../pages/auth/firebase';
 import { setUserSign } from '../features/user/userSlice';
-import { useAppDispatch } from '../app/hooks';
+import { useDispatch } from 'react-redux';
 const EmailInput = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = React.useState('');
   const [isButtonDisabled, setButton] = React.useState(false);
   const [isDone, setDone] = React.useState(false);
