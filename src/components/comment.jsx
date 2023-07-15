@@ -11,6 +11,8 @@ import {
   useUpdateCommentMutation,
   useGetCommentByIdQuery,
 } from '../features/post/postApiSlice';
+
+import { useNotify } from '../app/hooks';
 const Comment = ({ comment, token, user }) => {
   const { data, error } = useGetCommentByIdQuery(comment);
   const [com, setComment] = React.useState();
@@ -69,7 +71,15 @@ const Comment = ({ comment, token, user }) => {
   React.useEffect(() => {
     if (com) {
       console.log(com._id);
-      socket.on(`likedcomment-${com._id}`, (comment) => {
+      socket.on(`likedcomment-${com._id}`, ({ comment, user }) => {
+        useNotify({
+          userId: user._id,
+          content: `${
+            user.name
+          } liked  your comment,${comment.content.substring(1, 10)}`,
+          token: user.token,
+          authorId: comment.author,
+        });
         console.log('liked');
         setLiked(true);
         setComment(comment);
