@@ -45,7 +45,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: ({
         userId, token,
       }) => ({
-        url: `/users/user/${userId}/notifications`,
+        url: `/not/n/${userId}`,
         method: 'GET',
         headers: {
           authorization: token,
@@ -56,7 +56,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: ({
         userId, token, content,
       }) => ({
-        url: `/users/user/${userId}/notifications`,
+        url: `/not/n/${userId}`,
         method: 'POST',
         headers: {
           authorization: token,
@@ -68,7 +68,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: ({
         userId, token, notificationId,
       }) => ({
-        url: `/users/user/${userId}/notifications/${notificationId}`,
+        url: `/not/${userId}/${notificationId}`,
         method: 'DELETE',
         headers: {
           authorization: token,
