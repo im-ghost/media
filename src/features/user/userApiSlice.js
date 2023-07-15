@@ -41,6 +41,24 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getNotification: builder.query({
+      query: ({userId,token}) => ({
+        url: `/users/user/${userId}/notifications`,
+        method: 'GET',
+        headers:{
+          authorization: token
+        }
+      }),
+    }),
+    delNotification: builder.query({
+      query: ({userId,token, notificationId}) => ({
+        url: `/users/user/${userId}/notifications/notificationId`,
+        method: 'DELETE',
+        headers:{
+          authorization: token
+        }
+      }),
+    }),
     logoutUser: builder.mutation({
       query: () => ({
         url: '/users/logout',
@@ -85,5 +103,7 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useGetUserByIdQuery,
+  useGetNotificationQuery,
   useAllUsersQuery,
+  useDelNotificationMutation
 } = userApiSlice;
