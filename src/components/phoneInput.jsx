@@ -6,9 +6,9 @@ import { phone, verifyPhone } from '../pages/auth/firebase';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setUserSign } from '../features/user/userSlice';
-import { useAppDispatch } from '../app/hooks';
+import { useDispatch } from 'react-redux';
 const PhoneNumberInput = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [num, setNum] = React.useState('');
   const [result, setResult] = React.useState();
