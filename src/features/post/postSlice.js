@@ -13,8 +13,6 @@ export const postSlice = createSlice({
   reducers: {
     setPostsInStore: (state, action) => {
       state.posts = action.payload;
-      console.log('saved');
-      console.log(state.posts);
     },
     setPostsObjInStore: (state, action) => {
       state.postsObj = action.payload;
