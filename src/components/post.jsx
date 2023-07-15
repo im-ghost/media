@@ -22,11 +22,9 @@ import {
 } from '../features/post/postApiSlice';
 import { toast } from 'react-toastify';
 import Default from '../images/default.png';
-
-import { io } from 'socket.io-client';
 import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
-
-const socket = io('http://localhost:4000');
+import { socket } from '../app/store';
+import { useNotify } from '../app/hooks';
 const Post = ({ post, token }) => {
   const [dPost, setPost] = useState(post.post);
   const user = useSelector(selectUser);
@@ -46,7 +44,17 @@ const Post = ({ post, token }) => {
     }
   }, [dPost]);
   useEffect(() => {
-    socket.on(`likedpost-${dPost._id}`, (post) => {
+    socket.on(`likedpost-${dPost._id}`, ({ post, user }) => {
+      useNotify({
+        userId: user._id,
+        content: `${user.name} liked your post,${dPost.content.substring(
+          1,
+          10
+        )}`,
+        token: user.token,
+        authorId: dPost.author,
+      });
+
       setLiked(true);
       setPost(post);
     });
@@ -55,6 +63,16 @@ const Post = ({ post, token }) => {
       setPost(post);
     });
     socket.on(`retweetedpost-${dPost._id}`, ({ post, user }) => {
+      useNotify({
+        userId: user._id,
+        content: `${user.name} retweeted your post,${dPost.content.substring(
+          1,
+          10
+        )}`,
+        token: user.token,
+        authorId: dPost.author,
+      });
+
       setRetweeted(true);
       setPost(post);
       dispatch(setUser(user));
