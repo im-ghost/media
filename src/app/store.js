@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import userReducer from '../features/user/userSlice';
 import postReducer from '../features/post/postSlice';
@@ -14,6 +13,3 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
 });
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch = useDispatch;
-export const useAppSelector = useSelector;
