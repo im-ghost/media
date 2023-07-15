@@ -59,9 +59,9 @@ const Helper = ({ post }) => {
         useNotify({
           userId: user._id,
           content: `${user.name} liked your post,${dPost.content.substring(
-            1,
+            0,
             10
-          )}`,
+          )}...`,
           token: user.token,
           authorId: dPost.author,
         });
@@ -76,9 +76,9 @@ const Helper = ({ post }) => {
         useNotify({
           userId: user._id,
           content: `${user.name} retweeted your post,${dPost.content.substring(
-            1,
+            0,
             10
-          )}`,
+          )}...`,
           token: user.token,
           authorId: dPost.author,
         });
@@ -97,7 +97,7 @@ const Helper = ({ post }) => {
           userId: user._id,
           content: `${
             user.name
-          } commented on your post,${dPost.content.substring(1, 10)}`,
+          } commented on your post,${dPost.content.substring(0, 10)}....`,
           token: user.token,
           authorId: dPost.author,
         });

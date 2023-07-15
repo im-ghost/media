@@ -53,6 +53,7 @@
     "dev": "yarn prettier && clear && yarn webpack",
     "webpack": "webpack serve",
     "prettier": "prettier --write ./",
+    "p": "prettier --write ./src/app/hooks.js",
     "prettier:check": "prettier --check .",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
