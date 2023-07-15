@@ -45,12 +45,13 @@ const Post = ({ post, token }) => {
   }, [dPost]);
   useEffect(() => {
     socket.on(`likedpost-${dPost._id}`, ({ post, user }) => {
+      console.log(user);
       useNotify({
         userId: user._id,
         content: `${user.name} liked your post,${dPost.content.substring(
-          1,
+          0,
           10
-        )}`,
+        )}...`,
         token: user.token,
         authorId: dPost.author,
       });
@@ -66,9 +67,9 @@ const Post = ({ post, token }) => {
       useNotify({
         userId: user._id,
         content: `${user.name} retweeted your post,${dPost.content.substring(
-          1,
+          0,
           10
-        )}`,
+        )}...`,
         token: user.token,
         authorId: dPost.author,
       });
