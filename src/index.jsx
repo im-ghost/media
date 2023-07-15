@@ -12,6 +12,7 @@ import User from './pages/User';
 import Search from './pages/Search';
 import Follow from './pages/Follow';
 import CreatePost from './pages/CreatePost';
+import Notifications from './pages/Notifications';
 import Logout from './pages/Logout';
 import Register from './pages/auth/Register';
 import Register2 from './pages/auth/Register2';
@@ -19,21 +20,6 @@ import Profile from './pages/Profile';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
-/*const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route
-      path="/"
-      element={<App />}
-    >
-      <Route
-        index
-        path="/"
-        element={<Home />}
-      />
-     
-    </Route>
-  )
-);*/
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
@@ -54,10 +40,13 @@ root.render(
               path="/login"
               element={<Login />}
             />
-
             <Route
               path="/logout"
               element={<Logout />}
+            />
+            <Route
+              path="/notifications"
+              element={<Notifications />}
             />
             <Route
               path="/follow"
