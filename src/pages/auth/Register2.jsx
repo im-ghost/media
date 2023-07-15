@@ -1,9 +1,9 @@
 import { Typography, TextField, Box, Button } from '@mui/material';
 import React, { useState, useReducer, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/store';
 import { useRegisterUserMutation } from '../../features/user/userApiSlice';
 import { setUser as SetUser } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { initialState, reducer } from './reducer';
 import { Password } from '../../components/passwordInput';
@@ -13,10 +13,10 @@ const Register2 = () => {
   const [user, setUser] = useState(null);
   const [emailAuth, setEmailAuth] = useState(false);
   const [phoneAuth, setPhoneAuth] = useState(false);
-  const userInfo = useAppSelector((state) => state.user.userInfo);
-  const userSign = useAppSelector((state) => state.user.userSign);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userSign = useSelector((state) => state.user.userSign);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [register, { error, data }] = useRegisterUserMutation();
   const create = async (e) => {
     e.preventDefault();
