@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
-import { useAllUsersQuery } from '../features/user/userApiSlice';
+import { useAllPostsQuery } from '../features/user/userApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setPostsInStore } from '../features/post/postSlice';
@@ -12,7 +12,7 @@ const Helper = ({ userFromStore, token }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: dataF, error: errorF } = useAllUsersQuery(token);
+  const { data: dataF, error: errorF } = useAllPostsQuery(token);
   useEffect(() => {
     if (dataF || errorF) {
       setData(dataF);
@@ -24,17 +24,13 @@ const Helper = ({ userFromStore, token }) => {
   }, [dataF, errorF]);
   useEffect(() => {
     if (data) {
-      if (data.users) {
-        const fetchedPosts = data.users.reduce((acc, user) => {
-          if (user.posts) {
-            acc.push(...user.posts);
-          }
-          console.log(acc);
-          return acc;
-        }, []);
-        if (fetchedPosts.length > 0) {
-          setPosts(fetchedPosts);
-          dispatch(setPostsInStore(fetchedPosts));
+      if (data.posts) {
+        const { followers,following } = userFromStore;
+        const posts = data.posts.filter((post) => followers.includes(post.author) || following.includes(post.author))
+        
+        if (posts.length > 0) {
+          setPosts(posts);
+          dispatch(setPostsInStore(posts));
         }
       } else {
         toast.error(JSON.stringify(error));
