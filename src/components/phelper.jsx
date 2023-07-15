@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Default from '../images/default.png';
+import { useNotify } from '../app/hooks';
 import { MdEdit } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
 import Comments from './comments';
@@ -54,7 +55,16 @@ const Helper = ({ post }) => {
   }, [dPost]);
   useEffect(() => {
     if (dPost && user._id) {
-      socket.on(`likedpost-${dPost._id}`, (post) => {
+      socket.on(`likedpost-${dPost._id}`, ({ post, user }) => {
+        useNotify({
+          userId: user._id,
+          content: `${user.name} liked your post,${dPost.content.substring(
+            1,
+            10
+          )}`,
+          token: user.token,
+          authorId: dPost.author,
+        });
         setLiked(true);
         setPost(post);
       });
@@ -63,6 +73,16 @@ const Helper = ({ post }) => {
         setPost(post);
       });
       socket.on(`retweetedpost-${dPost._id}`, ({ post, user }) => {
+        useNotify({
+          userId: user._id,
+          content: `${user.name} retweeted your post,${dPost.content.substring(
+            1,
+            10
+          )}`,
+          token: user.token,
+          authorId: dPost.author,
+        });
+
         setRetweeted(true);
         setPost(post);
         dispatch(setUser(user));
@@ -72,7 +92,16 @@ const Helper = ({ post }) => {
         setPost(post);
         dispatch(setUser(user));
       });
-      socket.on(`commentedonpost-${dPost._id}`, (post) => {
+      socket.on(`commentedonpost-${dPost._id}`, ({ post, user }) => {
+        useNotify({
+          userId: user._id,
+          content: `${
+            user.name
+          } commented on your post,${dPost.content.substring(1, 10)}`,
+          token: user.token,
+          authorId: dPost.author,
+        });
+
         setPost(post);
       });
       socket.on('error', () => {
