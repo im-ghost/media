@@ -76,7 +76,7 @@ const Comment = ({ comment, token, user }) => {
           userId: user._id,
           content: `${
             user.name
-          } liked  your comment,${comment.content.substring(1, 10)}`,
+          } liked  your comment,${comment.content.substring(0, 10)}...`,
           token: user.token,
           authorId: comment.author,
         });
