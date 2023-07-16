@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
-import { useAllPostsQuery } from '../features/user/userApiSlice';
+import { useFeedsQuery } from '../features/user/userApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setPostsInStore } from '../features/post/postSlice';
@@ -12,7 +12,7 @@ const Helper = ({ userFromStore, token }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: dataF, error: errorF } = useAllPostsQuery(token);
+  const { data: dataF, error: errorF } = useFeedsQuery(token);
   useEffect(() => {
     if (dataF || errorF) {
       setData(dataF);
@@ -25,9 +25,7 @@ const Helper = ({ userFromStore, token }) => {
   useEffect(() => {
     if (data) {
       if (data.posts) {
-        const { followers,following } = userFromStore;
-        const posts = data.posts.filter((post) => followers.includes(post.author) || following.includes(post.author))
-        
+        const posts = data.posts;
         if (posts.length > 0) {
           setPosts(posts);
           dispatch(setPostsInStore(posts));
