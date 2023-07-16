@@ -52,6 +52,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    feeds: builder.query({
+      query: (token) => ({
+        url: `/feeds`,
+        method: 'GET',
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
     createNotification: builder.query({
       query: ({
         userId, token, content,
@@ -121,6 +130,7 @@ export const {
   useGetUserByIdQuery,
   useGetNotificationQuery,
   useAllUsersQuery,
+  useFeedsQuery,
   useDelNotificationMutation,
   useCreateNotificationMutation,
 } = userApiSlice;
