@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import Login from './pages/auth/Login';
 import Post from './pages/Post';
 import User from './pages/User';
+import Chat from './pages/Chat';
+import Chats from './pages/Chats';
 import Search from './pages/Search';
 import Follow from './pages/Follow';
 import CreatePost from './pages/CreatePost';
@@ -80,6 +82,14 @@ root.render(
             <Route
               path="/users/:id"
               element={<User />}
+            />
+            <Route
+              path="/chats/:id"
+              element={<Chat />}
+            />
+            <Route
+              path="/chats"
+              element={<Chats />}
             />
           </Route>
         </Routes>
