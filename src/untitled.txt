@@ -1,0 +1,5 @@
+posts fetching
+delete db query and run populate db
+pusher.js
+email.js
+email sending library;
