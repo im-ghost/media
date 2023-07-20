@@ -18,7 +18,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import Users from '../components/users';
-import { TabPanel,a11yProps} from "./Profile"
+import { TabPanel, a11yProps } from './Profile';
 const Follow = () => {
   const { state } = useLocation();
   const { followers, following } = state.data;
