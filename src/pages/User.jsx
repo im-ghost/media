@@ -12,12 +12,12 @@ import {
   Tab,
   AppBar,
 } from '@mui/material';
-import { 
+import {
   useGetUserByIdQuery,
   useFollowUserMutation,
   useUnfollowUserMutation,
-  } from '../features/user/userApiSlice';
-import { useCreateChatMutation, } from '../features/chat/chatApiSlice';
+} from '../features/user/userApiSlice';
+import { useCreateChatMutation } from '../features/chat/chatApiSlice';
 import { Helmet } from 'react-helmet';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -27,7 +27,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
-import { TabPanel,a11yProps} from "./Profile";
+import { TabPanel, a11yProps } from './Profile';
 const User = () => {
   const [user, setUser] = useState();
   const [value, setValue] = useState(0);
@@ -35,7 +35,8 @@ const User = () => {
   const [disable, setDisable] = useState(false);
   const { id } = useParams();
   const { data, error } = useGetUserByIdQuery(id);
-  const [createChat,{data:chat,error:chatError}] = useCreateChatMutation();
+  const [createChat, { data: chat, error: chatError }] =
+    useCreateChatMutation();
   const [
     follow,
     { isLoading: followLoading, error: followError, data: followed },
@@ -44,7 +45,7 @@ const User = () => {
     unfollow,
     { isLoading: unfollowLoading, error: unfollowError, data: unfollowed },
   ] = useUnfollowUserMutation();
-  
+
   useEffect(() => {
     if (followed) {
       setFollowing(true);
@@ -97,7 +98,7 @@ const User = () => {
   }, [data, error]);
   useEffect(() => {
     if (chat) {
-      navigate(`/chats/${chat._id}`)
+      navigate(`/chats/${chat._id}`);
     }
     if (chatError) {
       toast.error(JSON.stringify(chatError));
@@ -112,12 +113,12 @@ const User = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  const create = () =>{
+  const create = async () => {
     await createChat({
-      receiver:user._id,
-      token:userFromStore.token
+      receiver: user._id,
+      token: userFromStore.token,
     });
-  }
+  };
   if (user) {
     return (
       <>
@@ -162,23 +163,23 @@ const User = () => {
                   {user.bio}
                 </Typography>
               </CardContent>
-               <CardActions className="w-full flex justify-between flex-row">
-              <Button
-                variant="contained"
-                size="small"
-                disable={disable}
-                onClick={followUser}
-              >
-                { isFollowing ? "Unfollow" : "Follow" }
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                onClick={chat}
-              >
-                Message
-              </Button>
-            </CardActions>
+              <CardActions className="w-full flex justify-between flex-row">
+                <Button
+                  variant="contained"
+                  size="small"
+                  disable={disable}
+                  onClick={followUser}
+                >
+                  {isFollowing ? 'Unfollow' : 'Follow'}
+                </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={chat}
+                >
+                  Message
+                </Button>
+              </CardActions>
             </Card>
             <Paper
               variant="elevation"
