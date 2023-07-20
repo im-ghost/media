@@ -12,7 +12,12 @@ import {
   Tab,
   AppBar,
 } from '@mui/material';
-import { useGetUserByIdQuery } from '../features/user/userApiSlice';
+import { 
+  useGetUserByIdQuery,
+  useFollowUserMutation,
+  useUnfollowUserMutation,
+  } from '../features/user/userApiSlice';
+import { useCreateChatMutation, } from '../features/chat/chatApiSlice';
 import { Helmet } from 'react-helmet';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -22,35 +27,65 @@ import { useTheme } from '@mui/material/styles';
 
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
+import { TabPanel,a11yProps} from "./Profile";
 const User = () => {
   const [user, setUser] = useState();
   const [value, setValue] = useState(0);
+  const [isFollowing, setFollowing] = useState(false);
+  const [disable, setDisable] = useState(false);
   const { id } = useParams();
   const { data, error } = useGetUserByIdQuery(id);
+  const [createChat,{data:chat,error:chatError}] = useCreateChatMutation();
+  const [
+    follow,
+    { isLoading: followLoading, error: followError, data: followed },
+  ] = useFollowUserMutation();
+  const [
+    unfollow,
+    { isLoading: unfollowLoading, error: unfollowError, data: unfollowed },
+  ] = useUnfollowUserMutation();
+  
+  useEffect(() => {
+    if (followed) {
+      setFollowing(true);
+    }
+    if (followError) {
+      toast.error(JSON.stringify(followError));
+    }
+    setDisable(false);
+  }, [followed, followError]);
+  useEffect(() => {
+    if (unfollowed) {
+      setFollowing(false);
+    }
+    if (unfollowError) {
+      toast.error(JSON.stringify(unfollowError));
+    }
+    setDisable(false);
+  }, [unfollowed, unfollowError]);
+  useEffect(() => {
+    if (user) {
+      if (user.following.includes(userFromStore._id)) {
+        setFollowing(true);
+      }
+    }
+  }, [user]);
+  const followUser = async () => {
+    setDisable(true);
+    if (user.following.includes(userFromStore._id)) {
+      await unfollow({
+        userId: user._id,
+        token: userFromStore.token,
+      });
+      // setFollowing(true)
+    } else {
+      await follow({
+        userId: user._id,
+        token: userFromStore.token,
+      });
+      // setFollowing(false)
+    }
+  };
   useEffect(() => {
     if (data) {
       setUser(data.user);
@@ -60,6 +95,14 @@ const User = () => {
       toast.error(JSON.stringify(error));
     }
   }, [data, error]);
+  useEffect(() => {
+    if (chat) {
+      navigate(`/chats/${chat._id}`)
+    }
+    if (chatError) {
+      toast.error(JSON.stringify(chatError));
+    }
+  }, [chat, chatError]);
   const navigate = useNavigate();
   const userFromStore = useSelector((state) => state.user.userInfo);
   const theme = useTheme();
@@ -69,6 +112,12 @@ const User = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+  const create = () =>{
+    await createChat({
+      receiver:user._id,
+      token:userFromStore.token
+    });
+  }
   if (user) {
     return (
       <>
@@ -113,6 +162,23 @@ const User = () => {
                   {user.bio}
                 </Typography>
               </CardContent>
+               <CardActions className="w-full flex justify-between flex-row">
+              <Button
+                variant="contained"
+                size="small"
+                disable={disable}
+                onClick={followUser}
+              >
+                { isFollowing ? "Unfollow" : "Follow" }
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={chat}
+              >
+                Message
+              </Button>
+            </CardActions>
             </Card>
             <Paper
               variant="elevation"
