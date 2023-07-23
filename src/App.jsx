@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../features/user/userslice';
+import { selectUser } from './features/user/userSlice';
 import Footer from './components/Footer';
 function App() {
   const location = useLocation();

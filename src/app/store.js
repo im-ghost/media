@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { io } from 'socket.io-client';
 import userReducer from '../features/user/userSlice';
 import postReducer from '../features/post/postSlice';
-import chatReducer from '../features/chat/chatSlice';
+import * as chatReducer from '../features/chat/chatSlice';
 import apiSlice from './api';
 
 export const socket = io('http://localhost:4000');

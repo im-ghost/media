@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({
 });
 const apiSlice = createApi({
   baseQuery,
-  tagTypes: ['User', 'Post','Chat'],
+  tagTypes: ['User', 'Post', 'Chat'],
   // eslint-disable-next-line
   endpoints: (builder) => ({}),
 });

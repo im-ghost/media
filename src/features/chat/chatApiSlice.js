@@ -13,7 +13,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deleteChat: builder.mutation({
-      query: ({ chatId, userId, token }) => ({
+      query: ({ chatId, token }) => ({
         url: `/chat/${chatId}/`,
         method: 'DELETE',
         headers: {
@@ -28,7 +28,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     allChats: builder.query({
-      query: ({token,userId}) => ({
+      query: ({ token, userId }) => ({
         url: `/chat/user/${userId}`,
         method: 'GET',
         headers: {
