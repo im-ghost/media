@@ -19,7 +19,15 @@ const Helper = ({ userFromStore, token }) => {
       setError(errorF);
     }
     if (errorF) {
-      navigate('/login');
+      console.log(errorF);
+      if (errorF.data.message === 'Not Found') {
+        toast.error('Server error');
+        setTimeout(function () {
+          navigate(0);
+        }, 2000);
+      } else {
+        navigate('/login');
+      }
     }
   }, [dataF, errorF]);
   useEffect(() => {
