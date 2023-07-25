@@ -11,11 +11,11 @@ function App() {
   const location = useLocation();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const hideFooterRoutes = ['/login', '/register', '/register2'];
+  const shouldHideFooter = hideFooterRoutes.some((route) =>
+    location.pathname.includes(route)
+  );
   React.useEffect(() => {
-    const hideFooterRoutes = ['/login', '/register', '/register2'];
-    const shouldHideFooter = hideFooterRoutes.some((route) =>
-      location.pathname.includes(route)
-    );
     if (!shouldHideFooter) {
       if (!user) {
         navigate('/login');
