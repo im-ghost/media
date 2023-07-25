@@ -22,9 +22,12 @@ export const chatApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getChatById: builder.query({
-      query: (chatId) => ({
-        url: `/chat/${chatId}`,
+      query: ({ id, token }) => ({
+        url: `/chat/${id}`,
         method: 'GET',
+        headers: {
+          authorization: token,
+        },
       }),
     }),
     allChats: builder.query({
