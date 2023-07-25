@@ -93,15 +93,15 @@ const User = () => {
       console.log(data.user);
     }
     if (error) {
-      toast.error(JSON.stringify(error));
+      toast.error(JSON.stringify(error.data.message));
     }
   }, [data, error]);
   useEffect(() => {
     if (chat) {
-      navigate(`/chats/${chat._id}`);
+      navigate(`/chats/${chat.chat._id}`);
     }
     if (chatError) {
-      toast.error(JSON.stringify(chatError));
+      toast.error(JSON.stringify(chatError.data.message));
     }
   }, [chat, chatError]);
   const navigate = useNavigate();
@@ -115,7 +115,9 @@ const User = () => {
   };
   const create = async () => {
     await createChat({
-      receiver: user._id,
+      data: {
+        receiver: user._id,
+      },
       token: userFromStore.token,
     });
   };
@@ -175,7 +177,7 @@ const User = () => {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={chat}
+                  onClick={create}
                 >
                   Message
                 </Button>
