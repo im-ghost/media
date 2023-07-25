@@ -54,7 +54,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     feeds: builder.query({
       query: (token) => ({
-        url: '/feeds',
+        url: '/users/feeds',
         method: 'GET',
         headers: {
           authorization: token,
