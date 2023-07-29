@@ -40,7 +40,7 @@ const PhoneNumberInput = () => {
   };
   if (codeInput) {
     return (
-      <Box className="bg m-2  bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg">
+      <Box className="bg m-2 rounded-lg">
         <div id="recaptcha-container"></div>
         <Typography variant="h6">
           A code has been sent to {num} , input the code below to continue with
@@ -49,7 +49,7 @@ const PhoneNumberInput = () => {
 
         <TextField
           label="Code"
-          className="m-2  bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
+          className="m-2 bg rounded-lg"
           placeholder="Input the OTP sent"
           InputProps={{
             value: code,
@@ -57,7 +57,7 @@ const PhoneNumberInput = () => {
           }}
         />
         <button
-          className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
+          className="bg rounded-lg"
           onClick={() => verify(code)}
           disabled={isButtonDisabled}
         >
@@ -68,11 +68,11 @@ const PhoneNumberInput = () => {
     );
   }
   return (
-    <Box className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg">
+    <Box className="bg rounded-lg">
       <div id="recaptcha-container"></div>
       <TextField
         label="phone number "
-        className="  bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
+        className="bg rounded-lg"
         placeholder="Input Phone number"
         InputProps={{
           value: num,
@@ -80,7 +80,7 @@ const PhoneNumberInput = () => {
         }}
       />
       <button
-        className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
+        className="bg rounded-lg"
         onClick={() => sendCode(num)}
       >
         {' '}
