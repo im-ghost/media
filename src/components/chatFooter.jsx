@@ -4,16 +4,17 @@ import React from 'react';
 
 const chatFooter = ({ setValue, value, send }) => {
   return (
-    <Box className="flex">
+    <Box className="flex bgg">
       <TextField
         placeholder="Type your message"
+        className="bgg"
         InputProps={{
           value: value,
           onChange: (e) => setValue(e.target.value),
         }}
       />
-      <IconButton onClick={send}>
-        <FaAd />
+      <IconButton onClick={send}  className="bgg">
+        <FaAd  className="bgg"/>
       </IconButton>
     </Box>
   );
