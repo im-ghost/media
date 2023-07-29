@@ -145,12 +145,13 @@ const EditUser = () => {
       };
       const [state, setState] = useReducer(reducer, initialState);
       return (
-        <div className="text-center shadow rounded-lg">
-          <Typography variant="h2">Register page</Typography>
+        <div className="text-center shadow rounded-lg bg">
+          <Typography variant="h2" className="header">Register page</Typography>
           <Box
             component="form"
             noValidate
             autoComplete="on"
+            className="bg"
             sx={{
               '& .MuiTextField-root': { m: 1, width: '80vw' },
             }}
