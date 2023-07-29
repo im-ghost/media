@@ -26,7 +26,7 @@ const Notifications = () => {
   }
   if (notifications) {
     return (
-      <Box className="">
+      <Box className="bg">
         <Typography variant="h4"></Typography>
         {notifications.map((not) => (
           <Notification
