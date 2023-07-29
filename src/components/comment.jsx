@@ -119,9 +119,9 @@ const Comment = ({ comment, token, user }) => {
   }, [delError, delData]);
   if (com) {
     return (
-      <Card className="m-2 p-2 w-[80vw]">
+      <Card className="m-2 p-2 w-[80vw] bg">
         {show ? (
-          <div className="flex">
+          <div className="flex bg">
             <TextField
               InputProps={{
                 value: editValue,
@@ -133,20 +133,20 @@ const Comment = ({ comment, token, user }) => {
             <Button onClick={saveEdit}> Save</Button>
           </div>
         ) : (
-          <div className="relative w-full">
-            <div className="flex w-full">
+          <div className="relative bg w-full">
+            <div className="flex bg w-full">
               <Helper
                 authorId={com.author.toString()}
                 userId={user._id.toString()}
               />
               {com.author.toString() === user._id.toString() && (
-                <div className="flex">
+                <div className="flex bg">
                   <IconButton onClick={edit}>
                     {' '}
-                    <MdEdit className="text-sm" />
+                    <MdEdit className="text-sm bg" />
                   </IconButton>
                   <IconButton onClick={deleteComment}>
-                    <FaTrash className="text-sm" />
+                    <FaTrash className="text-sm bg" />
                   </IconButton>
                 </div>
               )}
