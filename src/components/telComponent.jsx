@@ -8,7 +8,7 @@ export const Phone = ({ value, onChange }) => {
     <TextField
       id="tel"
       label="Telephone"
-       className="bgg"
+      className="bgg"
       placeholder="Telephone"
       InputProps={{
         type: 'tel',

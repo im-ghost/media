@@ -32,7 +32,7 @@ const Posts = ({ posts, token }) => {
     );
   }
   return (
-    <Container className="bg w-screen bg">
+    <Container className="bg w-screen bg w-[100vw]">
       {postsObj !== null &&
         postsObj.map((post) => (
           <Post

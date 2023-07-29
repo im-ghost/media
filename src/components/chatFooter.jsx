@@ -13,8 +13,11 @@ const chatFooter = ({ setValue, value, send }) => {
           onChange: (e) => setValue(e.target.value),
         }}
       />
-      <IconButton onClick={send}  className="bgg">
-        <FaAd  className="bgg"/>
+      <IconButton
+        onClick={send}
+        className="bgg"
+      >
+        <FaAd className="bgg" />
       </IconButton>
     </Box>
   );

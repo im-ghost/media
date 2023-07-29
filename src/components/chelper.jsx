@@ -1,7 +1,7 @@
 import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import { Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import Loader from "./Loader"
+import Loader from './loader';
 export default function Helper({ authorId }) {
   const [author, setAuthor] = useState(null);
   const { data, error } = useGetUserByIdQuery(authorId);

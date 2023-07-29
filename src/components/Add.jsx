@@ -12,12 +12,15 @@ const Add = ({ isCreatePost = false }) => {
         right: '3em',
         zIndex: '9999',
       }}
-      className="bgg"
+      className=""
       onClick={() =>
-        isCreatePost ? navigate('/createpost') : navigate('/addchat')
+        isCreatePost ? navigate('/addchat') : navigate('/createpost')
       }
     >
-      <Fab color="primary" className="bgg">
+      <Fab
+        color="primary"
+        className="bgg"
+      >
         <MdAdd className="text-bold text-3xl bgg" />
       </Fab>
     </Box>

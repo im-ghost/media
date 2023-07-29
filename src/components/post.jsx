@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Loader from "./loader"
+import { formatDate } from '../app/hooks';
+import Loader from './loader';
 import {
   Card,
   CardHeader,
@@ -7,7 +8,6 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Paper,
   IconButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +17,6 @@ import { FaTrash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, setUser } from '../features/user/userSlice';
 import { useGetUserByIdQuery } from '../features/user/userApiSlice';
-import {
-  useDeletePostMutation,
-  useUpdatePostMutation,
-} from '../features/post/postApiSlice';
 import { toast } from 'react-toastify';
 import Default from '../images/default.png';
 import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
@@ -32,18 +28,8 @@ const Post = ({ post, token }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [author, setAuthor] = useState(null);
-  const [update, { data: updateData, error: updateError }] =
-    useUpdatePostMutation();
-  const [del, { data: delData, error: delError }] = useDeletePostMutation();
-  const [editValue, setEditValue] = React.useState('');
-  const [show, setShow] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
-  useEffect(() => {
-    if (dPost) {
-      setEditValue(dPost.content);
-    }
-  }, [dPost]);
   useEffect(() => {
     socket.on(`likedpost-${dPost._id}`, ({ post, user }) => {
       console.log(user);
@@ -129,44 +115,6 @@ const Post = ({ post, token }) => {
     }
   };
   const userId = dPost.author;
-  const edit = () => {
-    setShow(true);
-  };
-  const saveEdit = async () => {
-    setShow(false);
-    const post = await update({
-      postId: dPost._id,
-      userId: user._id,
-      token: user.token,
-      data: {
-        ...dPost,
-        content: editValue,
-      },
-    });
-  };
-  const deletePost = async () => {
-    await del({
-      token: user.token,
-      postId: dPost._id,
-      userId: user._id,
-    });
-  };
-  useEffect(() => {
-    if (updateData) {
-      setPost(updateData.post);
-    }
-    if (updateError) {
-      toast.error(JSON.stringify(updateError));
-    }
-  }, [updateData, updateError]);
-  useEffect(() => {
-    if (delData) {
-      setPost();
-    }
-    if (delError) {
-      toast.error(JSON.stringify(delError));
-    }
-  }, [delData, delError]);
   const { data, error } = useGetUserByIdQuery(userId);
   useEffect(() => {
     if (error) {
@@ -184,31 +132,13 @@ const Post = ({ post, token }) => {
   if (!dPost) {
     return;
   }
-  if (show) {
-    <Card
-      raised={true}
-      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg"
-    >
-      <div className="flex bg">
-        <TextField
-          InputProps={{
-            value: editValue,
-            onChange: (e) => {
-              setEditValue(e.target.value);
-            },
-          }}
-        />
-        <Button onClick={saveEdit}> Save</Button>
-      </div>
-    </Card>;
-  }
   return (
     <Card
       raised={true}
-      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg"
+      className="min-h-[20vw] h-auto overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg w-[95%]"
     >
       <div
-        className="flex items-center bg"
+        className="bg w-[90%] center justify-evenly p-4"
         onClick={() => navigate(`/users/${author._id}`)}
       >
         <img
@@ -216,32 +146,22 @@ const Post = ({ post, token }) => {
           alt={author.name}
           className="h-6 w-auto rounded-[50%] mr-2 bg"
         />
-
+       <div className="mx-2">
         <Typography
           variant="body2"
-          className="flex-grow-2 whitespace-nowrap"
+          className="flex-grow-2 whitespace-nowrap mx-2"
         >
           {author.name}
         </Typography>
-        {author._id.toString() === user._id.toString() && (
-          <div className="flex items-top bg">
-            <IconButton onClick={edit}  className="bg">
-              {' '}
-              <MdEdit className="bg text-sm" />
-            </IconButton>
-            <IconButton onClick={deletePost} className="bg">
-              <FaTrash className="bg text-sm" />
-            </IconButton>
-          </div>
+        </div>
+        {dPost.date && (
+          <Typography variant="body2">{formatDate(dPost.date)}</Typography>
         )}
       </div>
-      {dPost.date && (
-        <Typography variant="body2">{dPost.date.toString()}</Typography>
-      )}
 
       {dPost.image && dPost.image !== null ? (
         <div
-          className="bg"
+          className="bg w-full"
           onClick={() => navigate(`posts/${dPost._id}`)}
         >
           <CardMedia
@@ -261,16 +181,16 @@ const Post = ({ post, token }) => {
           </CardContent>
         </div>
       ) : (
-        <Paper
-          className="flex justify-center m-0 items-center bg min-h-28 h-auto p-2 w-[80%] bg"
+        <div
+          className="flex justify-center m-0 items-center bg min-h-[15vw] h-auto p-2 w-full bg"
           onClick={() => navigate(`posts/${dPost._id}`)}
         >
           {dPost.content || ''}
-        </Paper>
+        </div>
       )}
       <CardActions
         disableSpacing
-        className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0 bg"
+        className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0 bg w-full"
       >
         <IconButton
           className="bg"

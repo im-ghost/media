@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Default from '../images/default.png';
+import Loader from './loader';
 import { useNotify } from '../app/hooks';
 import { MdEdit } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
@@ -264,11 +265,17 @@ const Helper = ({ post }) => {
           </Typography>
           {author._id.toString() === user._id.toString() && (
             <div className="flex bg">
-              <IconButton className="bg" onClick={edit}>
+              <IconButton
+                className="bg"
+                onClick={edit}
+              >
                 {' '}
                 <MdEdit className="bg text-sm" />
               </IconButton>
-              <IconButton onClick={deletePost} className="bg">
+              <IconButton
+                onClick={deletePost}
+                className="bg"
+              >
                 <FaTrash className="text-sm bg" />
               </IconButton>
             </div>

@@ -27,7 +27,10 @@ export default function chatListItem({ chat, user }) {
       </Box>
       <Box className="bg">
         <Typography variant="body2">{messages[0].timestamp}</Typography>
-        <Badge badgeContent={unread}  className="bgg"></Badge>
+        <Badge
+          badgeContent={unread}
+          className="bgg"
+        ></Badge>
       </Box>
     </Paper>
   );

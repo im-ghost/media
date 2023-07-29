@@ -20,90 +20,87 @@ const Footer = () => {
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
   }, [value]);
+  React.useEffect(() => {
+    console.log(location);
+  }, [location]);
   return (
-    <Box
-      sx={{ pb: 7 }}
+    <Paper
+      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
+      elevation={3}
+      className="flex w-screen bg p-4 mt-auto"
       ref={ref}
     >
-      <Paper
-        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
-        elevation={3}
-        className="flex w-screen bg"
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        className="flex w-full h-8 center bg"
       >
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-          className="flex w-full h-8 center bg"
-        >
-          <BottomNavigationAction
-            label="home"
-            className={location.pathname.includes('/') ? 'bg-green-900' : ''}
-            onClick={() => navigate(`/`)}
-            icon={
-              <IconButton>
-                {' '}
-                <RiHome2Fill />{' '}
-              </IconButton>
-            }
-          />
-          <BottomNavigationAction
-            label="search"
-            className={
-              location.pathname.includes('search') ? 'bg-green-900' : ''
-            }
-            onClick={() => navigate(`/search`)}
-            icon={
-              <IconButton>
-                {' '}
-                <RiSearchLine />{' '}
-              </IconButton>
-            }
-          />
-          <BottomNavigationAction
-            label="notifications"
-            className={
-              location.pathname.includes('notifications') ? 'bg-green-900' : ''
-            }
-            onClick={() => navigate(`/notifications`)}
-            icon={
-              <IconButton>
-                {' '}
-                <RiNotificationFill />{' '}
-              </IconButton>
-            }
-          />
-          <BottomNavigationAction
-            label="messages"
-            className={
-              location.pathname.includes('messages') ? 'bg-green-900' : ''
-            }
-            onClick={() => navigate(`/messages`)}
-            icon={
-              <IconButton>
-                {' '}
-                <RiMessage2Line />{' '}
-              </IconButton>
-            }
-          />
-          <BottomNavigationAction
-            label="profile"
-            className={
-              location.pathname.includes('profile') ? 'bg-green-900' : ''
-            }
-            onClick={() => navigate(`/profile`)}
-            icon={
-              <IconButton>
-                {' '}
-                <RiAccountCircleFill />{' '}
-              </IconButton>
-            }
-          />
-        </BottomNavigation>
-      </Paper>
-    </Box>
+        <BottomNavigationAction
+          label="home"
+          className={location.pathname.includes('/') ? 'bg-green-900' : ''}
+          onClick={() => navigate(`/`)}
+          icon={
+            <IconButton>
+              {' '}
+              <RiHome2Fill />{' '}
+            </IconButton>
+          }
+        />
+        <BottomNavigationAction
+          label="search"
+          className={location.pathname.includes('search') ? 'bg-green-900' : ''}
+          onClick={() => navigate(`/search`)}
+          icon={
+            <IconButton>
+              {' '}
+              <RiSearchLine />{' '}
+            </IconButton>
+          }
+        />
+        <BottomNavigationAction
+          label="notifications"
+          className={
+            location.pathname.includes('notifications') ? 'bg-green-900' : ''
+          }
+          onClick={() => navigate(`/notifications`)}
+          icon={
+            <IconButton>
+              {' '}
+              <RiNotificationFill />{' '}
+            </IconButton>
+          }
+        />
+        <BottomNavigationAction
+          label="messages"
+          className={
+            location.pathname.includes('messages') ? 'bg-green-900' : ''
+          }
+          onClick={() => navigate(`/messages`)}
+          icon={
+            <IconButton>
+              {' '}
+              <RiMessage2Line />{' '}
+            </IconButton>
+          }
+        />
+        <BottomNavigationAction
+          label="profile"
+          className={
+            location.pathname.includes('profile') ? 'bg-green-900' : ''
+          }
+          onClick={() => navigate(`/profile`)}
+          icon={
+            <IconButton>
+              {' '}
+              <RiAccountCircleFill />{' '}
+            </IconButton>
+          }
+        />
+      </BottomNavigation>
+    </Paper>
   );
 };
 export default Footer;
