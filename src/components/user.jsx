@@ -82,7 +82,7 @@ const User = ({ userId }) => {
   }
   if (user) {
     return (
-      <Paper className="flex justify-evenly">
+      <Paper className="center bg">
         <Box
           className="flex flex-grow-2"
           onClick={() => navigate(`/users/${user._id}`)}
