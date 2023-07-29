@@ -1,27 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.dark .bg{
-@apply bg-[#355C7D] text-[#F67280]
+.dark .bg {
+  @apply bg-[#164B60] text-[#A2FF86];
 }
-.dark .header{
-  @apply text-[#C06C84]
+.dark .header {
+  @apply text-[#4FC0D0];
 }
-.dark .bgg{
-  @apply bg-[#F67280] text-[#355C7D]
+.dark .bgg {
+  @apply bg-[#1B6B93] text-[#A2FF86];
 }
-.bg{
-  @apply bg-[#F67280] text-[#355C7D]
+.bg {
+  @apply bg-[#A2FF86] text-[#164B60];
 }
-.bgg{
-  @apply bg-[#355C7D] text-[#F67280]
+.bgg {
+  @apply bg-[#4FC0D0] text-[#164B60];
 }
 .header {
-  @apply text-[#6C5B7B]
+  @apply text-[#1B6B93];
 }
-.center{
-  @apply justify-center items-center flex
+.center {
+  @apply justify-center items-center flex;
 }
-.full{
-  @apply h-screen w-screen
+.full {
+  @apply h-screen w-screen;
 }
