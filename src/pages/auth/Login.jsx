@@ -62,14 +62,14 @@ const Login = () => {
       <Helmet>
         <title> Login to Media App</title>
       </Helmet>
-      <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center dark:text-amber-200 text-amber-800 bg-sky-300 dark:bg-slate-900 items-center p-0">
-        <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-40% to-emerald-500 to-100%  dark:from-blue-700 dark:from-20% dark:via-emarald-700 dark:via-30% dark:to-ryan-700 dark:to-100% dark:text-amber-500 text-amber-800  flex flex-col justify-evenly items-center  backdrop-blur-3xl [backdrop-filter: blur(30px)]">
+      <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center bg items-center p-0">
+        <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg bg flex flex-col justify-evenly items-center  ">
           <IconButton>
-            <FaUserCircle className="text-4xl text-bold dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800" />
+            <FaUserCircle className="text-4xl text-bold bgg" />
           </IconButton>
           <Typography
             variant="h4"
-            className="md-2 my-2"
+            className="md-2 my-2 header"
           >
             Welcome Back
           </Typography>
@@ -77,7 +77,7 @@ const Login = () => {
           <Box
             component="form"
             autoComplete="on"
-            className="mu-2"
+            className="mu-2 bg"
             sx={{
               '& .MuiTextField-root': { m: 1, width: '69vw' },
             }}
@@ -93,7 +93,7 @@ const Login = () => {
           </Box>
           <Button
             variant="contained"
-            className="text-center shadow-4xl rounded-[8px]  p-2 w-[40vw] h-[6vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800 flex flex-col justify-evenly items-center"
+            className="text-center shadow-4xl rounded-[8px]  p-2 w-[40vw] h-[6vh] rounded-lg bg flex flex-col justify-evenly items-center"
             onClick={create}
           >
             <Typography variant="body1">Login </Typography>

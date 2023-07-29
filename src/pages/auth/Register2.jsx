@@ -101,8 +101,8 @@ const Register2 = () => {
   }, [userSign]);
   const [state, setState] = useReducer(reducer, initialState);
   return (
-    <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center dark:text-amber-200 text-amber-800 bg-sky-300 dark:bg-slate-900 items-center p-0">
-      <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800">
+    <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center bg  items-center p-0">
+      <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg bg">
         <Typography variant="h2">Complete your registration</Typography>
         <Box
           component="form"
@@ -177,13 +177,13 @@ const Register2 = () => {
         </Box>
         <Button
           variant="outlined"
-          className="text-center shadow-4xl rounded-[8px]  p-2 w-[40vw] h-[6vh] rounded-lg dark:text-amber-500 text-amber-800 bg-sky-400 dark:bg-slate-800 flex flex-col justify-evenly items-center"
+          className="text-center shadow-4xl rounded-[8px]  p-2 w-[40vw] h-[6vh] rounded-lg bg flex flex-col justify-evenly items-center"
           onClick={create}
         >
           <Typography variant="h6"> Create </Typography>
         </Button>
         <div
-          className="p-2 rounded shadow"
+          className="p-2 rounded shadow bg"
           onClick={() => navigate('/login')}
         >
           <Typography variant="h6"> Already have an account? Login</Typography>
