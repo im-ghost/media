@@ -24,7 +24,7 @@ const Notification = ({ notification, token, userId }) => {
   };
   if (not) {
     return (
-      <Paper className="w-screen">
+      <Paper className="w-screen bg">
         <Typography variant="body1">{not.content}</Typography>
         <IconButton onClick={del}>
           <FaTrash />
