@@ -16,18 +16,18 @@ export default function chatListItem({ chat, user }) {
   }, [messages]);
   const navigate = useNavigate();
   return (
-    <Paper className="">
+    <Paper className="bg">
       <img
         src={reciever.image}
         className="rouded-[50%] h-8 w-8"
       />
-      <Box className="">
+      <Box className="bg">
         <Typography variant="h6">{reciever.name}</Typography>
         <Typography variant="body1">{messages[0].message}</Typography>
       </Box>
-      <Box className="">
+      <Box className="bg">
         <Typography variant="body2">{messages[0].timestamp}</Typography>
-        <Badge badgeContent={unread}></Badge>
+        <Badge badgeContent={unread}  className="bgg"></Badge>
       </Box>
     </Paper>
   );
