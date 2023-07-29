@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 export default function chatHeader({ receiver }) {
   return (
-    <Box className="flex">
+    <Box className="flex bg">
       <img
         className="w-8 h-8 rounded-[50%]"
         src={receiver.image}
