@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loader from "./loader"
 import {
   Card,
   CardHeader,
@@ -178,7 +179,7 @@ const Post = ({ post, token }) => {
     }
   }, [data]);
   if (!data || !author) {
-    return <h1>Loading....</h1>;
+    return <Loader />;
   }
   if (!dPost) {
     return;
@@ -186,9 +187,9 @@ const Post = ({ post, token }) => {
   if (show) {
     <Card
       raised={true}
-      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
+      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg"
     >
-      <div className="flex">
+      <div className="flex bg">
         <TextField
           InputProps={{
             value: editValue,
@@ -204,16 +205,16 @@ const Post = ({ post, token }) => {
   return (
     <Card
       raised={true}
-      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
+      className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg"
     >
       <div
-        className="flex items-center"
+        className="flex items-center bg"
         onClick={() => navigate(`/users/${author._id}`)}
       >
         <img
           src={author.image || Default}
           alt={author.name}
-          className="h-6 w-auto rounded-[50%] mr-2"
+          className="h-6 w-auto rounded-[50%] mr-2 bg"
         />
 
         <Typography
@@ -223,13 +224,13 @@ const Post = ({ post, token }) => {
           {author.name}
         </Typography>
         {author._id.toString() === user._id.toString() && (
-          <div className="flex items-top">
-            <IconButton onClick={edit}>
+          <div className="flex items-top bg">
+            <IconButton onClick={edit}  className="bg">
               {' '}
-              <MdEdit className="text-sm" />
+              <MdEdit className="bg text-sm" />
             </IconButton>
-            <IconButton onClick={deletePost}>
-              <FaTrash className="text-sm" />
+            <IconButton onClick={deletePost} className="bg">
+              <FaTrash className="bg text-sm" />
             </IconButton>
           </div>
         )}
@@ -261,7 +262,7 @@ const Post = ({ post, token }) => {
         </div>
       ) : (
         <Paper
-          className="flex justify-center m-0 items-center bg h-28 p-2 w-[80%]"
+          className="flex justify-center m-0 items-center bg min-h-28 h-auto p-2 w-[80%] bg"
           onClick={() => navigate(`posts/${dPost._id}`)}
         >
           {dPost.content || ''}
@@ -269,7 +270,7 @@ const Post = ({ post, token }) => {
       )}
       <CardActions
         disableSpacing
-        className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0"
+        className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0 bg"
       >
         <IconButton
           className="bg"
