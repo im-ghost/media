@@ -93,9 +93,9 @@ const Profile = () => {
           content={user.image ? user.image : require('../images/default.png')}
         />
       </Helmet>
-      <Container className="w-screen h-screen rounded flex items-center justify-center">
-        <Container className="w-[100vw] h-[100vh]">
-          <Card className="w-full">
+      <Container className="w-screen h-screen rounded flex items-center justify-center bg">
+        <Container className="w-[100vw] h-[100vh] bg">
+          <Card className="w-full bg">
             <CardMedia
               image={user.image ? user.image : require('../images/default.png')}
               className="h-0 pt-[56.25%] mt-[30]"
@@ -105,11 +105,12 @@ const Profile = () => {
                 marginTop: '30',
               }}
             />
-            <CardContent className="w-full text-center">
+            <CardContent className="w-full text-center bg">
               <Typography
                 gutterBottom
                 variant="h5"
                 component="div"
+                className="header"
               >
                 {user.name}
               </Typography>
@@ -120,7 +121,7 @@ const Profile = () => {
                 {user.bio}
               </Typography>
             </CardContent>
-            <CardActions className="w-full flex justify-between flex-row">
+            <CardActions className="w-full flex justify-between flex-row bg">
               <Button
                 variant="contained"
                 size="small"
@@ -137,14 +138,14 @@ const Profile = () => {
           </Card>
           <Paper
             variant="elevation"
-            className="flex flex-wrap items-center justify-evenly h-[20vh] w-full"
+            className="flex flex-wrap items-center justify-evenly h-[20vh] w-full bg"
           >
-            <Box className="flex flex-col flex-wrap items-center justify-center">
+            <Box className="flex flex-col flex-wrap items-center justify-center bg">
               <Typography variant="h6">Posts</Typography>
 
               <Typography variant="body2">{user.posts.length}</Typography>
             </Box>
-            <Box className="flex flex-col flex-wrap items-center justify-center">
+            <Box className="flex flex-col flex-wrap items-center justify-center bg">
               <Link
                 to={`/follow`}
                 state={{
@@ -159,7 +160,7 @@ const Profile = () => {
                 <Typography variant="body2">{user.followers.length}</Typography>
               </Link>
             </Box>
-            <Box className="flex flex-col flex-wrap items-center justify-center">
+            <Box className="flex flex-col flex-wrap items-center justify-center bg">
               <Link
                 to={`/follow`}
                 state={{
@@ -178,7 +179,7 @@ const Profile = () => {
               </Link>
             </Box>
           </Paper>
-          <Box className="w-full h-auto min-h-64 border">
+          <Box className="w-full h-auto min-h-64 border bg">
             <AppBar position="static">
               <Tabs
                 value={value}
