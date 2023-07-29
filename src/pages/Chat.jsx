@@ -59,7 +59,7 @@ const Chat = () => {
         <Helmet>
           <title>Your chat with {receiver.name}</title>
         </Helmet>
-        <Box className="">
+        <Box className="bg">
           <ChatHeader receiver={receiver} />
           <Messages
             messages={messages}
