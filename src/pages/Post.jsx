@@ -7,6 +7,7 @@ import { useGetPostByIdQuery } from '../features/post/postApiSlice';
 import { selectUser } from '../features/user/userSlice';
 import { selectPosts } from '../features/post/postSlice';
 import Helper from '../components/phelper';
+import Loader from '../components/loader';
 import { socket } from '../app/store';
 export default function Post() {
   const [dPost, setPost] = useState();
@@ -33,5 +34,5 @@ export default function Post() {
   if (dPost) {
     return <Helper post={dPost} />;
   }
-  return <h1>Loading....</h1>;
+  return <Loader />;
 }
