@@ -2,7 +2,7 @@ import { useGetNotificationQuery } from '../features/user/userApiSlice';
 import Notification from '../components/notification';
 import { toast } from 'react-toastify';
 import Loader from '../components/loader';
-import React, { usState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/user/userSlice';

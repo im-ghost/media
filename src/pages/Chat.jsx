@@ -17,11 +17,11 @@ const Chat = () => {
   const user = useSelector(selectUser);
   const [messages, setMessages] = useState();
   const [chatId, setChatId] = useState();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [receiver, setReceiver] = useState();
   const { data, error } = useGetChatByIdQuery({
     id,
-    token:user.token,
+    token: user.token,
   });
   const send = async () => {
     console.log(chatId);
@@ -47,8 +47,8 @@ const Chat = () => {
       setMessages(data.chat.messages);
       setChatId(data.chat.id);
       console.log(data);
-    } 
-    if(error){
+    }
+    if (error) {
       toast.error(JSON.stringify(error));
       navigate(-1);
     }

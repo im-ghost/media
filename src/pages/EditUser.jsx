@@ -146,7 +146,12 @@ const EditUser = () => {
       const [state, setState] = useReducer(reducer, initialState);
       return (
         <div className="text-center shadow rounded-lg bg">
-          <Typography variant="h2" className="header">Register page</Typography>
+          <Typography
+            variant="h2"
+            className="header"
+          >
+            Register page
+          </Typography>
           <Box
             component="form"
             noValidate

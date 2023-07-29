@@ -4,7 +4,12 @@ import Typography from '@mui/material/Typography';
 const Register = () => {
   return (
     <div className="text-center shadow rounded-lg bg">
-      <Typography variant="h2" className="header">Register page</Typography>
+      <Typography
+        variant="h2"
+        className="header"
+      >
+        Register page
+      </Typography>
       <Reg1 />
     </div>
   );
