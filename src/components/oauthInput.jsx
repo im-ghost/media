@@ -52,21 +52,21 @@ const AuthProviders = ({ isLogin }) => {
     }
   };
   return (
-    <Box className="bg m-2 p-2 flex justify-center h-16 w-full align-center">
+    <Box className="bgg m-2 p-2 center h-16 w-full align-center">
       <div
-        className=" shadow-3xl border border-xl h-10 w-10 p-2  flex justify-center align-center text-center rounded-lg mx-2"
+        className=" shadow-3xl border border-xl h-10 w-10 p-2  center text-center rounded-lg mx-2 bgg"
         onClick={() => _google(navigate)}
       >
         <FaGoogle
-          className="text-xl text-bold"
+          className="text-xl text-bold bgg"
           onClick={() => _google(navigate)}
         />{' '}
       </div>
       <div
-        className="shadow-3xl border border-xl h-10 w-10 p-2 rounded-lg flex justify-center align-center text-center mx-2"
+        className="shadow-3xl border border-xl h-10 w-10 p-2 rounded-lg flex justify-center align-center text-center mx-2 bgg"
         onClick={() => _twitter(navigate)}
       >
-        <FaTwitter className="text-xl text-bold" />
+        <FaTwitter className="text-xl text-bold bgg" />
       </div>
     </Box>
   );
