@@ -19,7 +19,7 @@ const ChatsList = ({ user }) => {
   }, [data, error]);
   if (chats) {
     return (
-      <Container className="">
+      <Container className="bg">
         {chats.map((chat) => (
           <ChatListItem
             chat={chat}
