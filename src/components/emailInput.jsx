@@ -21,7 +21,7 @@ const EmailInput = () => {
   };
   if (isDone) {
     return (
-      <Box className="bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-500 text-amber-800 rounded-lg">
+      <Box className="bg rounded-lg">
         <Typography variant="h6">
           {' '}
           A confirmation link has been sent to your email,click on the link to
@@ -33,7 +33,7 @@ const EmailInput = () => {
   return (
     <Box className="bg m-2">
       <TextField
-        className="m-2 bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg"
+        className="m-2 bg rounded-lg"
         label="Email Address"
         placeholder="culestfrosh@gmail.com"
         InputProps={{
@@ -44,7 +44,7 @@ const EmailInput = () => {
       <button
         onClick={() => sendLink(email)}
         disabled={isButtonDisabled}
-        className=" bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-40% to-emerald-300 to-100%  dark:from-blue-500 from-20% via-emarald-500 via-30% to-ryan-500 to-100% dark:text-amber-900 text-amber-700 rounded-lg p-2"
+        className=" bg rounded-lg p-2"
       >
         {' '}
         Send Link{' '}
