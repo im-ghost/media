@@ -1,1 +1,27 @@
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
+.dark .bg{
+@apply bg-[#355C7D] text-[#F67280]
+}
+.dark .header{
+  @apply text-[#C06C84]
+}
+.dark .bgg{
+  @apply bg-[#F67280] text-[#355C7D]
+}
+.bg{
+  @apply bg-[#F67280] text-[#355C7D]
+}
+.bgg{
+  @apply bg-[#355C7D] text-[#F67280]
+}
+.header {
+  @apply text-[#6C5B7B]
+}
+.center{
+  @apply justify-center items-center flex
+}
+.full{
+  @apply h-screen w-screen
+}
