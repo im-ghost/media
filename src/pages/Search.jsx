@@ -27,6 +27,7 @@ import { useTheme } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import Posts from '../components/posts';
 import Users from '../components/users';
+import Loader from '../components/loader';
 const Search = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
@@ -95,7 +96,7 @@ const Search = () => {
             onChange: (e) => setSearch(e.target.value),
           }}
         />
-        <Box className="w-full h-auto min-h-64 border">
+        <Box className="w-full h-auto min-h-64 border bg">
           <AppBar position="static">
             <Tabs
               value={value}
@@ -145,7 +146,7 @@ const Search = () => {
       </>
     );
   }
-  return <Typography> No search Results</Typography>;
+  return <Loader />;
 };
 
 export default Search;
