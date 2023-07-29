@@ -36,7 +36,7 @@ const Follow = () => {
   return (
     <Box>
       <Typography variant="h6"></Typography>
-      <Box className="w-full h-auto min-h-64 border">
+      <Box className="w-full h-auto min-h-64 border bg">
         <AppBar position="static">
           <Tabs
             value={value}
