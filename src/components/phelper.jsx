@@ -212,17 +212,17 @@ const Helper = ({ post }) => {
   if (error) {
     console.log('error');
     toast.error(JSON.stringify(error));
-    return <h1> Post not found </h1>;
+    return <h1 className="header"> Post not found </h1>;
   }
   if (!author) {
-    return <h1>Loading....</h1>;
+    return <Loader />;
   }
   if (!dPost) {
     return;
   }
   if (show) {
     return (
-      <div className="flex">
+      <div className="flex bg">
         <TextField
           InputProps={{
             value: editValue,
@@ -247,9 +247,9 @@ const Helper = ({ post }) => {
       </Helmet>
       <Card
         raised={true}
-        className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2"
+        className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg"
       >
-        <div className="flex">
+        <div className="flex bg">
           <img
             src={author.image || Default}
             alt={author.name}
@@ -263,13 +263,13 @@ const Helper = ({ post }) => {
             {author.name}
           </Typography>
           {author._id.toString() === user._id.toString() && (
-            <div className="flex">
-              <IconButton onClick={edit}>
+            <div className="flex bg">
+              <IconButton className="bg" onClick={edit}>
                 {' '}
-                <MdEdit className="text-sm" />
+                <MdEdit className="bg text-sm" />
               </IconButton>
-              <IconButton onClick={deletePost}>
-                <FaTrash className="text-sm" />
+              <IconButton onClick={deletePost} className="bg">
+                <FaTrash className="text-sm bg" />
               </IconButton>
             </div>
           )}
@@ -297,13 +297,13 @@ const Helper = ({ post }) => {
             </CardContent>
           </div>
         ) : (
-          <Paper className="flex justify-center m-0 items-center bg h-28 p-2 w-[80%]">
+          <Paper className="flex justify-center m-0 items-center bg h-28 p-2 w-[80%] bg">
             {dPost.content || ''}
           </Paper>
         )}
         <CardActions
           disableSpacing
-          className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0"
+          className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0 bg"
         >
           <IconButton
             className="bg"
@@ -341,7 +341,7 @@ const Helper = ({ post }) => {
           user={user}
         />
       </Container>
-      <Container className="fixed bottom-[3em] flex z-[1000000000000000000] mt-8">
+      <Container className="fixed bottom-[3em] flex z-[1000000000000000000] mt-8 bg">
         <TextField
           InputProps={{
             value: comment,
