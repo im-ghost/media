@@ -1,6 +1,7 @@
 import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import { Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+import Loader from "./Loader"
 export default function Helper({ authorId }) {
   const [author, setAuthor] = useState(null);
   const { data, error } = useGetUserByIdQuery(authorId);
@@ -16,7 +17,7 @@ export default function Helper({ authorId }) {
   if (author) {
     return (
       <div
-        className="flex w-3/4 items-center"
+        className="flex w-3/4 items-center bg"
         onClick={() => navigate(`/users/${author._id}`)}
       >
         <img
@@ -34,5 +35,5 @@ export default function Helper({ authorId }) {
       </div>
     );
   }
-  return <Typography variant="body2">Loading...</Typography>;
+  return <Loader />;
 }
