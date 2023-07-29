@@ -24,9 +24,11 @@ function App() {
   }, [location]);
   return (
     <div className="dark">
+    <div className="bg">
       <ToastContainer />
       <Outlet />
       {!shouldHideFooter && <Footer />}
+      </div>
     </div>
   );
 }
