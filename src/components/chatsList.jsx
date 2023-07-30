@@ -11,6 +11,7 @@ const ChatsList = ({ user }) => {
   });
   useEffect(() => {
     if (data) {
+      console.log(data);
       setChats(data.chats);
     }
     if (error) {
@@ -19,7 +20,7 @@ const ChatsList = ({ user }) => {
   }, [data, error]);
   if (chats) {
     return (
-      <Container className="bg">
+      <Container className="bg bg min-h-screen h-auto w-screen">
         {chats.map((chat) => (
           <ChatListItem
             chat={chat}
