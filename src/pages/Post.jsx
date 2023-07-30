@@ -24,6 +24,7 @@ export default function Post() {
   useEffect(() => {
     if (data) {
       setPost(data);
+      console.log(data);
     }
     if (error) {
       toast.error('Page not found');
