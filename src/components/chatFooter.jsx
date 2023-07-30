@@ -4,7 +4,7 @@ import React from 'react';
 
 const chatFooter = ({ setValue, value, send }) => {
   return (
-    <Box className="flex bgg">
+    <Box className="flex bgg absolute bottom-0 right-0 left-0 z-[100] mt-4 [margin-top:1em]">
       <TextField
         placeholder="Type your message"
         className="bgg"
