@@ -119,7 +119,7 @@ const Comment = ({ comment, token, user }) => {
   }, [delError, delData]);
   if (com) {
     return (
-      <Card className="m-2 p-2 w-[80vw] bg">
+      <Card className="m-2 p-2 w-full bg">
         {show ? (
           <div className="flex bg">
             <TextField
