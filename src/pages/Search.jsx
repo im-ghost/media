@@ -89,14 +89,25 @@ const Search = () => {
   };
   if (users || posts) {
     return (
-      <>
-        <TextField
-          InputProps={{
-            value: search,
-            onChange: (e) => setSearch(e.target.value),
-          }}
-        />
-        <Box className="w-full h-auto min-h-64 border bg">
+      <div className="min-h-screen min-h-[100vh] h-auto w-screen bg p-2">
+        <Typography
+          variant="h5"
+          className="header"
+        >
+          {' '}
+          Search for your favorite
+        </Typography>
+        <div className="flex">
+          <TextField
+            className="bgg rounded-xl"
+            InputProps={{
+              value: search,
+              onChange: (e) => setSearch(e.target.value),
+            }}
+          />
+          <Button onClick={() => console.log('search')}>Search </Button>
+        </div>
+        <Box className="w-full h-auto min-h-64 border bg m-0">
           <AppBar position="static">
             <Tabs
               value={value}
@@ -143,7 +154,7 @@ const Search = () => {
             </TabPanel>
           </SwipeableViews>
         </Box>
-      </>
+      </div>
     );
   }
   return <Loader />;
