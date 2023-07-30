@@ -2,8 +2,10 @@ import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import { Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import Loader from './loader';
+import { useNavigate } from 'react-router-dom';
 export default function Helper({ authorId }) {
   const [author, setAuthor] = useState(null);
+  const navigate = useNavigate();
   const { data, error } = useGetUserByIdQuery(authorId);
   useEffect(() => {
     if (data) {
