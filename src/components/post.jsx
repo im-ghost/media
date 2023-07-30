@@ -16,18 +16,18 @@ import { MdEdit } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, setUser } from '../features/user/userSlice';
-import { useGetUserByIdQuery } from '../features/user/userApiSlice';
 import { toast } from 'react-toastify';
 import Default from '../images/default.png';
 import { IoThumbsUp, IoChatbox, IoRepeat } from 'react-icons/io5';
 import { socket } from '../app/store';
 import { useNotify } from '../app/hooks';
 const Post = ({ post, token }) => {
+  console.log('postComp', post.post);
   const [dPost, setPost] = useState(post.post);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [author, setAuthor] = useState(null);
+  const [author, setAuthor] = useState(dPost.author);
   const [liked, setLiked] = React.useState(false);
   const [retweeted, setRetweeted] = React.useState(false);
   useEffect(() => {
@@ -114,21 +114,6 @@ const Post = ({ post, token }) => {
       });
     }
   };
-  const userId = dPost.author;
-  const { data, error } = useGetUserByIdQuery(userId);
-  useEffect(() => {
-    if (error) {
-      toast.error(JSON.stringify(error));
-    }
-  }, [error]);
-  useEffect(() => {
-    if (data) {
-      setAuthor(data.user);
-    }
-  }, [data]);
-  if (!data || !author) {
-    return <Loader />;
-  }
   if (!dPost) {
     return;
   }
@@ -146,13 +131,13 @@ const Post = ({ post, token }) => {
           alt={author.name}
           className="h-6 w-auto rounded-[50%] mr-2 bg"
         />
-       <div className="mx-2">
-        <Typography
-          variant="body2"
-          className="flex-grow-2 whitespace-nowrap mx-2"
-        >
-          {author.name}
-        </Typography>
+        <div className="mx-2">
+          <Typography
+            variant="body2"
+            className="flex-grow-2 whitespace-nowrap mx-2"
+          >
+            {author.name}
+          </Typography>
         </div>
         {dPost.date && (
           <Typography variant="body2">{formatDate(dPost.date)}</Typography>
