@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
-import { Container } from '@mui/material';
 import ChatsList from '../components/chatsList';
+import Container from "@mui/material/Container"
 import Add from '../components/Add';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -10,15 +10,15 @@ const Chats = () => {
   const user = useSelector(selectUser);
   if (user) {
     return (
-      <>
+      <div className="bg">
         <Helmet>
           <title> Chats Lists </title>
         </Helmet>
-        <Container className="bg">
+        <Container className="bg min-h-screen h-auto w-screen p-2 m-0">
           <ChatsList user={user} />
           <Add isCreatPost={false} />
         </Container>
-      </>
+      </div>
     );
   }
   return;
