@@ -1,11 +1,13 @@
 import { Paper, Typography, IconButton } from '@mui/material';
 import { toast } from 'react-toastify';
-import { useDelNotificationMutation } from '../features/user/userApiSlice';
+import { useDelNotMutation } from '../features/user/userApiSlice';
 import { FaTrash } from 'react-icons/fa';
 import React from 'react';
 const Notification = ({ notification, token, userId }) => {
   const [not, setNotificaton] = React.useState(notification);
-  const [delIt, { data, error }] = useDelNotificationMutation();
+  const [delIt, { data, error }] = useDelNotMutation();
+  console.log(typeof useDelNotMutation);
+  console.log(useDelNotMutation);
   React.useEffect(() => {
     if (data) {
       toast.info('Notification deleted');
