@@ -203,6 +203,7 @@ const Helper = ({ post }) => {
   const { data, error } = useGetUserByIdQuery(userId);
   useEffect(() => {
     if (data) {
+      console.log(data);
       setAuthor(data.user);
     }
     if (error) {
@@ -237,7 +238,7 @@ const Helper = ({ post }) => {
     );
   }
   return (
-    <Container>
+    <>
       <Helmet>
         <title>
           {' '}
@@ -246,118 +247,121 @@ const Helper = ({ post }) => {
             : dPost.caption}
         </title>
       </Helmet>
-      <Card
-        raised={true}
-        className="w-full h-44 overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg"
-      >
-        <div className="flex bg">
-          <img
-            src={author.image || Default}
-            alt={author.name}
-            className="h-6 w-auto rounded-[50%]"
-          />
-
-          <Typography
-            variant="body2"
-            className="flex-grow-2 whitespace-nowrap"
-          >
-            {author.name}
-          </Typography>
-          {author._id.toString() === user._id.toString() && (
-            <div className="flex bg">
-              <IconButton
-                className="bg"
-                onClick={edit}
-              >
-                {' '}
-                <MdEdit className="bg text-sm" />
-              </IconButton>
-              <IconButton
-                onClick={deletePost}
-                className="bg"
-              >
-                <FaTrash className="text-sm bg" />
-              </IconButton>
-            </div>
-          )}
-        </div>
-        {dPost.date && (
-          <Typography variant="body2">{dPost.date.toString()}</Typography>
-        )}
-
-        {dPost.image && dPost.image !== null ? (
-          <div className="bg">
-            <CardMedia
-              component="img"
-              height="194"
-              image={dPost.image || ''}
-              alt={dPost.content || ''}
-              className="bg m-0"
+      <div className="h-screen w-screwn bg">
+        <Card className="min-h-[20vw] h-auto overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg w-[95%] bg">
+          <div className="flex bg justify-evenly w-[90%]">
+            <img
+              src={author.image || Default}
+              alt={author.name}
+              className="h-6 w-auto rounded-[50%]"
             />
-            <CardContent className="bg m-0">
-              <Typography
-                variant="body2"
-                color="text.secondary"
-              >
-                {dPost.caption || ''}
-              </Typography>
-            </CardContent>
+
+            <Typography
+              variant="body2"
+              className="flex-grow-2 whitespace-nowrap"
+            >
+              {author.name}
+            </Typography>
+            {author._id.toString() === user._id.toString() && (
+              <div className="flex bg w-[7vw]">
+                <IconButton
+                  className="bg"
+                  onClick={edit}
+                >
+                  {' '}
+                  <MdEdit className="bg text-sm" />
+                </IconButton>
+                <IconButton
+                  onClick={deletePost}
+                  className="bg"
+                >
+                  <FaTrash className="text-sm bg" />
+                </IconButton>
+              </div>
+            )}
           </div>
-        ) : (
-          <Paper className="flex justify-center m-0 items-center bg h-28 p-2 w-[80%] bg">
-            {dPost.content || ''}
-          </Paper>
-        )}
-        <CardActions
-          disableSpacing
-          className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0 bg"
-        >
-          <IconButton
-            className="bg"
-            aria-label="like"
+
+          {dPost.image && dPost.image !== null ? (
+            <div className="bg">
+              <CardMedia
+                component="img"
+                height="194"
+                image={dPost.image || ''}
+                alt={dPost.content || ''}
+                className="bg m-0"
+              />
+              <CardContent className="bg m-0">
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  {dPost.caption || ''}
+                </Typography>
+              </CardContent>
+            </div>
+          ) : (
+            <Paper className="flex justify-center m-0 items-center bg p-2 w-[80%] bg min-h-[15vw] h-auto bg">
+              {dPost.content || ''}
+            </Paper>
+          )}
+          <div className="m-4">
+            {dPost.date && (
+              <Typography variant="body2">
+                Posted {dPost.date.toString()}
+              </Typography>
+            )}
+          </div>
+          <CardActions
+            disableSpacing
+            className=" rounded-lg p-2 text-center shadow-4xl rounded-[18px]  rounded-lg flex justify-evenly items-center h-4 m-0 bg"
           >
-            <IoThumbsUp
-              onClick={likePost}
-              className={liked ? 'text-red-900' : ''}
-            />
-            {dPost.likes.length}{' '}
-          </IconButton>
-          <IconButton
-            className="bg"
-            aria-label="comment"
-            onClick={() => inputRef?.current?.focus()}
-          >
-            Comment
-          </IconButton>
-          <IconButton
-            className="bg"
-            aria-label="retweet"
-          >
-            <IoRepeat
-              className={retweeted ? 'text-red-900' : ''}
-              onClick={retweetPost}
-            />
-            {dPost.retweets.length}{' '}
-          </IconButton>
-        </CardActions>
-      </Card>
-      <Container>
-        <Comments
-          comments={dPost.comments}
-          token={user.token}
-          user={user}
-        />
-      </Container>
-      <Container className="fixed bottom-[3em] flex z-[1000000000000000000] mt-8 bg">
-        <TextField
-          InputProps={{
-            value: comment,
-            onChange: (e) => setComment(e.target.value),
-          }}
-        />
-        <Button onClick={commentOnPost}>Send</Button>
-      </Container>
-    </Container>
+            <IconButton
+              className="bg"
+              aria-label="like"
+            >
+              <IoThumbsUp
+                onClick={likePost}
+                className={liked ? 'text-red-900' : ''}
+              />
+              {dPost.likes.length}{' '}
+            </IconButton>
+            <IconButton
+              className="bg"
+              aria-label="comment"
+              onClick={() => inputRef?.current?.focus()}
+            >
+              Comment
+            </IconButton>
+            <IconButton
+              className="bg"
+              aria-label="retweet"
+            >
+              <IoRepeat
+                className={retweeted ? 'text-red-900' : ''}
+                onClick={retweetPost}
+              />
+              {dPost.retweets.length}{' '}
+            </IconButton>
+          </CardActions>
+        </Card>
+        <Container>
+          <Comments
+            comments={dPost.comments}
+            token={user.token}
+            user={user}
+          />
+        </Container>
+        <Container className="fixed bottom-[3em] flex z-[1000000000000000000] mt-8 bgg">
+          <TextField
+            InputProps={{
+              value: comment,
+              onChange: (e) => setComment(e.target.value),
+            }}
+          />
+          <Button onClick={commentOnPost}>Send</Button>
+        </Container>
+      </div>
+    </>
   );
 };
 
