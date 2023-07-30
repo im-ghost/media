@@ -9,6 +9,7 @@ import {
   setPostsObjInStore,
   selectPostsObj,
 } from '../features/post/postSlice';
+import Loader from './loader';
 const Posts = ({ posts, token }) => {
   const [postsObj, setPosts] = useState(null);
   const postsFromStore = useSelector(selectPostsObj);
@@ -26,7 +27,9 @@ const Posts = ({ posts, token }) => {
       setPosts(dPosts);
     }
   }, [posts, dispatch, token]);
-  if (posts.length < 1) {
+  if (!posts || posts === null) {
+    return <Loader />;
+  } else if (posts && posts !== null && posts.length < 1) {
     return (
       <Typography variant="body2"> This user doesn't have any post</Typography>
     );
