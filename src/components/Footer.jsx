@@ -74,11 +74,9 @@ const Footer = () => {
           }
         />
         <BottomNavigationAction
-          label="messages"
-          className={
-            location.pathname.includes('messages') ? 'bg-green-900' : ''
-          }
-          onClick={() => navigate(`/messages`)}
+          label="chats"
+          className={location.pathname.includes('chats') ? 'bg-green-900' : ''}
+          onClick={() => navigate(`/chats`)}
           icon={
             <IconButton>
               {' '}
