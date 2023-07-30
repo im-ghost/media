@@ -31,7 +31,7 @@ export const useNotify = async ({
 }) => {
   if (authorId.toString() === userId.toString()) {
     console.log('usenotify', token);
-    const url = `http://localhost:4000/api/v1/not/n/${userId}`;
+    const url = `https://media-app-api-a06z.onrender.com/api/v1/not/n/${userId}`;
     try {
       const res = await axios({
         method: 'post',
