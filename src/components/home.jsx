@@ -9,7 +9,7 @@ import { setPostsInStore } from '../features/post/postSlice';
 const Helper = ({ userFromStore, token }) => {
   const [data, setData] = useState({});
   const [error, setError] = useState({});
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data: dataF, error: errorF } = useFeedsQuery(token);
@@ -43,7 +43,7 @@ const Helper = ({ userFromStore, token }) => {
       }
     }
   }, [data, error]);
-  if (posts.length < 1) {
+  if (posts === null) {
     return <Typography variant="h4">No posts available.</Typography>;
   }
   return (
