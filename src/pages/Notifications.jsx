@@ -24,10 +24,10 @@ const Notifications = () => {
   if (isLoading) {
     return <Loader />;
   }
-  if (notifications) {
+  if (notifications && notifications.length > 0) {
     return (
       <Box className="bg">
-        <Typography variant="h4"></Typography>
+        <Typography variant="h4">Notifications</Typography>
         {notifications.map((not) => (
           <Notification
             notification={not}
