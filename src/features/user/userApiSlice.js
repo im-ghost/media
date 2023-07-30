@@ -73,7 +73,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: content,
       }),
     }),
-    delNotification: builder.query({
+    delNot: builder.query({
       query: ({
         userId, token, notificationId,
       }) => ({
@@ -131,6 +131,6 @@ export const {
   useGetNotificationQuery,
   useAllUsersQuery,
   useFeedsQuery,
-  useDelNotificationMutation,
+  useDelNotMutation,
   useCreateNotificationMutation,
 } = userApiSlice;
