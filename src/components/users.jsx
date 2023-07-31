@@ -5,7 +5,7 @@ const Users = ({ users }) => {
   return (
     <Box className="bg">
       {users.map((user) => (
-        <User userId={typeof user === 'object' ? user._id : user} />
+        <User userId={user} />
       ))}
     </Box>
   );
