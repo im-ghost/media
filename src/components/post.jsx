@@ -35,12 +35,13 @@ const Post = ({ post, token }) => {
       console.log(user);
       useNotify({
         userId: user._id,
-        content: `${user.name} liked your post,${dPost.content.substring(
+        content: `${user.name} liked your post,${dPost.content.length > 15 ? ${dPost.content.substring(
           0,
-          10
-        )}...`,
+          15
+        )...} : ${dPost.content}}`,
         token: user.token,
         authorId: dPost.author,
+        postId:dPost._id,
       });
 
       setLiked(true);
@@ -53,12 +54,13 @@ const Post = ({ post, token }) => {
     socket.on(`retweetedpost-${dPost._id}`, ({ post, user }) => {
       useNotify({
         userId: user._id,
-        content: `${user.name} retweeted your post,${dPost.content.substring(
+        content: content: `${user.name} liked your post,${dPost.content.length > 15 ? ${dPost.content.substring(
           0,
-          10
-        )}...`,
+          15
+        )...} : ${dPost.content}}`,
         token: user.token,
         authorId: dPost.author,
+        postId:dPost._id,
       });
 
       setRetweeted(true);
