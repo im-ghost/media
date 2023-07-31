@@ -14,7 +14,7 @@ const Add = ({ isCreatePost = true }) => {
       }}
       className=""
       onClick={() =>
-        isCreatePost ?  navigate('/createpost') : navigate('/addchat')
+        isCreatePost ? navigate('/createpost') : navigate('/addchat')
       }
     >
       <Fab
