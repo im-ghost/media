@@ -27,10 +27,10 @@ export function formatDate(dDate) {
 }
 
 export const useNotify = async ({
-  content, userId, token, authorId,
+  content, userId, token, authorId,postId
 }) => {
   if (authorId.toString() === userId.toString()) {
-    console.log('usenotify', token);
+  
     const url = `https://media-app-api-a06z.onrender.com/api/v1/not/n/${userId}`;
     try {
       const res = await axios({
@@ -41,10 +41,11 @@ export const useNotify = async ({
         },
         data: {
           content,
+          postId
         },
       });
       if (res) {
-        console.log(res.data);
+        
         toast.info(JSON.stringify(res.data.notification.content));
       }
     } catch (e) {
