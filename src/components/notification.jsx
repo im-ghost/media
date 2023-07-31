@@ -3,11 +3,12 @@ import { toast } from 'react-toastify';
 import { useDelNotMutation } from '../features/user/userApiSlice';
 import { FaTrash } from 'react-icons/fa';
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 const Notification = ({ notification, token, userId }) => {
+  const navigate = useNavigate();
   const [not, setNotificaton] = React.useState(notification);
   const [delIt, { data, error }] = useDelNotMutation();
-  console.log(typeof useDelNotMutation);
-  console.log(useDelNotMutation);
   React.useEffect(() => {
     if (data) {
       toast.info('Notification deleted');
@@ -26,9 +27,9 @@ const Notification = ({ notification, token, userId }) => {
   };
   if (not) {
     return (
-      <Paper className="w-screen bg">
+      <Paper className="w-screen bg flex" onClick={()=>navigate(`/posts/${not.postId}`)}>
         <Typography variant="body1">{not.content}</Typography>
-        <IconButton onClick={del}>
+        <IconButton onClick={del} className="w-[10%] border bg-red-800 rounded">
           <FaTrash />
         </IconButton>
       </Paper>
