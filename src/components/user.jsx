@@ -10,14 +10,13 @@ import {
   useUnfollowUserMutation,
 } from '../features/user/userApiSlice';
 import { selectUser, setUser } from '../features/user/userSlice';
-const User = ({ userId }) => {
+const User = ({ user }) => {
   //console.log(userId);
   const me = useSelector(selectUser);
   const dispatch = useDispatch();
   const [disable, setDisable] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(user);
   const [userFollowing, setFollowing] = useState(false);
-  const { data, error, isLoading } = useGetUserByIdQuery(userId);
   const [
     follow,
     { isLoading: followLoading, error: followError, data: followed },
@@ -27,15 +26,6 @@ const User = ({ userId }) => {
     { isLoading: unfollowLoading, error: unfollowError, data: unfollowed },
   ] = useUnfollowUserMutation();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (data) {
-      setUser(data.user);
-      console.log(data);
-    }
-    if (error) {
-      toast.error(JSON.stringify(error));
-    }
-  }, [data, error]);
   useEffect(() => {
     if (followed) {
       setFollowing(true);
