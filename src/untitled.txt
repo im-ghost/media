@@ -5,5 +5,5 @@ email sending library;
 
 
 navigation path is relative 
-createChat
-notification component
+image uploading
+new message notification
