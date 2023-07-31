@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import ChatsList from '../components/chatsList';
-import Container from "@mui/material/Container"
+import Container from '@mui/material/Container';
 import Add from '../components/Add';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
