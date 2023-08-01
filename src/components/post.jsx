@@ -35,13 +35,14 @@ const Post = ({ post, token }) => {
       console.log(user);
       useNotify({
         userId: user._id,
-        content: `${user.name} liked your post,${dPost.content.length > 15 ? ${dPost.content.substring(
-          0,
-          15
-        )...} : ${dPost.content}}`,
+        content: `${user.name} liked your post,${
+          dPost.content.length > 15
+            ? dPost.content.substring(0, 15) + '...'
+            : dPost.content
+        }`,
         token: user.token,
         authorId: dPost.author,
-        postId:dPost._id,
+        postId: dPost._id,
       });
 
       setLiked(true);
@@ -54,13 +55,14 @@ const Post = ({ post, token }) => {
     socket.on(`retweetedpost-${dPost._id}`, ({ post, user }) => {
       useNotify({
         userId: user._id,
-        content: content: `${user.name} liked your post,${dPost.content.length > 15 ? ${dPost.content.substring(
-          0,
-          15
-        )...} : ${dPost.content}}`,
+        content: `${user.name} liked your post,${
+          dPost.content.length > 15
+            ? dPost.content.substring(0, 15) + '... '
+            : dPost.content
+        }`,
         token: user.token,
         authorId: dPost.author,
-        postId:dPost._id,
+        postId: dPost._id,
       });
 
       setRetweeted(true);
@@ -100,7 +102,7 @@ const Post = ({ post, token }) => {
   };
   const commentOnPost = async () => {
     if (dPost._id) {
-      navigate(`posts/${dPost._id}`);
+      navigate(`/posts/${dPost._id}`);
     }
   };
   const likePost = async () => {
@@ -149,7 +151,7 @@ const Post = ({ post, token }) => {
       {dPost.image && dPost.image !== null ? (
         <div
           className="bg w-full"
-          onClick={() => navigate(`posts/${dPost._id}`)}
+          onClick={() => navigate(`/posts/${dPost._id}`)}
         >
           <CardMedia
             component="img"
@@ -170,7 +172,7 @@ const Post = ({ post, token }) => {
       ) : (
         <div
           className="flex justify-center m-0 items-center bg min-h-[15vw] h-auto p-2 w-full bg"
-          onClick={() => navigate(`posts/${dPost._id}`)}
+          onClick={() => navigate(`/posts/${dPost._id}`)}
         >
           {dPost.content || ''}
         </div>
