@@ -22,7 +22,7 @@ export default function chatListItem({ chat, user }) {
   const navigate = useNavigate();
   return (
     <Paper
-      className="bg my-2"
+      className="bg my-2 rounded p-2"
       onClick={() => navigate(`/chats/${chat.id}`)}
     >
       <Box className="flex justify-evenly">
@@ -33,7 +33,7 @@ export default function chatListItem({ chat, user }) {
         <Typography variant="h6">{receiver.name}</Typography>
         <div className="w-[40%]"></div>
       </Box>
-      <Box className="bg p-2 flex w-[70%]">
+      <Box className="bg p-2 flex w-[70%] justify-between">
         <Typography variant="body1">
           {messages.length > 0
             ? messages[messages.length - 1].message.substring(0, 15)
