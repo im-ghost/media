@@ -15,7 +15,6 @@ const User = ({ user }) => {
   const me = useSelector(selectUser);
   const dispatch = useDispatch();
   const [disable, setDisable] = useState(false);
-  const [user, setUser] = useState(user);
   const [userFollowing, setFollowing] = useState(false);
   const [
     follow,
@@ -67,12 +66,9 @@ const User = ({ user }) => {
       // setFollowing(false)
     }
   };
-  if (isLoading) {
-    return <Loader />;
-  }
   if (user) {
     return (
-      <Paper className="bg flex justify-evenly">
+      <Paper className="bg flex justify-evenly p-2  m-2 w-[90vw]">
         <Box
           className="flex flex-grow-2"
           onClick={() => navigate(`/users/${user._id}`)}
