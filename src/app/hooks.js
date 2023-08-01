@@ -25,12 +25,10 @@ export function formatDate(dDate) {
   // If it's beyond a day, return the date and time
   return format(date, 'yyyy-MM-dd');
 }
-
 export const useNotify = async ({
-  content, userId, token, authorId,postId
+  content, userId, token, authorId, postId,
 }) => {
   if (authorId.toString() === userId.toString()) {
-  
     const url = `https://media-app-api-a06z.onrender.com/api/v1/not/n/${userId}`;
     try {
       const res = await axios({
@@ -41,11 +39,10 @@ export const useNotify = async ({
         },
         data: {
           content,
-          postId
+          postId,
         },
       });
       if (res) {
-        
         toast.info(JSON.stringify(res.data.notification.content));
       }
     } catch (e) {
