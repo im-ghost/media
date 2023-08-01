@@ -38,7 +38,14 @@ const Notifications = () => {
       </Box>
     );
   }
-  return <Typography className="bg w-screen min-h-screen" variant="h4">No Notifications </Typography>;
+  return (
+    <Typography
+      className="bg w-screen min-h-screen"
+      variant="h4"
+    >
+      No Notifications{' '}
+    </Typography>
+  );
 };
 
 export default Notifications;
