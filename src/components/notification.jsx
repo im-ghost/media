@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useDelNotMutation } from '../features/user/userApiSlice';
 import { FaTrash } from 'react-icons/fa';
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Notification = ({ notification, token, userId }) => {
   const navigate = useNavigate();
@@ -27,9 +27,18 @@ const Notification = ({ notification, token, userId }) => {
   };
   if (not) {
     return (
-      <Paper className="w-screen bg flex" onClick={()=>navigate(`/posts/${not.postId}`)}>
-        <Typography variant="body1">{not.content}</Typography>
-        <IconButton onClick={del} className="w-[10%] border bg-red-800 rounded">
+      <Paper className="w-[90vw] bg flex justify-between m-4 p-2">
+        <Typography
+          onClick={() => navigate(`/posts/${not.postId}`)}
+          variant="body1"
+        >
+          {not.content}
+        </Typography>
+
+        <IconButton
+          onClick={del}
+          className="flex-end w-[10%] bg-red-900 text-red-900 border bg-red-900 rounded text-red-900"
+        >
           <FaTrash />
         </IconButton>
       </Paper>
