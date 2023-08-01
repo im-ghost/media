@@ -14,6 +14,7 @@ import Chats from './pages/Chats';
 import Search from './pages/Search';
 import Follow from './pages/Follow';
 import CreatePost from './pages/CreatePost';
+import CreateChat from './pages/creatChat';
 import Notifications from './pages/Notifications';
 import Logout from './pages/Logout';
 import Register from './pages/auth/Register';
@@ -74,6 +75,10 @@ root.render(
             <Route
               path="/createpost"
               element={<CreatePost />}
+            />
+            <Route
+              path="/createchat"
+              element={<CreateChat />}
             />
             <Route
               path="/posts/:id"
