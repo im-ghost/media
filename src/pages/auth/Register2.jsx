@@ -8,7 +8,10 @@ import { toast } from 'react-toastify';
 import { initialState, reducer } from './reducer';
 import { Password } from '../../components/passwordInput';
 import { Email } from '../../components/emailComponent';
+import ImageUploader from './image';
 const Register2 = () => {
+  const [imageUrl, setImageUrl] = useState();
+
   const [passwordSet, setPasswordSet] = useState(false);
   const [user, setUser] = useState(null);
   const [emailAuth, setEmailAuth] = useState(false);
@@ -27,7 +30,7 @@ const Register2 = () => {
       phone: state.phone,
       password: state.password,
       bio: state.bio,
-      image: state.image,
+      image: imageUrl ? imageUrl : 'https://richardmediaapp/default.png',
     };
     console.log(data);
     await register(data).unwrap();
@@ -173,6 +176,10 @@ const Register2 = () => {
                 });
               },
             }}
+          />
+          <ImageUploader
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
           />
         </Box>
         <Button
