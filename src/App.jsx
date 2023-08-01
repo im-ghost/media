@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 function App() {
   const location = useLocation();
   const user = useSelector(selectUser);
-  const navigate = useNavigate();
+  const history = useNavigate();
   const hideFooterRoutes = ['/login', '/register', '/register2'];
   const shouldHideFooter = hideFooterRoutes.some((route) =>
     location.pathname.includes(route)
@@ -18,7 +18,7 @@ function App() {
   React.useEffect(() => {
     if (!shouldHideFooter) {
       if (!user) {
-        navigate('/login');
+        history('/login');
       }
     }
   }, [location]);
