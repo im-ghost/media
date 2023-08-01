@@ -35,7 +35,7 @@ const Home = () => {
           userFromStore={userFromStore}
           token={userFromStore.token}
         />
-        <Add />
+        <Add isCreatePost={true} />
         <Outlet />
       </div>
     );
