@@ -74,13 +74,14 @@ const Comment = ({ comment, token, user }) => {
       socket.on(`likedcomment-${com._id}`, ({ comment, user }) => {
         useNotify({
           userId: user._id,
-          content:content: `${user.name} liked your comment,${comment.content.length > 15 ? ${comment.content.substring(
-          0,
-          15
-        )...} : ${comment.content}}`,
+          content: `${user.name} liked your comment,${
+            comment.content.length > 15
+              ? comment.content.substring(0, 15) + '...'
+              : comment.content
+          }`,
           token: user.token,
           authorId: comment.author,
-          postId:comment._id
+          postId: comment._id,
         });
         console.log('liked');
         setLiked(true);
