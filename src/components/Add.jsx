@@ -2,7 +2,7 @@ import React from 'react';
 import { Fab, Box } from '@mui/material';
 import { MdAdd } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-const Add = ({ isCreatePost = true }) => {
+const Add = ({ isCreatePost }) => {
   const navigate = useNavigate();
   return (
     <Box
@@ -14,7 +14,7 @@ const Add = ({ isCreatePost = true }) => {
       }}
       className=""
       onClick={() =>
-        isCreatePost ? navigate('/createpost') : navigate('/addchat')
+        isCreatePost ? navigate('/createpost') : navigate('/createchat')
       }
     >
       <Fab
