@@ -224,7 +224,7 @@ const Helper = ({ post }) => {
     return <h1 className="header"> Post not found </h1>;
   }
   if (!author) {
-    return <Loader />;
+    return <Loader isPage={true} />;
   }
   if (!dPost) {
     return;
@@ -358,7 +358,7 @@ const Helper = ({ post }) => {
             user={user}
           />
         </Container>
-        <Container className="fixed bottom-[3em] flex z-[1000000000000000000] mt-8 bgg">
+        <Container className="absolute bottom-0 flex z-[10] mt-8 bgg">
           <TextField
             InputProps={{
               value: comment,
