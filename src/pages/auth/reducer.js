@@ -1,6 +1,8 @@
 export const initialState = {
   name: '',
-  email: '',
+  email: localStorage.getItem('emailForSignIn')
+    ? localStorage.getItem('emailForSignIn')
+    : '',
   phone: '',
   password: null,
   bio: '',
