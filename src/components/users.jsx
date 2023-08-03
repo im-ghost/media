@@ -5,7 +5,7 @@ const Users = ({ users }) => {
   return (
     <Box className="bg">
       {users.map((user) => (
-        <User userId={user} />
+        <User user={user} />
       ))}
     </Box>
   );
