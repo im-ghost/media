@@ -35,5 +35,5 @@ export default function Post() {
   if (dPost) {
     return <Helper post={dPost} />;
   }
-  return <Loader />;
+  return <Loader isPage={true} />;
 }
