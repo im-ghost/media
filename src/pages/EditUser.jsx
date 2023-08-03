@@ -4,8 +4,14 @@ import { useAppSelector, useAppDispatch } from '../app/store';
 import { useUpdateUserMutation } from '../features/user/userApiSlice';
 import { setUser as SetUser } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import ImageUploader from '../auth/Image';
 import { toast } from 'react-toastify';
+import { ref, deleteObject } from 'firebase/storage';
+import { storage } from '../app/firebase';
+
 const EditUser = () => {
+  const [imageUrl, setImageUrl] = useState();
+  const [imageName, setImageName] = useState();
   const [user, setUser] = useState(null);
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
@@ -58,13 +64,26 @@ const EditUser = () => {
         setState({
           type: 'reset',
         });
+        if (user.imageName.length > 10) {
+          const desertRef = ref(storage, `profile/${imageName}`);
+
+          // Delete the file
+          deleteObject(desertRef)
+            .then(() => {
+              console.log('delted');
+            })
+            .catch((error) => {
+              console.log('error');
+            });
+        }
         const data = {
           name: state.name,
           email: state.email,
           phone: state.phone,
           password: state.password,
           bio: state.bio,
-          image: state.image,
+          image: imageUrl,
+          imageName: imageName,
         };
         const { _id, token } = user;
         if (_id && token) {
@@ -80,7 +99,8 @@ const EditUser = () => {
         password: user.password ? user.password : '',
         bio: user.bio ? user.bio : '',
         password2: user.password ? user.password : '',
-        image: null,
+        image: user.image ? user.image : '',
+        imageName: user.imageName ? user.imageName : '',
       };
       const reducer = (state, action) => {
         switch (action.type) {
@@ -95,6 +115,13 @@ const EditUser = () => {
             return {
               ...state,
               email: action.payload,
+            };
+            //eslint-disable-next-line
+            break;
+          case 'setImageName':
+            return {
+              ...state,
+              imageName: action.payload,
             };
             //eslint-disable-next-line
             break;
@@ -249,22 +276,18 @@ const EditUser = () => {
                 },
               }}
             />
-            {/*  <input
-                 accept="image/*"
-                 style={{ display: 'none' }}
-                 id="raised-button-file"
-                 type="file"
-               />
-                 <Button variant="raised" onClick={()=> }>
-                   Upload
-                 </Button>*/}
+            <ImageUploader
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              setImageName={setImageName}
+            />
           </Box>
           <Button
             variant="outlined"
             color="primary"
             onClick={create}
           >
-            <Typography variant="h6"> Create </Typography>
+            <Typography variant="h6"> Save </Typography>
           </Button>
 
           <div
