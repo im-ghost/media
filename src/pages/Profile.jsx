@@ -13,10 +13,14 @@ import {
   AppBar,
 } from '@mui/material';
 import Loader from '../components/loader';
-import { useGetUserByIdQuery } from '../features/user/userApiSlice';
+import {
+  useGetUserByIdQuery,
+  useDeleteUserMutation,
+} from '../features/user/userApiSlice';
+import { setUser as SetUser } from '../features/user/userSlice';
 import { Helmet } from 'react-helmet';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -48,6 +52,7 @@ export function a11yProps(index) {
 }
 const Profile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userFromStore = useSelector((state) => state.user.userInfo);
   useEffect(() => {
     if (!userFromStore) navigate('/login');
@@ -62,19 +67,37 @@ const Profile = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
+  const [del, { isLoading, error: delError, data: delData }] =
+    useDeleteUserMutation();
   const { data, error } = useGetUserByIdQuery(userFromStore._id);
   useEffect(() => {
     if (data) {
       setUser(data.user);
+      dispatch(SetUser(data.user));
       console.log(data.user);
     }
     if (error) {
       toast.error(JSON.stringify(error));
     }
   }, [data, error]);
+  useEffect(() => {
+    if (delData) {
+      console.log();
+      navigate('/login');
+    }
+    if (delError) {
+      toast.error(JSON.stringify(delError));
+    }
+  }, [delData, delError]);
+
+  const deleteAcct = async (e) => {
+    await del({
+      userId: userFromStore._id,
+      token: userFromStore.token,
+    });
+  };
   if (!user) {
-    return <Loader />;
+    return <Loader isPage={true} />;
   }
   return (
     <>
@@ -121,12 +144,14 @@ const Profile = () => {
             <Button
               variant="contained"
               size="small"
+              onClick={() => navigate('/edituser')}
             >
               Edit Profile
             </Button>
             <Button
               variant="contained"
               size="small"
+              onClick={deleteAcct}
             >
               Delete Account
             </Button>
