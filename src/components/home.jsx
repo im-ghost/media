@@ -20,7 +20,7 @@ const Helper = ({ userFromStore, token }) => {
     }
     if (errorF) {
       console.log(errorF);
-      if (errorF.data.message === 'Not Found') {
+      if (errorF?.data?.message === 'Not Found') {
         toast.error('Server error');
         setTimeout(function () {
           navigate(0);
