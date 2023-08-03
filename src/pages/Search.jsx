@@ -157,7 +157,7 @@ const Search = () => {
       </div>
     );
   }
-  return <Loader />;
+  return <Loader isPage={true} />;
 };
 
 export default Search;
