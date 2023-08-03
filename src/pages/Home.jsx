@@ -20,7 +20,7 @@ const Home = () => {
       <div className="bg p-0 m-0">
         <div className="w-screen h-10 flex items-center justify-center m-0 bg">
           <img
-            src={require('../images/logo192.png')}
+            src={'/logo192.png'}
             alt="Media"
             className="h-8 w-8 p-0 m-0 rounded-[50%] animate-bounce"
           />
