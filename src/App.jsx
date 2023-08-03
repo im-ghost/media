@@ -16,6 +16,7 @@ function App() {
     location.pathname.includes(route)
   );
   React.useEffect(() => {
+    console.log('app jsx');
     if (!shouldHideFooter) {
       if (!user) {
         history('/login');
@@ -23,12 +24,13 @@ function App() {
     }
   }, [location]);
   return (
-    <div className="dark">
-      <div className="bg">
+    <div className="dark [position:relative]">
+      <div className="bg relative mb-[2.1rem] [margin-bottom:2.1rem]">
         <ToastContainer />
+
         <Outlet />
-        {!shouldHideFooter && <Footer />}
       </div>
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 }
