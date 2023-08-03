@@ -271,6 +271,6 @@ const User = () => {
       </>
     );
   }
-  return <Loader />;
+  return <Loader isPage={true} />;
 };
 export default User;
