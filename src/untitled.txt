@@ -1,9 +1,5 @@
-pusher.js
 email.js
 email sending library;
 
-
-
-navigation path is relative 
-image uploading
 new message notification
+toast documentation

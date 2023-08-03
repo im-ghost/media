@@ -6,6 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
 const ESLintPlugin = require('eslint-webpack-plugin');
 const swSrc = path.resolve(__dirname, `src/service-worker`);
 const isProduction = process.env.NODE_ENV === 'production';
@@ -13,7 +15,7 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: path.resolve(__dirname, 'src/index.jsx'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.[contenthash].js',
     publicPath: '/',
   },
@@ -84,6 +86,12 @@ module.exports = {
       chunkFilename: isProduction ? '[id].[contenthash].css' : '[id].css',
     }),
     new WebpackManifestPlugin(),
+    new WorkboxPlugin.GenerateSW({
+       // these options encourage the ServiceWorkers to get in there fast
+       // and not allow any straggling "old" SWs to hang around
+       clientsClaim: true,
+       skipWaiting: true,
+     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
       PUBLIC_URL: '', // Set your public URL here if needed
     }),
@@ -96,6 +104,7 @@ module.exports = {
   devServer: {
     open: true,
     host: 'localhost',
+    static:path.resolve(__dirname, 'public'),
     liveReload: true,
     compress: true,
     port: 3000,

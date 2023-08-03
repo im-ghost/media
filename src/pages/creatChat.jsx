@@ -48,6 +48,6 @@ export default function CreateChat() {
       </div>
     );
   }
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader isPage={false} />;
   return;
 }
