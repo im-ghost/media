@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { storage } from '../../app/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-
-const ImageUploader = ({ setImageUrl, imageUrl }) => {
+import { Button, Input } from '@mui/material';
+const ImageUploader = ({ setImageUrl, imageUrl, setImageName }) => {
   const [dProgress, setProgress] = useState(0);
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -11,7 +11,11 @@ const ImageUploader = ({ setImageUrl, imageUrl }) => {
     };
 
     // Upload file and metadata to the object 'images/mountains.jpg'
-    const storageRef = ref(storage, 'images/' + file.name);
+    const storageRef = ref(
+      storage,
+      'profile/' + `${window.crypto.randomUUID()}${file.name}`
+    );
+    setImageName(`${window.crypto.randomUUID()}${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
     // Listen for state changes, errors, and completion of the upload.
@@ -59,21 +63,24 @@ const ImageUploader = ({ setImageUrl, imageUrl }) => {
       }
     );
   };
-  let classForLoading = `h-6 bg-red-900 w-[${dProgress}vw] flex justify-center items-center`;
   const fileInput = React.useRef();
   return (
-    <div>
-      <div className="border-2 animate-fade">
-        <div className={classForLoading}>{Math.floor(dProgress)}%</div>
+    <div className="w-full">
+      <div className="border-2 animate-fade w-full">
+        <div
+          className={`h-6 bg-red-900 w-[${dProgress}%] flex justify-center items-center`}
+        >
+          {Math.floor(dProgress)}%
+        </div>
       </div>
-      <input
+      <Input
         type="file"
         accept="image/*"
         onChange={handleImageUpload}
-        style={{ display:none}}
         ref={fileInput}
+        className="hidden"
       />
-     <Button onClick={()=>fileInput.current.click()>Upload Picture</Button>
+      <Button onClick={() => fileInput.current.click()}>Upload Picture</Button>
     </div>
   );
 };

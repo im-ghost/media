@@ -11,7 +11,9 @@ import { Email } from '../../components/emailComponent';
 import ImageUploader from './image';
 const Register2 = () => {
   const [imageUrl, setImageUrl] = useState();
-
+  const [imageName, setImageName] = useState();
+  const [showName, setShowName] = useState(true);
+  const [showPhone, setShowPhone] = useState(true);
   const [passwordSet, setPasswordSet] = useState(false);
   const [user, setUser] = useState(null);
   const [emailAuth, setEmailAuth] = useState(false);
@@ -31,12 +33,16 @@ const Register2 = () => {
       password: state.password,
       bio: state.bio,
       image: imageUrl ? imageUrl : 'https://richardmediaapp/default.png',
+      imageName: imageName ? imageName : '',
     };
     console.log(data);
     await register(data).unwrap();
   };
   useEffect(() => {
     if (error) {
+      if (error?.data?.error === 'User already exists') {
+        navigate('/login');
+      }
       console.log(error);
       toast.error(JSON.stringify(error));
     }
@@ -102,6 +108,14 @@ const Register2 = () => {
       }
     }
   }, [userSign]);
+  useEffect(() => {
+    if (state.name.length > 1) {
+      setShowName(false);
+    }
+    if (state.phone.length > 1) {
+      setShowPhone(false);
+    }
+  }, []);
   const [state, setState] = useReducer(reducer, initialState);
   return (
     <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center bg  items-center p-0">
@@ -115,7 +129,7 @@ const Register2 = () => {
             '& .MuiTextField-root': { m: 1, width: '70vw' },
           }}
         >
-          {state.name && state.name.length < 2 && (
+          {showName ? (
             <TextField
               id="name"
               label="Name"
@@ -130,6 +144,27 @@ const Register2 = () => {
                 },
               }}
             />
+          ) : (
+            ''
+          )}
+          {showPhone ? (
+            <TextField
+              id="tel"
+              label="Telephone"
+              placeholder="Telephone"
+              InputProps={{
+                type: 'tel',
+                value: state.phone,
+                onChange: (e) => {
+                  setState({
+                    type: 'setTel',
+                    payload: e.target.value,
+                  });
+                },
+              }}
+            />
+          ) : (
+            ''
           )}
           {emailAuth && (
             <TextField
@@ -154,7 +189,12 @@ const Register2 = () => {
               onChange={setState}
             />
           )}
-
+          {state.email.length < 1 && (
+            <Email
+              value={state.email}
+              onChange={setState}
+            />
+          )}
           {passwordSet ? (
             ''
           ) : (
@@ -180,6 +220,7 @@ const Register2 = () => {
           <ImageUploader
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
+            setImageName={setImageName}
           />
         </Box>
         <Button
