@@ -28,7 +28,7 @@ const Posts = ({ posts, token }) => {
     }
   }, [posts, dispatch, token]);
   if (!posts || posts === null) {
-    return <Loader />;
+    return <Loader isPage={false} />;
   } else if (posts && posts !== null && posts.length < 1) {
     return (
       <Typography variant="body2"> This user doesn't have any post</Typography>
