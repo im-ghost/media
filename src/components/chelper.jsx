@@ -37,5 +37,5 @@ export default function Helper({ authorId }) {
       </div>
     );
   }
-  return <Loader />;
+  return <Loader isPage={false} />;
 }
