@@ -1,6 +1,6 @@
 import { Typography, Box, Button, TextField } from '@mui/material';
 import * as React from 'react';
-
+import Uploader from '../components/uploaded';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToStorePosts } from '../features/post/postSlice';
 import { useCreatePostMutation } from '../features/post/postApiSlice';
@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 const CreatePost = () => {
   const [user, setUser] = React.useState(null);
   const [text, setText] = React.useState('');
+  const [url, setUrl] = React.useState();
+  const [name, setName] = React.useState();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
@@ -16,8 +18,11 @@ const CreatePost = () => {
   const create = async (e) => {
     e.preventDefault();
     const data = {
-      content: text,
+      content: url ? '' : text,
       author: user._id,
+      caption: url ? text : '',
+      image: url,
+      name: name,
     };
     const token = user.token;
     await createPost({ data, token: token }).unwrap();
@@ -65,6 +70,11 @@ const CreatePost = () => {
               value: text,
               onChange: (e) => setText(e.target.value),
             }}
+          />
+          <Uploader
+            setUrl={setUrl}
+            setName={setName}
+            url={url}
           />
         </Box>
         <Button
