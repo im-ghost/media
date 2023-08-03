@@ -3,7 +3,7 @@ import React from 'react';
 import Message from './message';
 const Messages = ({ messages, user }) => {
   return (
-    <Box className="bg">
+    <Box className="bg flex flex-col">
       {messages.map((message) => (
         <Message
           message={message}
