@@ -20,14 +20,11 @@ const Footer = () => {
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
   }, [value]);
-  React.useEffect(() => {
-    console.log(location);
-  }, [location]);
   return (
     <Paper
-      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
+      sx={{ position: 'sticky', bottom: 0, left: 0, right: 0 }}
       elevation={3}
-      className="flex w-screen bg p-4 mt-auto"
+      className="flex w-screen bg [margin-top:1em] h-8"
       ref={ref}
     >
       <BottomNavigation
@@ -36,7 +33,7 @@ const Footer = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        className="flex w-full h-8 center bg"
+        className="flex w-full h-8 center bg p-4 "
       >
         <BottomNavigationAction
           label="home"
