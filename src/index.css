@@ -4,6 +4,12 @@
 .dark .bg {
   @apply bg-[#164B60] text-[#A2FF86];
 }
+.page {
+  @apply min-h-screen;
+}
+img {
+  @apply rounded-xl;
+}
 .dark .header {
   @apply text-[#4FC0D0];
 }
