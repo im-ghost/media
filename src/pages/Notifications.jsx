@@ -22,7 +22,7 @@ const Notifications = () => {
     }
   }, [data, error]);
   if (isLoading) {
-    return <Loader />;
+    return <Loader isPage={true} />;
   }
   if (notifications && notifications.length > 0) {
     return (
