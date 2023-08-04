@@ -22,9 +22,8 @@ const Footer = () => {
   }, [value]);
   return (
     <Paper
-      sx={{ position: 'sticky', bottom: 0, left: 0, right: 0 }}
       elevation={3}
-      className="flex w-screen bg [margin-top:1em] h-8"
+      className="flex w-screen bg h-full"
       ref={ref}
     >
       <BottomNavigation
@@ -33,7 +32,7 @@ const Footer = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        className="flex w-full h-8 center bg p-4 "
+        className="flex w-full h-full center bg p-4 "
       >
         <BottomNavigationAction
           label="home"
