@@ -24,13 +24,13 @@ function App() {
     }
   }, [location]);
   return (
-    <div className="dark [position:relative]">
-      <div className="bg relative mb-[2.1rem] [margin-bottom:2.1rem]">
+    <div className="dark wrapper">
+      <div className="wrapper__main bg">
         <ToastContainer />
 
         <Outlet />
       </div>
-      {!shouldHideFooter && <Footer />}
+      <div className="wrapper__footer"> {!shouldHideFooter && <Footer />}</div>
     </div>
   );
 }
