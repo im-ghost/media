@@ -4,8 +4,26 @@
 .dark .bg {
   @apply bg-[#164B60] text-[#A2FF86];
 }
-.page {
-  @apply min-h-screen;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  @apply w-screen h-screen;
+}
+.wrapper .wrapper__main {
+  flex-grow: 19;
+  overflow: auto;
+  @apply h-[95vh];
+}
+.wrapper .wrapper__footer {
+  flex-grow: 1;
+  @apply h-[5vh];
+}
+* {
+  box-sizing: border-box;
+}
+html{
+  background-color: red;
+  @apply w-screen h-screen;
 }
 img {
   @apply rounded-xl;
