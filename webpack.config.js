@@ -86,12 +86,12 @@ module.exports = {
       chunkFilename: isProduction ? '[id].[contenthash].css' : '[id].css',
     }),
     new WebpackManifestPlugin(),
-    new WorkboxPlugin.GenerateSW({
+   /* new WorkboxPlugin.GenerateSW({
       // these options encourage the ServiceWorkers to get in there fast
       // and not allow any straggling "old" SWs to hang around
       clientsClaim: true,
       skipWaiting: true,
-    }),
+    }),*/
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
       PUBLIC_URL: '', // Set your public URL here if needed
     }),
