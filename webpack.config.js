@@ -87,11 +87,11 @@ module.exports = {
     }),
     new WebpackManifestPlugin(),
     new WorkboxPlugin.GenerateSW({
-       // these options encourage the ServiceWorkers to get in there fast
-       // and not allow any straggling "old" SWs to hang around
-       clientsClaim: true,
-       skipWaiting: true,
-     }),
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
       PUBLIC_URL: '', // Set your public URL here if needed
     }),
@@ -104,7 +104,7 @@ module.exports = {
   devServer: {
     open: true,
     host: 'localhost',
-    static:path.resolve(__dirname, 'public'),
+    static: path.resolve(__dirname, 'public'),
     liveReload: true,
     compress: true,
     port: 3000,

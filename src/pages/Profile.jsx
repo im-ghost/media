@@ -113,7 +113,7 @@ const Profile = () => {
           content={user.image ? user.image : require('../images/default.png')}
         />
       </Helmet>
-      <div className="w-[100vw] h-[100vh] bg">
+      <div className="w-[100vw] h-full bg">
         <Card className="w-full bg">
           <CardMedia
             image={user.image ? user.image : require('../images/default.png')}

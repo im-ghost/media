@@ -118,7 +118,7 @@ const Register2 = () => {
   }, []);
   const [state, setState] = useReducer(reducer, initialState);
   return (
-    <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center bg  items-center p-0">
+    <div className="flex flex-row text-center items-center justify-center w-screen h-full min-h-full  justify-center bg  items-center p-0">
       <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg bg">
         <Typography variant="h2">Complete your registration</Typography>
         <Box

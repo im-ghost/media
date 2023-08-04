@@ -26,7 +26,7 @@ const Notifications = () => {
   }
   if (notifications && notifications.length > 0) {
     return (
-      <Box className="bg w-screen min-h-screen h-auto overflow-scroll">
+      <Box className="bg w-screen min-h-full h-auto overflow-scroll">
         <Typography variant="h4">Notifications</Typography>
         {notifications.map((not) => (
           <Notification
@@ -40,7 +40,7 @@ const Notifications = () => {
   }
   return (
     <Typography
-      className="bg w-screen min-h-screen"
+      className="bg w-screen min-h-full"
       variant="h4"
     >
       No Notifications{' '}

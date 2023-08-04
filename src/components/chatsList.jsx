@@ -20,7 +20,7 @@ const ChatsList = ({ user }) => {
   }, [data, error]);
   if (chats) {
     return (
-      <Container className="bg bg min-h-screen h-auto w-screen">
+      <Container className="bg bg min-h-full h-auto w-screen">
         {chats.map((chat) => (
           <ChatListItem
             chat={chat}

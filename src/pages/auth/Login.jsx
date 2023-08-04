@@ -62,7 +62,7 @@ const Login = () => {
       <Helmet>
         <title> Login to Media App</title>
       </Helmet>
-      <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center bg items-center p-0">
+      <div className="flex flex-row text-center items-center justify-center w-screen h-full min-h-full  justify-center bg items-center p-0">
         <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[60vh] rounded-lg bg flex flex-col justify-evenly items-center  ">
           <IconButton>
             <FaUserCircle className="text-4xl text-bold bgg" />

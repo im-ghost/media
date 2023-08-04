@@ -47,7 +47,7 @@ const CreatePost = () => {
     }
   }, [userInfo, navigate]);
   return (
-    <div className="flex flex-row text-center items-center justify-center w-screen h-screen min-h-screen  justify-center bg items-center p-0">
+    <div className="flex flex-row text-center items-center justify-center w-screen h-full min-h-full  justify-center bg items-center p-0">
       <div className="text-center shadow-4xl rounded-[18px]  p-2 w-[80vw] h-[40vh] rounded-lg bg flex flex-col justify-evenly items-center  ">
         <Typography
           variant="h4"

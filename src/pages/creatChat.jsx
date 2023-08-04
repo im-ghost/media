@@ -25,7 +25,7 @@ export default function CreateChat() {
   }, [data, error]);
   if (user) {
     return (
-      <div className="h-screen w-screen bg">
+      <div className="h-full w-screen bg">
         <Typography
           variant="h4"
           className=""

@@ -89,7 +89,7 @@ const Search = () => {
   };
   if (users || posts) {
     return (
-      <div className="min-h-screen min-h-[100vh] h-auto w-screen bg p-2">
+      <div className="min-h-full min-h-full h-auto w-screen bg p-2">
         <Typography
           variant="h5"
           className="header"

@@ -14,7 +14,7 @@ const Chats = () => {
         <Helmet>
           <title> Chats Lists </title>
         </Helmet>
-        <Container className="bg min-h-screen h-auto w-screen p-2 m-0">
+        <Container className="bg min-h-full h-auto w-screen p-2 m-0">
           <ChatsList user={user} />
           <Add isCreatPost={false} />
         </Container>

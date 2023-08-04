@@ -254,7 +254,7 @@ const Helper = ({ post }) => {
             : dPost.caption}
         </title>
       </Helmet>
-      <div className="h-screen w-screwn bg">
+      <div className="h-full w-screwn bg">
         <Card className="min-h-[20vw] h-auto overflow-scroll rounded-lg p-2 text-center shadow-4xl rounded-[20px]  flex flex-col justify-evenly items-center m-2 bg w-[95%] bg">
           <div className="flex bg justify-evenly w-[90%]">
             <img

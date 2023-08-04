@@ -22,11 +22,11 @@ const Home = () => {
           <img
             src={'/logo192.png'}
             alt="Media"
-            className="h-8 w-8 p-0 m-0 rounded-[50%] animate-bounce"
+            className="h-12 w-12 p-0 m-2 rounded-[50%] animate-bounce"
           />
           <Typography
             variant="h4"
-            className="text-bold bg"
+            className="text-bold bg header"
           >
             Media
           </Typography>
