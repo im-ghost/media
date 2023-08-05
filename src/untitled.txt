@@ -1,5 +1,0 @@
-email.js
-email sending library;
-
-new message notification
-toast documentation
